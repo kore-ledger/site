@@ -1,5 +1,5 @@
 baseURL = "/"
-title = "Goldydocs"
+title = "kore ledger"
 
 # Language settings
 contentDir = "content/en"
@@ -21,17 +21,6 @@ enableGitInfo = true
 tag = "tags"
 category = "categories"
 
-[params.taxonomy]
-# set taxonomyCloud = [] to hide taxonomy clouds
-taxonomyCloud = ["tags", "categories"]
-
-# If used, must have same length as taxonomyCloud
-taxonomyCloudTitle = ["Tag Cloud", "Categories"]
-
-# set taxonomyPageHeader = [] to hide taxonomies on the page headers
-taxonomyPageHeader = ["tags", "categories"]
-
-
 # Highlighting config
 pygmentsCodeFences = true
 pygmentsUseClasses = false
@@ -49,7 +38,7 @@ blog = "/:section/:year/:month/:day/:slug/"
 [imaging]
 resampleFilter = "CatmullRom"
 quality = 75
-anchor = "smart"
+anchor = "Smart"
 
 [services]
 [services.googleAnalytics]
@@ -63,27 +52,33 @@ id = "UA-00000000-0"
 languageName ="English"
 # Weight used for sorting.
 weight = 1
+[languages.en.taxonomies]
+tag = "tags"
+category = "categories"
 [languages.en.params]
-title = "Goldydocs"
-description = "A Docsy example site"
+title = "kore ledger"
+description = "Site for the Kore Ledger platform"
+[languages.en.params.taxonomy]
+taxonomyCloudTitle = ["Tag Cloud", "Categories"]
+taxonomyCloud = ["tags", "categories"]
+taxonomyPageHeader = ["tags", "categories"]
 
-[languages.no]
-languageName ="Norsk"
-contentDir = "content/no"
-[languages.no.params]
-title = "Goldydocs"
-description = "Docsy er operativsystem for skyen"
-time_format_default = "02.01.2006"
-time_format_blog = "02.01.2006"
 
-[languages.fa]
-languageName ="فارسی"
-contentDir = "content/fa"
-[languages.fa.params]
-title = "اسناد گلدی"
-description = "یک نمونه برای پوسته داکسی"
-time_format_default = "2006.01.02"
-time_format_blog = "2006.01.02"
+[languages.es]
+languageName ="Español"
+contentDir = "content/es"
+[languages.es.taxonomies]
+tag = "etiquetas"
+category = "categorías"
+[languages.es.params]
+title = "kore ledger"
+description = "Sitio para la plataforma Kore Ledger"
+time_format_default = "02/01/2006"
+time_format_blog = "02/01/2006"
+[languages.es.params.taxonomy]
+taxonomyCloudTitle = ["Nube de Etiquetas", "Categorías"]
+taxonomyCloud = ["etiquetas", "categorías"]
+taxonomyPageHeader = ["etiquetas", "categorías"]
 
 [markup]
   [markup.goldmark]
@@ -104,7 +99,7 @@ time_format_blog = "2006.01.02"
 section = ["HTML", "print", "RSS"]
 
 [params]
-copyright = "The Docsy Authors"
+copyright = "Kore Ledger, SL"
 privacy_policy = "https://policies.google.com/privacy"
 
 # First one is picked as the Twitter card image if not set on page.
@@ -168,11 +163,11 @@ sidebar_search_disable = false
 # This feature depends on [services.googleAnalytics] and will be disabled if "services.googleAnalytics.id" is not set.
 # If you want this feature, but occasionally need to remove the "Feedback" section from a single page,
 # add "hide_feedback: true" to the page's front matter.
-[params.ui.feedback]
-enable = true
+#[params.ui.feedback]
+#enable = true
 # The responses that the user sees after clicking "yes" (the page was helpful) or "no" (the page was not helpful).
-yes = 'Glad to hear it! Please <a href="https://github.com/USERNAME/REPOSITORY/issues/new">tell us how we can improve</a>.'
-no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY/issues/new">tell us how we can improve</a>.'
+#yes = 'Glad to hear it! Please <a href="https://github.com/USERNAME/REPOSITORY/issues/new">tell us how we can improve</a>.'
+#no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY/issues/new">tell us how we can improve</a>.'
 
 # Adds a reading time to the top of each doc.
 # If you want this feature, but occasionally need to remove the Reading time from a single page,
@@ -184,7 +179,7 @@ enable = false
 # End user relevant links. These will show up on left side of footer and in the community page if you have one.
 [[params.links.user]]
   name = "User mailing list"
-  url = "https://example.org/mail"
+  url = "mailto:info@kore-ledger.net"
   icon = "fa fa-envelope"
   desc = "Discussion and help from your fellow users"
 [[params.links.user]]
@@ -193,26 +188,16 @@ enable = false
   icon = "fab fa-twitter"
   desc = "Follow us on Twitter to get the latest news!"
 [[params.links.user]]
-  name = "Stack Overflow"
-  url = "https://example.org/stack"
-  icon = "fab fa-stack-overflow"
+  name = "LinkedIn"
+  url = "https://www.linkedin.com/company/kore-ledger/"
+  icon = "fab fa-linkedin"
   desc = "Practical questions and curated answers"
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
 [[params.links.developer]]
   name = "GitHub"
-  url = "https://github.com/google/docsy"
+  url = "https://github.com/kore-ledger"
   icon = "fab fa-github"
   desc = "Development takes place here!"
-[[params.links.developer]]
-  name = "Slack"
-  url = "https://example.org/slack"
-  icon = "fab fa-slack"
-  desc = "Chat with other project developers"
-[[params.links.developer]]
-  name = "Developer mailing list"
-  url = "https://example.org/mail"
-  icon = "fa fa-envelope"
-  desc = "Discuss development issues around the project"
 
 # hugo module configuration
 
