@@ -11,15 +11,15 @@ enableMissingTranslationPlaceholders = true
 enableRobotsTXT = true
 
 # Will give values to .Lastmod etc.
-enableGitInfo = true
+enableGitInfo = false
 
 # Comment out to enable taxonomies in Docsy
 # disableKinds = ["taxonomy", "taxonomyTerm"]
 
 # You can add your own taxonomies
-[taxonomies]
-tag = "tags"
-category = "categories"
+#[taxonomies]
+#tag = "tags"
+#category = "categories"
 
 # Highlighting config
 pygmentsCodeFences = true
@@ -52,33 +52,54 @@ id = "UA-00000000-0"
 languageName ="English"
 # Weight used for sorting.
 weight = 1
-[languages.en.taxonomies]
-tag = "tags"
-category = "categories"
-[languages.en.params]
+#[languages.en.taxonomies]
+#tag = "tags"
+#category = "categories"
+#[languages.en.params]
 title = "kore ledger"
 description = "Site for the Kore Ledger platform"
-[languages.en.params.taxonomy]
-taxonomyCloudTitle = ["Tag Cloud", "Categories"]
-taxonomyCloud = ["tags", "categories"]
-taxonomyPageHeader = ["tags", "categories"]
-
+#[languages.en.params.taxonomy]
+#taxonomyCloudTitle = ["Tag Cloud", "Categories"]
+#taxonomyCloud = ["tags", "categories"]
+#taxonomyPageHeader = ["tags", "categories"]
 
 [languages.es]
 languageName ="Español"
 contentDir = "content/es"
-[languages.es.taxonomies]
-tag = "etiquetas"
-category = "categorías"
-[languages.es.params]
+#[languages.es.taxonomies]
+#tag = "etiquetas"
+#category = "categorías"
+#languages.es.params]
 title = "kore ledger"
 description = "Sitio para la plataforma Kore Ledger"
 time_format_default = "02/01/2006"
 time_format_blog = "02/01/2006"
-[languages.es.params.taxonomy]
-taxonomyCloudTitle = ["Nube de Etiquetas", "Categorías"]
-taxonomyCloud = ["etiquetas", "categorías"]
-taxonomyPageHeader = ["etiquetas", "categorías"]
+#[languages.es.params.taxonomy]
+#taxonomyCloudTitle = ["Nube de Etiquetas", "Categorías"]
+#taxonomyCloud = ["etiquetas", "categorías"]
+#taxonomyPageHeader = ["etiquetas", "categorías"]
+[[languages.es.params.links.user]]
+  name = "Lista de correo de usuarios"
+  url = "mailto:info@kore-ledger.net"
+  icon = "fa fa-envelope"
+  desc = "Discusión y ayuda de sus compañeros"
+[[languages.es.params.links.user]]
+  name ="Twitter"
+  url = "https://example.org/twitter"
+  icon = "fab fa-twitter"
+  desc = "¡Síguenos en twitter para obtener las últimas noticias!"
+[[languages.es.params.links.user]]
+  name = "LinkedIn"
+  url = "https://www.linkedin.com/company/kore-ledger/"
+  icon = "fab fa-linkedin"
+  desc = "Preguntas prácticas y respuestas seleccionadas"
+# Developer relevant links. These will show up on right side of footer and in the community page if you have one.
+[[languages.es.params.links.developer]]
+  name = "GitHub"
+  url = "https://github.com/kore-ledger"
+  icon = "fab fa-github"
+  desc = "¡El desarrollo tiene lugar aquí!"
+
 
 [markup]
   [markup.goldmark]
