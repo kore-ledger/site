@@ -11,24 +11,11 @@ Una Plataforma Tecnológica para un Mundo más Sostenible
 
 <br />
 
-Desarrollada bajo los principios que deben determinar el camino de la Web 3.0
+Desarrollada bajo los principios que deben marcar el camino de la Web 3.0
 {.h3}
 
 <br />
 
-**Descentralización**
-{.h2}
-
-**Seguridad**
-{.h2}
-
-**Privacidad**
-{.h2}
-
-**Sostenibilidad**
-{.h2}
-
-<br />
 
 {{< blocks/link-down color="white" >}}
 
@@ -36,7 +23,7 @@ Desarrollada bajo los principios que deben determinar el camino de la Web 3.0
 
 {{% blocks/lead %}}
 
-# Propuesta de valor
+## Propuesta de valor
 
 <br />
 

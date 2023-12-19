@@ -16,18 +16,6 @@ Developed under the principles that should determine the path of Web 3.0
 
 <br />
 
-**Decentralization**
-{.h2}
-
-**Security**
-{.h2}
-
-**Privacy**
-{.h2}
-
-**Sustainability**
-{.h2}
-
 {{< blocks/link-down color="white" >}}
 
 {{% /blocks/cover %}}
