@@ -55,7 +55,7 @@ Optimización de protocolos y computación para conseguir la máxima eficiencia 
 Envíanos un correo electrónico para saber cómo podemos ayudarte a implementar nuestra tecnología.
 {{% /blocks/feature %}}
 
-{{% blocks/feature icon="fab fa-github" title="¡Bienvenidas las contribucioes!"
+{{% blocks/feature icon="fab fa-github" title="¡Bienvenidas las contribucines!"
     url="https://github.com/kore-ledger" %}}
 Haz una Pull Request o abre un Issue en nuestros repositorios de GitHub.
 {{% /blocks/feature %}}
