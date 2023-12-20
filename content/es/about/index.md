@@ -38,7 +38,7 @@ Además, **Kore Ledger** proporciona un marco de trabajo que facilita el desarro
 # ¿Qué ofrecemos?
 {.text-center}
 
-<font size=4>En Kore Ledger, tenemos un profundo conocimiento de la tecnología y de cómo evolucionarla para generar más valor para las soluciones de trazabilidad que la adopten. En este sentido, nuestra propuesta de valor pretende conseguir la máxima satisfacción del cliente y contribuir a un mundo más sostenible con nuestra tecnología.</font>
+<font size=4>En Kore Ledger tenemos un profundo conocimiento de la tecnología y de cómo evolucionarla para ofrecer mayor valor valor a las soluciones de trazabilidad que la adopten. En este sentido, nuestra propuesta de valor pretende conseguir la máxima satisfacción del cliente, y al mismo tiempo contribuir a un mundo más sostenible.</font>
 {.text-center}
 
 {{% /blocks/section %}}

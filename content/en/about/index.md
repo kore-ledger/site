@@ -35,7 +35,7 @@ In addition, **Kore Ledger** provides a framework that facilitates the developme
 # What do we offer?
 {.text-center}
 
-<font size=4>At Kore Ledger, we have a deep knowledge of the technology and how to evolve it to generate more value for the traceability solutions that adopt it. In this sense, our value proposition aims to achieve maximum customer satisfaction and contribute to a more sustainable world with our technology.
+<font size=4>At Kore Ledger, we have a deep knowledge of the technology and how to evolve it to offer more excellent value to the traceability solutions that adopt it. In this sense, our value proposition aims to achieve maximum customer satisfaction and, at the same time, contribute to a more sustainable world.
 </font>
 {.text-center}
 
