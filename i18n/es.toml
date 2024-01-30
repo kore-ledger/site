@@ -89,3 +89,8 @@ other = "¿Fue útil esta página?"
 other = "Sí"
 [feedback_negative]
 other = "No"
+
+[cookieconsent_message]
+other = "Este sitio web utiliza cookies propias y de terceros para obtener estadísticas sobre los hábitos de navegación de los usuarios, mejorar su experiencia y permitirles compartir contenidos en las redes sociales. Puedes aceptar o rechazar las cookies y personalizar cuáles quieres desactivar. Puedes encontrar toda la información en nuestra Política de Cookies."
+[cookieconsent_accept]
+other = "Understood"
