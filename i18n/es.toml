@@ -91,6 +91,16 @@ other = "Sí"
 other = "No"
 
 [cookieconsent_message]
-other = "Este sitio web utiliza cookies propias y de terceros para obtener estadísticas sobre los hábitos de navegación de los usuarios, mejorar su experiencia y permitirles compartir contenidos en las redes sociales. Puedes aceptar o rechazar las cookies y personalizar cuáles quieres desactivar. Puedes encontrar toda la información en nuestra Política de Cookies."
+other = "Este sitio web utiliza cookies propias y de terceros para obtener estadísticas sobre los hábitos de navegación de los usuarios, mejorar su experiencia y permitirles compartir contenidos en las redes sociales."
 [cookieconsent_accept]
-other = "Understood"
+other = "Aceptar"
+[cookieconsent_decline]
+other = "Rechazar"
+
+# Not found
+[not_found]
+other = "Página no encontrada"
+[not_found_message]
+other = "Lo sentimos, la página que estás buscando no se pudo encontrar."
+[not_foun_button]
+other = "Ir a la página de inicio"

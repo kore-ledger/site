@@ -90,6 +90,16 @@ other = "Yes"
 other = "No"
 
 [cookieconsent_message]
-other = "This website uses its own and third-party cookies to obtain statistics on users' browsing habits, improve their experience, and allow them to share content on social networks. You can accept or reject cookies and customize which ones you want to disable. You can find all the information in our Cookies Policy."
+other = "We use our own and third-party cookies to analyze the use of the website and show you related to your preferences based on a profile created from advertising of your browsing habits (for example, pages visited)."
 [cookieconsent_accept]
-other = "Understood"
+other = "Accept"
+[cookieconsent_decline]
+other = "Decline"
+
+# Not found
+[not_found]
+other = "Page not found"
+[not_found_message]
+other = "Sorry, the page you are looking for could not be found."
+[not_foun_button]
+other = "Go to the home page"
