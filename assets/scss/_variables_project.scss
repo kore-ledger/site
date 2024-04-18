@@ -18,3 +18,7 @@ $google_font_family: "Montserrat: 100, 100i, 200, 200i, 300, 300i, 400, 400i, 50
     max-width: 460px;
 }
   
+// quiero q todas las etiquetas a activas tengan el color de fondo verde
+.td-sidebar-nav a.active {
+    color: var(--bs-link-color);
+}

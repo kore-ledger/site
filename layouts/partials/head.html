@@ -54,7 +54,6 @@
     {{ partial "cookieconsent.html" . }}
   {{ end -}}
 {{ end -}}
-
 {{ define "algolia/head" -}}
 
 {{ if and .Site.Params.search (isset .Site.Params.search "algolia") -}}
