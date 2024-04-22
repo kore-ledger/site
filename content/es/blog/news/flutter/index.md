@@ -205,3 +205,6 @@ En conclusión, __Flutter Rust Bridge__ es una herramienta poderosa que permite 
 A pesar de los beneficios, es importante tener en cuenta algunos desafíos, como la curva de aprendizaje de Rust y las limitaciones en la comunidad y tipos de datos compatibles. Sin embargo, con una planificación cuidadosa y un enfoque de desarrollo bien estructurado, estas desventajas se pueden superar.
 
 Al final, __Flutter Rust Bridge__ ofrece a los desarrolladores una oportunidad única para crear aplicaciones modernas, potentes y seguras, aprovechando lo mejor de ambos mundos: Rust y Flutter. Con práctica y experiencia, los desarrolladores pueden aprender a usar esta herramienta de manera efectiva y obtener excelentes resultados en sus proyectos.
+
+> "Unirse es un comienzo. Mantenerse juntos es un progreso. Trabajar juntos es el éxito."
+— Henry Ford

@@ -15,8 +15,6 @@ A few years ago, in a corner of the technology world, a group of visionary devel
 
 The story begins with the need to leverage the advantages of both languages. Rust, known for its performance and memory safety, promised a bright future, while Flutter offered the ability to create attractive and efficient user interfaces. Together, these two languages could take application development to a new level.
 
-Translated with DeepL.com (free version)
-
 {{< imgproc sunset Fill "1800x300" >}}
 {{< /imgproc >}}
 
@@ -86,10 +84,10 @@ Future<String> register(
 Future<String> register(
       {required String username, required String password, dynamic hint}) {
     return handler.executeNormal(NormalTask(
-    // Llamada a la función Rust
+    //  Rust function call
       callFfi: (port_) {
         final serializer = SseSerializer(generalizedFrbRustBinding);
-        // Se serializan los datos
+        // Data are serialized
         sse_encode_String(username, serializer);
         sse_encode_String(password, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
@@ -208,3 +206,6 @@ In conclusion, __Flutter Rust Bridge__ is a powerful tool that allows you to int
 Despite the benefits, it is important to keep in mind some challenges, such as Rust's learning curve and limitations in the community and supported data types. However, with careful planning and a well-structured development approach, these disadvantages can be overcome.
 
 In the end, __Flutter Rust Bridge__ offers developers a unique opportunity to create modern, powerful and secure applications, taking advantage of the best of both worlds: Rust and Flutter. With practice and experience, developers can learn to use this tool effectively and achieve excellent results in their projects.
+
+> "Coming together is a beginning. Keeping together is progress. Working together is success."
+— Henry Ford
