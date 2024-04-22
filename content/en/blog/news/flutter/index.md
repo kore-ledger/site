@@ -1,39 +1,43 @@
 ---
 date: 2024-04-19
-title: Flutter Rust Bridge 🦀
+title: Flutter Rust Bridge 🦀 A History of Innovation and Challenges
 linkTitle: Flutter Rust Bridge 🦀
 description: >
-  Una guía sobre cómo comenzar a usar Flutter Rust Bridge y las ventajas que ofrece para el desarrollo de aplicaciones.
+  A guide on how to get started with Flutter Rust Bridge and the advantages it offers for application development.
 resources:
   - src: "**.{png,jpg}"
     title: "Image #:counter"
 ---
 
-## Introducción
+## Introduction
 
-__Flutter Rust Bridge__ es una herramienta que permite a los desarrolladores integrar código Rust en aplicaciones Flutter. Esta integración ofrece las ventajas de rendimiento y seguridad de Rust junto con la capacidad de crear interfaces de usuario atractivas y eficientes con Flutter. En esta publicación, exploraremos cómo usar __Flutter Rust Bridge__ y sus ventajas.
+A few years ago, in a corner of the technology world, a group of visionary developers sought to combine the best of two worlds: the power and security of Rust with the versatility of Flutter. Thus was born __Flutter Rust Bridge__, a tool that breaks new ground for developers who want to integrate Rust code into Flutter applications.
+
+The story begins with the need to leverage the advantages of both languages. Rust, known for its performance and memory safety, promised a bright future, while Flutter offered the ability to create attractive and efficient user interfaces. Together, these two languages could take application development to a new level.
+
+Translated with DeepL.com (free version)
 
 {{< imgproc sunset Fill "1800x300" >}}
 {{< /imgproc >}}
 
+### How to use Flutter with Rust?
 
-## ¿Cómo usar Flutter con Rust?
+### The First Steps
 
-### Instalación de requisitos previos
+The journey begins with installing the prerequisites, first you need to have Flutter and Rust installed on your machine. You can find the installation instructions at the following links:
 
-Para comenzar a usar __Flutter Rust Bridge__, primero necesitas tener Flutter y Rust instalados en tu máquina. Puedes encontrar las instrucciones de instalación en los siguientes enlaces:
+- [Flutter installation](https://flutter.dev/docs/get-started/install)
+- [Rust installation](https://www.rust-lang.org/tools/install)
 
-- [Instalación de Flutter](https://flutter.dev/docs/get-started/install)
-- [Instalación de Rust](https://www.rust-lang.org/tools/install)
+{{< alert type="warning" >}}⚠️ **Important!** Be sure to run `flutter doctor` and resolve any problems before you start working with __Flutter Rust Bridge__. This tool verifies that you have all the dependencies and configurations needed to work with Flutter.{{< /alert >}}
 
-{{< alert type="warning" >}}⚠️ **¡Importante!** Asegúrate de ejecutar `flutter doctor` y resolver cualquier problema que se presente antes de comenzar a trabajar con __Flutter Rust Bridge__. Esta herramienta verifica que tengas todas las dependencias y configuraciones necesarias para trabajar con Flutter.{{< /alert >}}
 
-### Iniciar un projecto
-Para iniciar el proyecto debemos ejecutar el siguiente comando que nos permitira instalar la librería [flutter_rust_bridge_codegen](https://github.com/fzyzcjy/flutter_rust_bridge) encargada entre otras cosas de realizar la conversión de rust a dart.
+### The Creation of the Project
+With the foundation in place, developers take the next step: starting a new project. This is where the magic really begins. To start the project we must run the following command that will allow us to install the [flutter_rust_bridge_codegen](https://github.com/fzyzcjy/flutter_rust_bridge) library responsible among other things for performing the conversion from rust to dart.
 ```bash
 cargo install 'flutter_rust_bridge_codegen@^2.0.0-dev.0' && flutter_rust_bridge_codegen create my_app && cd my_app
 ```
-Posteriormente procederemos a crear nuestra primera funcion en rust, en este caso vamos a consumir un endpoint que permite el registro de un usuario. La ruta donde escribiremos la funcion es `rust/src/api/request.rs`.
+Next we will proceed to create our first function in rust, in this case we are going to consume an endpoint that allows the registration of a user. The path where we will write the function is `rust/src/api/request.rs`.
 ```rust
 #[derive(Serialize, Clone)]
 pub struct UserAuth {
@@ -66,12 +70,12 @@ pub async fn register(username: String, password: String) -> Result<String, Stri
     }
 }
 ```
-Para realizar la transformación del código rust a código dart deberemos ejecutar el siguiente comando:
+To transform the rust code to dart code we must execute the following command:
 ```bash
 flutter_rust_bridge_codegen generate
 ```
-Destacar que solo se realizara la conversion de los tipos que se hayan usado en la funciones.
-Debería crear lo siguiente en la ruta `rust/src/api/request.dart`.
+Note that only the types that have been used in the functions will be converted.
+You should create the following in the path `rust/src/api/request.dart`.
 
 ```dart
 Future<String> register(
@@ -123,12 +127,12 @@ class UserAuth {
           password == other.password &&
 }
 ```
-Podemos observar como se ha creado una función transformado el _async_ a _Future_ en dart y se crea una tarea que realiza una llamada a la función de rust(`callFfi`) tomando un puerto, definido en `_port`. Dentro de la llamada se pasan los argumentos del nombre y contraseña del usuario.
-Posteriormente se ha tranformado el _struct_ a una clase con los atributos de tipo _String_. Además se realiza un getter para obtener los datos de la clase y una sobrecarga del operador `==`.
+We can see how a function has been created transforming the _async_ to _Future_ in dart and a task is created that makes a call to the rust(`callFfi`) function taking a port, defined in `_port`. Within the call the arguments of the user name and password are passed.
+Subsequently the _struct_ has been transformed to a class with attributes of type _String_. In addition, a getter is performed to obtain the class data and an overload of the `==` operator.
 
-{{< alert type="warning" >}}⚠️ **¡Importante!** En este ejemplo se han usado tipo básicos como _String_ pero  no todos los tipos de rust tienen conversión actualmente soportada. Para revisar los tipos dirijase a este [enlace](https://cjycode.com/flutter_rust_bridge/guides/types)  {{< /alert >}}
+{{< alert type="warning" >}}⚠️ **Important!** In this example basic types like _String_ have been used but not all rust types are currently supported for conversion. To review the types please go to this [link](https://cjycode.com/flutter_rust_bridge/guides/types) {{< /alert >}}
 
-Por último desde nuestra applicación de flutter podremos importar y usar esa función.
+Finally from our flutter application we can import and use this function.
 
 ```dart
 import 'package:app/components/api/request.dart';
@@ -139,68 +143,68 @@ register(username: usernameController.text,password: passwordController.text)
     }).whenComplete(() {
     });
 ```
-### Contrucción
-En caso de hacer un despliegue de desarrollo deberemos ejecutar los siguientes comandos:
+### Construction
+In case of making a development deployment we will have to execute the following commands:
 ```bash
 flutter_rust_bridge_codegen build-web 
 # De esta manera evitaremos los problemas de Cors. 
 flutter run --web-header=Cross-Origin-Opener-Policy=same-origin --web-header=Cross-Origin-Embedder-Policy=require-corp
 ```
-Para realizar la contrucción final
+To realize the final construction
 ```bash
 flutter build web 
 ```
-En caso de un build para aplicaciones
+In case of a build for applications
 ```bash
 flutter build [macos|ios|apk|window]
 ```
-{{< alert type="warning" >}}⚠️ **¡Importante!** Dependiendo del host que realice el build podremos compilar para otros sistemas por ejemplo si estamos en Windows solo podremos hacer build para Android y Windows, si estamos en Mac podremos hacer build en Ios, Mac y Android.{{< /alert >}}
+{{< alert type="warning" >}}⚠️ **Important!** Depending on the host that performs the build we can compile for other systems, for example if we are on Windows we can only build for Android and Windows, if we are on Mac we can build for iOS, Mac and Android.{{< /alert >}}
 
 
-## Arquitectura
+## Architecture
 
-La arquitectura de __Flutter Rust Bridge__ está diseñada para proporcionar compatibilidad multiplataforma y una conexión perfecta entre las funcionalidades de Dart en Flutter y el código de Rust.
+The __Flutter Rust Bridge__ architecture is designed to provide cross-platform compatibility and a seamless connection between Dart functionality in Flutter and Rust code.
 
-La [interfaz de función externa](https://dart.dev/interop/c-interop) es esencial para esta arquitectura, ya que permite que un lenguaje llame al código de otro lenguaje. En nuestro caso, Dart FFI se utiliza para acceder a funciones de Rust desde una aplicación Flutter.
+The [external function interface](https://dart.dev/interop/c-interop) is essential to this architecture, as it allows one language to call code from another language. In our case, Dart FFI is used to access Rust functions from a Flutter application.
 
-En esta estructura, se parte de una biblioteca de Rust y se crea un enlace para exponer las funciones de Rust al código externo, en este caso, a través de Rust FFI. Desde el lado de Flutter, se utiliza Dart FFI para llegar a la capa nativa y llamar a las funciones apropiadas de Rust. De esta manera, puedes integrar funcionalidades nativas en tu aplicación Flutter mediante el código Rust.
+In this framework, we start from a Rust library and create a link to expose Rust functions to external code, in this case, through Rust FFI. From the Flutter side, you use Dart FFI to reach the native layer and call the appropriate Rust functions. In this way, you can integrate native functionality into your Flutter application using Rust code.
 
-La integración de Rust en Flutter a través de __Flutter Rust Bridge__ da como resultado aplicaciones compiladas de forma nativa con un rendimiento equiparable al del código nativo. Esta solución permite aprovechar las fortalezas de Rust en una variedad de plataformas compatibles, incluyendo Android, iOS, Windows, Linux e incluso web, ofreciendo así un desarrollo móvil multiplataforma más eficiente.
+Integrating Rust into Flutter through the __Flutter Rust Bridge__ results in natively compiled applications with performance on par with native code. This solution allows you to leverage the strengths of Rust on a variety of supported platforms, including Android, iOS, Windows, Linux and even web, thus providing more efficient cross-platform mobile development.
 
 
-## Uso de Hilos
-Flutter ofrece soporte para el manejo de hilos a través de diferentes mecanismos según la plataforma de destino. A continuación, se detalla cómo manejar hilos en diferentes entornos de Flutter:
+## Threading
+Flutter provides support for thread handling through different mechanisms depending on the target platform. The following details how to handle threads in different Flutter environments:
 
 ### Web
-Cuando se trata de aplicaciones Flutter destinadas a la web, los hilos se manejan utilizando _Web Workers_. Estos permiten realizar tareas en segundo plano para evitar bloquear la interfaz de usuario (UI), mejorando la eficiencia y la capacidad de respuesta de la aplicación.
+When it comes to Flutter applications intended for the web, threads are handled using _Web Workers_. These allow background tasks to be performed to avoid blocking the user interface (UI), improving the efficiency and responsiveness of the application.
 
-### Nativo
-Para las aplicaciones Flutter que se ejecutan en plataformas nativas, el manejo de hilos se realiza mediante _Isolates_. Los _Isolates_ son una forma de ejecución independiente de Dart que puede ejecutar su propio código y memoria.
+### Native
+For Flutter applications running on native platforms, thread handling is done using _Isolates_. The _Isolates_ are a Dart-independent form of execution that can execute its own code and memory.
 
-> Aunque se tengan que realizar diferentes técnicas dependiendo de la plataforma de destino, se pueden utilizar librerías como [isolated_worker ](https://pub.dev/packages/isolated_worker) que permiten dentro del mismo programa detectar dependiendo de la plataforma la ejecución mediante _Isolated_ o _Web Workers_.
+> Although different techniques have to be performed depending on the target platform, it is possible to use libraries such as [isolated_worker ](https://pub.dev/packages/isolated_worker) that allow within the same program to detect the execution by _Isolated_ or _Web Workers_ depending on the platform.
 
-## Ventajas
+## Advantages
 
-- **Rendimiento mejorado**: Rust es conocido por su alto rendimiento y seguridad en la memoria. Al usar Rust para la lógica de la aplicación, puedes mejorar el rendimiento de tu aplicación Flutter.
+- Improved performance: Rust is known for its high performance and memory safety. By using Rust for application logic, you can improve the performance of your Flutter application.
 
-- **Código seguro**: Rust tiene características de seguridad de memoria que ayudan a evitar errores comunes, como desbordamientos de buffer y condiciones de carrera.
+- Safe code**: Rust has memory safety features that help avoid common errors such as buffer overflows and race conditions.
 
-- **Código compartido**: Puedes escribir lógica compartida en Rust y usarla tanto en la aplicación Flutter como en otras plataformas, lo que facilita el desarrollo multiplataforma.
+- Shared code**: You can write shared logic in Rust and use it both in the Flutter application and on other platforms, making cross-platform development easy.
 
-- **Actualizaciones recientes**: La comunidad de flutter Rust Bridge esta añadiendo constantement Issues y actualizaciones para mejorar las características de la librería. Entre las actualizaciones recientes podemos destacar el soporte para el tipo str en dart.
+- Recent updates**: The Flutter Rust Bridge community is constantly adding issues and updates to improve the features of the library. Recent updates include support for the str type in dart.
 
-## Inconvenientes
+## Drawbacks
 
-- **Curva de aprendizaje**: Aprender Rust puede ser un desafío, especialmente para desarrolladores nuevos en el lenguaje.
+- Learning curve**: Learning Rust can be a challenge, especially for developers new to the language.
 
-- **Comunidad más pequeña**: Aunque Rust tiene una comunidad activa, es más pequeña en comparación con otros lenguajes como JavaScript o Python. Esto podría hacer que sea más difícil encontrar ejemplos o documentación específicos para la integración con Flutter.
+- **Smaller community**: Although Rust has an active community, it is smaller compared to other languages such as JavaScript or Python. This could make it more difficult to find examples or documentation specific to Flutter integration.
 
-- **Tipos**: Actualmente no todos los tipos de Rust tienen soporte en Dart.
+- **Types**: Currently not all Rust types are supported in Dart.
 
-## Conclusión
+## Conclusion
 
-En conclusión, __Flutter Rust Bridge__ es una herramienta poderosa que permite integrar código Rust en aplicaciones Flutter, combinando la eficiencia y seguridad de Rust con la versatilidad y capacidad de creación de interfaces de usuario de Flutter. Esta integración puede mejorar significativamente el rendimiento de las aplicaciones y ofrece código seguro y reutilizable.
+In conclusion, __Flutter Rust Bridge__ is a powerful tool that allows you to integrate Rust code into Flutter applications, combining the efficiency and security of Rust with the versatility and user interface creation capabilities of Flutter. This integration can significantly improve application performance and provides secure, reusable code.
 
-A pesar de los beneficios, es importante tener en cuenta algunos desafíos, como la curva de aprendizaje de Rust y las limitaciones en la comunidad y tipos de datos compatibles. Sin embargo, con una planificación cuidadosa y un enfoque de desarrollo bien estructurado, estas desventajas se pueden superar.
+Despite the benefits, it is important to keep in mind some challenges, such as Rust's learning curve and limitations in the community and supported data types. However, with careful planning and a well-structured development approach, these disadvantages can be overcome.
 
-Al final, __Flutter Rust Bridge__ ofrece a los desarrolladores una oportunidad única para crear aplicaciones modernas, potentes y seguras, aprovechando lo mejor de ambos mundos: Rust y Flutter. Con práctica y experiencia, los desarrolladores pueden aprender a usar esta herramienta de manera efectiva y obtener excelentes resultados en sus proyectos.
+In the end, __Flutter Rust Bridge__ offers developers a unique opportunity to create modern, powerful and secure applications, taking advantage of the best of both worlds: Rust and Flutter. With practice and experience, developers can learn to use this tool effectively and achieve excellent results in their projects.
