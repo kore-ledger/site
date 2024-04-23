@@ -206,5 +206,4 @@ A pesar de los beneficios, es importante tener en cuenta algunos desafíos, como
 
 Al final, __Flutter Rust Bridge__ ofrece a los desarrolladores una oportunidad única para crear aplicaciones modernas, potentes y seguras, aprovechando lo mejor de ambos mundos: Rust y Flutter. Con práctica y experiencia, los desarrolladores pueden aprender a usar esta herramienta de manera efectiva y obtener excelentes resultados en sus proyectos.
 
-> "Unirse es un comienzo. Mantenerse juntos es un progreso. Trabajar juntos es el éxito."
-— Henry Ford
+> Unirse es un comienzo. Mantenerse juntos es un progreso. Trabajar juntos es el éxito. — Henry Ford

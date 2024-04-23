@@ -1,5 +1,10 @@
-// COOKIES
+strong {
+  color: black !important;
+  font-weight: 700 !important;
+  font-size: 1.05em;
+}
 
+// COOKIES
 #cookie-notice {
   font-size: larger;
   padding: 0.5rem 1rem;
@@ -95,3 +100,4 @@ body.cookies-modal-open #cookies-overlay {
 .error-page {
   text-align: center;
 }
+

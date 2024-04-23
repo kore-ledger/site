@@ -183,17 +183,17 @@ For Flutter applications running on native platforms, thread handling is done us
 
 ## Advantages
 
-- Improved performance: Rust is known for its high performance and memory safety. By using Rust for application logic, you can improve the performance of your Flutter application.
+- **Improved performance**: Rust is known for its high performance and memory safety. By using Rust for application logic, you can improve the performance of your Flutter application.
 
-- Safe code**: Rust has memory safety features that help avoid common errors such as buffer overflows and race conditions.
+- **Safe code**: Rust has memory safety features that help avoid common errors such as buffer overflows and race conditions.
 
-- Shared code**: You can write shared logic in Rust and use it both in the Flutter application and on other platforms, making cross-platform development easy.
+- **Shared code**: You can write shared logic in Rust and use it both in the Flutter application and on other platforms, making cross-platform development easy.
 
-- Recent updates**: The Flutter Rust Bridge community is constantly adding issues and updates to improve the features of the library. Recent updates include support for the str type in dart.
+- **Recent updates**: The Flutter Rust Bridge community is constantly adding issues and updates to improve the features of the library. Recent updates include support for the str type in dart.
 
 ## Drawbacks
 
-- Learning curve**: Learning Rust can be a challenge, especially for developers new to the language.
+- **Learning curve**: Learning Rust can be a challenge, especially for developers new to the language.
 
 - **Smaller community**: Although Rust has an active community, it is smaller compared to other languages such as JavaScript or Python. This could make it more difficult to find examples or documentation specific to Flutter integration.
 
@@ -207,5 +207,4 @@ Despite the benefits, it is important to keep in mind some challenges, such as R
 
 In the end, __Flutter Rust Bridge__ offers developers a unique opportunity to create modern, powerful and secure applications, taking advantage of the best of both worlds: Rust and Flutter. With practice and experience, developers can learn to use this tool effectively and achieve excellent results in their projects.
 
-> "Coming together is a beginning. Keeping together is progress. Working together is success."
-— Henry Ford
+> Coming together is a beginning. Keeping together is progress. Working together is success. — Henry Ford
