@@ -1,7 +1,6 @@
 ---
 title: Contratos
 description: Contratos Kore Ledger.
-weight: 212
 ---
 
 ## Definición

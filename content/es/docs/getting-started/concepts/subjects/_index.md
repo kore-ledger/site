@@ -1,7 +1,6 @@
 ---
 title: Sujeto
 description: Descripción del sujeto.
-weight: 212
 ---
 
 En lugar de tener un único libro de contabilidad compartido por todos los participantes, la información se estructura tema por tema. Los sujetos son entidades lógicas que representan un activo o proceso dentro de una red
@@ -24,7 +23,7 @@ Cualquier sujeto tiene un único propietario, siendo este el único participante
 ## Pertenecer a una gobernanza
 Un sujeto siempre existe dentro de un caso de uso. La gobernanza es la definición de las reglas por las que se rige el caso de uso. Qué tipos de sujetos se pueden crear o quién puede crearlos son algunas de las reglas que se definen en la gobernanza. Aunque un sujeto sólo puede pertenecer a una gobernanza, un nodo puede gestionar sujetos de diferente gobernanza, de modo que un mismo nodo pueda participar simultáneamente en diferentes casos de uso.
 
-## Espacio de nombres 
+### Espacio de nombres 
 Cuando se crea un sujeto, se le asocia cierta información, como la gobernanza, el esquema y un espacio de nombres. El espacio de nombres está asociado con el caso de uso y la gobernanza, ya que es el mecanismo mediante el cual se pueden segmentar las partes interesadas. En el mismo caso de uso, no todos los participantes pueden estar interesados ​​en todos los sujetos, sino sólo en un subconjunto de ellos.
 
 ## Identificador del sujeto y claves

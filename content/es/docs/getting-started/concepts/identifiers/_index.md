@@ -1,7 +1,6 @@
 ---
 title: Identidad
 description: Descipción de la identidad en Kore Ledger.
-weight: 212
 ---
 
 Cada participante de una red Kore Ledger tiene un identificador único y una clave privada que le permite firmar las transacciones realizadas. Además, dependiendo de su interés en cada sujeto y su nivel de implicación con la red, cada participante tendrá uno o varios roles diferentes.

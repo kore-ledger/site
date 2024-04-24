@@ -1,7 +1,6 @@
 ---
 title: Gobernanza
 description: Descripción de la gobernanza.
-weight: 212
 ---
 
 La **gobernanza** es el conjunto de definiciones y reglas que establecen cómo los diferentes nodos participantes en una red se relacionan con los sujetos de la trazabilidad e interaccionan entre si. Los componentes de las **gobernanza** son:

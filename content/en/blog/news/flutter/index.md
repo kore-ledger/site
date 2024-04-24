@@ -27,7 +27,7 @@ The journey begins with installing the prerequisites, first you need to have Flu
 - [Flutter installation](https://flutter.dev/docs/get-started/install)
 - [Rust installation](https://www.rust-lang.org/tools/install)
 
-{{< alert type="warning" >}}⚠️ **Important!** Be sure to run `flutter doctor` and resolve any problems before you start working with __Flutter Rust Bridge__. This tool verifies that you have all the dependencies and configurations needed to work with Flutter.{{< /alert >}}
+{{< alert type="warning" title="Warning">}}Be sure to run `flutter doctor` and resolve any problems before you start working with __Flutter Rust Bridge__. This tool verifies that you have all the dependencies and configurations needed to work with Flutter.{{< /alert >}}
 
 
 ### The Creation of the Project
@@ -128,7 +128,7 @@ class UserAuth {
 We can see how a function has been created transforming the _async_ to _Future_ in dart and a task is created that makes a call to the rust(`callFfi`) function taking a port, defined in `_port`. Within the call the arguments of the user name and password are passed.
 Subsequently the _struct_ has been transformed to a class with attributes of type _String_. In addition, a getter is performed to obtain the class data and an overload of the `==` operator.
 
-{{< alert type="warning" >}}⚠️ **Important!** In this example basic types like _String_ have been used but not all rust types are currently supported for conversion. To review the types please go to this [link](https://cjycode.com/flutter_rust_bridge/guides/types) {{< /alert >}}
+{{< alert type="warning"  title="Warning" >}}In this example basic types like _String_ have been used but not all rust types are currently supported for conversion. To review the types please go to this [link](https://cjycode.com/flutter_rust_bridge/guides/types) {{< /alert >}}
 
 Finally from our flutter application we can import and use this function.
 
@@ -156,7 +156,7 @@ In case of a build for applications
 ```bash
 flutter build [macos|ios|apk|window]
 ```
-{{< alert type="warning" >}}⚠️ **Important!** Depending on the host that performs the build we can compile for other systems, for example if we are on Windows we can only build for Android and Windows, if we are on Mac we can build for iOS, Mac and Android.{{< /alert >}}
+{{< alert type="warning"  title="Warning" >}}Depending on the host that performs the build we can compile for other systems, for example if we are on Windows we can only build for Android and Windows, if we are on Mac we can build for iOS, Mac and Android.{{< /alert >}}
 
 
 ## Architecture

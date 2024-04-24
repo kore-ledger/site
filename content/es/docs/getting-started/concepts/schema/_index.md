@@ -1,7 +1,6 @@
 ---
 title: Esquema
 description: Descripción del esquema.
-weight: 212
 ---
 
 El **esquema** es la estructura del estado contenido en un sujeto.

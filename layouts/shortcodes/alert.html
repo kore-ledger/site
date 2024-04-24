@@ -1,10 +1,25 @@
 {{ $_hugo_config := `{ "version": 1 }` }}
-{{ $color := .Get "color" | default "primary" }}
-<div class="alert alert-{{ $color }}" role="alert">
-{{ with .Get "title" }}<h4 class="alert-heading">{{ . | safeHTML }}</h4>{{ end }}
-{{ if eq .Page.File.Ext "md" }}
-    {{ .Inner | markdownify }}
-{{ else }}
-    {{ .Inner | htmlUnescape | safeHTML }}
-{{ end }}
+{{ $type := .Get "type" | default "info" }}
+
+{{ $icons := dict
+    "info" "fa-info-circle"     
+    "warning" "fa-exclamation-triangle" 
+    "danger" "fa-exclamation-circle"   
+    "success" "fa-check-circle"       
+}}
+
+{{ $icon := index $icons $type }}
+
+<div class="alert alert-{{ $type }}" role="alert">
+    {{ with .Get "title" | default " "}}
+        <h4 class="alert-heading alert-title ">
+            <i class="fa alert-icon {{ $icon }}"></i>
+            {{ . | safeHTML }}
+        </h4>
+    {{ end }}
+    {{ if eq .Page.File.Ext "md" }}
+        {{ .Inner | markdownify }}
+    {{ else }}
+        {{ .Inner | htmlUnescape | safeHTML }}
+    {{ end }}
 </div>
