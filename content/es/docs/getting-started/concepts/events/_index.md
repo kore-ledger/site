@@ -17,11 +17,14 @@ Cada evento se compone de lo siguiente:
 La **gobernanza** determina el procolo por el que los eventos son incorporados al ciclo de vida del sujeto de trazabilidad.
 El ciclo de vida del evento se compone de 6 etapas, desde su solicitud de generación hasta su distribución.
 
-![Protocol](protocol.png) 
+{{< imgproc protocol Fit "1800x800" >}}
+{{< /imgproc >}}
 
 
-1. ### Solicitud 
+### 1. Solicitud 
 Para cambiar el estado de un sujeto es necesario agregar un evento a su microledger. Para ello, el primer paso es generar una solicitud de evento . En Kore sólo el propietario del sujeto puede generar eventos sobre el mismo . Sin embargo, estos eventos pueden generarse por solicitudes de otros participantes, conocidos como **emisores** . De esta forma, el titular actúa como organizador de las solicitudes de eventos, que pueden ser generadas por él mismo o por otros participantes.
+
+{{< alert type="warning" title="Precaución">}}Al ser el único que puede ingresar eventos en el microledger, el propietario tiene la última palabra sobre si crear o no un evento a partir de una solicitud, incluso si lo envía otro participante. En situaciones en las que sea necesario garantizar que la solicitud ha sido registrada, se deben implementar medidas de seguridad adicionales a las ofrecidas por Kore.{{< /alert >}}
 
 Las solicitudes de eventos contienen lo siguiente:
 
@@ -30,7 +33,7 @@ Las solicitudes de eventos contienen lo siguiente:
 - La firma del emisor, que puede ser el propietario del sujeto u otro participante con permisos suficientes.
 
 
-2. ### Evaluación
+### 2. Evaluación
 En Kore existen diferentes tipos de eventos y no todos comparten el mismo ciclo de vida. En el caso de los **eventos Fact** existen 2 pasos adicionales: evaluación y aprobación.
 
 La fase de evaluación corresponde a la ejecución del **contrato**. Para ello, el titular del sujeto envía la siguiente información a los evaluadores:
@@ -40,18 +43,18 @@ La fase de evaluación corresponde a la ejecución del **contrato**. Para ello, 
 
 Después de recibir la información, el evaluador ejecuta el **contrato** y devuelve el estado del sujeto modificado al propietario del sujeto, la necesidad o no de aprobación y su firma. El propietario debe recoger tantas firmas de evaluadores como dicta la gobernanza.
 
-3. ### Aprobación
+### 3. Aprobación
 La evaluación de algunos contratos puede determinar que el resultado, incluso si se ejecuta correctamente, requiere aprobación. Esto significa que, para ser aceptado por los demás participantes, es necesario incluir una serie de firmas adicionales de otros participantes, los aprobadores. Estos aprobadores firman a favor o en contra de una solicitud de evento. Las reglas definidas en la gobernanza indican qué firmas son necesarias para que una petición de evento sea aprobada y, por tanto, para que se genere un evento a partir de esta solicitud.
 
 La decisión de aprobar o no una solicitud puede depender de la participación de un individuo o puede depender de algún sistema de TI, como un proceso de inteligencia empresarial.
 
-4. ### Generación
+### 4. Generación
 El siguiente paso es la generación efectiva del evento. El evento se compone incluyendo la solicitud, la evaluación del contrato, las firmas de los evaluadores y aprobadores, el hash del evento anterior y una serie de metadatos asociados al evento. Luego, el evento se firma con el material criptográfico del sujeto, lo que garantiza que solo el propietario del sujeto pudo generar el evento.
 
-5. ### Validación
+### 5. Validación
 Un evento generado no se puede distribuir directamente. La razón es que los demás participantes en la red no tienen garantía de que el propietario no haya generado versiones diferentes del evento y las haya distribuido según sus propios intereses. Para evitarlo surge la fase de validación. Varios participantes de la red, los validadores, proporcionan su firma al evento, garantizando que existe un único evento. No todas las materias requieren las firmas de los mismos validadores. La gobernanza define qué participantes deben proporcionar sus firmas y cuántas firmas se requieren. El número de firmas dependerá del caso de uso y de la confianza de la red en los miembros que actúan como validadores.
 
-6. ### Distribución
+### 6. Distribución
 Una vez que haya suficientes firmas de validación, el evento estará completo y podrá distribuirse al resto de participantes de la red. El propietario envía el evento junto con las firmas de validación a los testigos. Los testigos, una vez comprobada la validez del conjunto, incorporarán el evento al **microledger**, y borrarán las firmas de validación que tenían almacenadas para el evento anterior.
 
 ## Tipos de eventos
@@ -126,38 +129,6 @@ sequenceDiagram
         Note over Propietario: Fase 6 - Distribución del evento
         Propietario->>Testigo: Envía evento a testigos
         Testigo->>Propietario: Confirma recepción del evento
-    else Evaluación negativa
-        Note over Propietario: La solicitud es rechazada
-    end
-```
-Diagrama generado un evento tipo **EOL**.
-```mermaid
-sequenceDiagram
-    actor Emisor
-    actor Propietario
-    actor Evaluador
-    actor Aprobador
-    actor Validador
-    actor Testigo
-    Note over Propietario: Fase 1 - Solicitud de fin de vida
-    Emisor->>Propietario: Solicita fin de vida del sujeto (evento EOL)
-    Note over Propietario: Fase 2 - Evaluación de la solicitud
-    Propietario->>Evaluador: Solicita evaluación de la solicitud
-    Evaluador->>Propietario: Devuelve evaluación (positiva o negativa)
-    alt Evaluación positiva
-        Note over Propietario: Fase 3 - Aprobación (si es necesario)
-        alt Aprobación requerida
-            Propietario->>Aprobador: Solicita aprobación
-            Aprobador->>Propietario: Devuelve aprobación (positiva o negativa)
-        end
-        Note over Propietario: Fase 4 - Incorporación del evento
-        Propietario->>Propietario: Incorpora el evento EOL al registro de eventos
-        Note over Propietario: Fase 5 - Validación del evento
-        Propietario->>Validador: Solicita validación
-        Validador->>Propietario: Devuelve respuesta de validación
-        Note over Propietario: Fase 6 - Distribución del evento
-        Propietario->>Testigo: Envía evento EOL a testigos
-        Testigo->>Propietario: Confirma recepción del evento EOL
     else Evaluación negativa
         Note over Propietario: La solicitud es rechazada
     end
