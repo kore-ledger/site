@@ -23,13 +23,13 @@
       {{ . | safeHTML }}
     </summary>
     {{ end }}
-    <p class="p-{{ $type }}">
+    <p class="content p-{{ $type }}">
       {{ if eq .Page.File.Ext "md" }}
       {{ .Inner | markdownify }}
       {{ else }}
       {{ .Inner | htmlUnescape | safeHTML }}
       {{ end }}
     </p>
-
   </details>
+  <script src="/js/animation.js"></script>
 </div>
