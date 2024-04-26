@@ -8,7 +8,7 @@ Each participant in the network interacts with it based on different interests. 
 ## Owner
 Owns the traceability subject and is the node responsible for recording events. They have full control over the subject because they own the cryptographic material with permissions to modify it.
 
-{{< alert type="info" title="Info">}}The ownership of the subject can be obtained by creating it or receiving it from the previous owner.{{< /alert >}}
+{{< alert type="info" title="INFO">}}The ownership of the subject can be obtained by creating it or receiving it from the previous owner.{{< /alert >}}
 ## Issuer
 Application authorized to issue event requests, even if it is not a network node. All it needs to participate in the network is a cryptographic key pair that allows signing events, as well as having the necessary permissions in governance.
 ## Evaluator

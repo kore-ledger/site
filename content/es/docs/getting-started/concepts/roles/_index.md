@@ -8,7 +8,7 @@ Cada participante de la red interactúa con ella en función de diferentes inter
 ## Propietario
 Posee el sujeto de trazabilidad y es el nodo responsable de registrar los eventos. Tienen control total sobre el sujeto porque posee el material criptográfico con permisos para modificarlo.
 
-{{< alert type="info" title="Info">}}La propiedad del sujeto puede obtenerse creándola o recibiéndola del propietario anterior.{{< /alert >}}
+{{< alert type="info" title="INFORMACIÓN">}}La propiedad del sujeto puede obtenerse creándola o recibiéndola del propietario anterior.{{< /alert >}}
 ## Emisor
 Aplicación autorizada a emitir peticiones de eventos, aunque no sea un nodo de la red. Todo lo que necesita para participar en la red es un par de claves criptográficas que permita firmar los eventos, además de tener los permisos necesarios en la gobernanza.
 ## Evaluador

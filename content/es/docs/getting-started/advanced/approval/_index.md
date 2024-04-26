@@ -19,7 +19,7 @@ El proceso de aprobación consta de los siguientes pasos:
   - Hay tantos votos negativos que es imposible que se apruebe la solicitud.
 En ambos casos, el propietario generará un evento. En el caso de que la votación no haya sido exitosa, se generará el evento pero no producirá cambios en el estado del sujeto, quedando con fines meramente informativos.
 
-{{< alert type="warning" title="Precaución">}}Es importante recordar que el propietario del sujeto es el único que puede forzar un cambio efectivo en un sujeto. Por tanto, el propietario, tras el proceso de aprobación, podría decidir si incluye o no el evento en la cadena. Esto no seguiría el comportamiento estándar definido por Kore, pero no rompería la compatibilidad.{{< /alert >}}
+{{< alert type="warning" title="ATENCIÓN">}}Es importante recordar que el propietario del sujeto es el único que puede forzar un cambio efectivo en un sujeto. Por tanto, el propietario, tras el proceso de aprobación, podría decidir si incluye o no el evento en la cadena. Esto no seguiría el comportamiento estándar definido por Kore, pero no rompería la compatibilidad.{{< /alert >}}
 
 ```mermaid
 sequenceDiagram

@@ -1,6 +1,6 @@
 ---
 title: Under the hood
-date: 2024-04-25
+date: 2024-04-26
 weight: 16
 description: Technologies used by Kore Ledger
 ---

@@ -1,6 +1,61 @@
+p a:hover {
+  color: #198754;
+}
+
+li a:hover {
+  color: #198754;
+}
+
+.format-div{
+  font-weight: 300;
+}
+
+.alert-success h4 {
+  color: #003100 !important;
+}
+.alert-danger h4 {
+  color: #4b1134 !important;
+}
+.alert-info h4 {
+  color: #193c47 !important;
+}
+.alert-warning h4 {
+  color: #4d3800 !important;
+}
+
+.alert-icon svg{
+  height: 27px;
+  width: 27px;
+  margin-right: 3px;
+}
+
+
+.alert {
+  border-radius: 5px;
+}
+
+.alert-heading {
+  font-size: 17px;
+}
+
 .td-sidebar-nav__section-title a {
   color: #212529 !important;
   font-weight: 300;
+}
+
+summary {
+  font-weight: 300;
+  padding: 8px !important;
+}
+
+details {
+  border-radius: 5px; 
+  padding: 5px;
+}
+
+details div {
+  margin-top: 5px;
+  padding-top: 5px;
 }
 
 .alert-info {
@@ -9,15 +64,11 @@
 }
 
 .details-info {
-  border: 2px solid #4cb3d4;
-  border-radius: 5px; 
-  padding: 5px;
+  border: 1px solid #4cb3d4;
 }
 
-.p-info {
-  border-top: 2px solid #4cb3d4;
-  margin-top: 5px;
-  padding-top: 5px;
+.div-info {
+  border-top: 1px solid #4cb3d4;
 }
 
 .alert-danger {
@@ -26,17 +77,12 @@
 }
 
 .details-danger {
-  border: 2px solid #e13238;
-  border-radius: 5px; 
-  padding: 5px;
+  border: 1px solid #e13238;
 }
 
-.p-danger {
-  border-top: 2px solid #e13238;
-  margin-top: 5px;
-  padding-top: 5px;
+.div-danger {
+  border-top: 1px solid #e13238;
 }
-
 
 .alert-warning {
   background: #fff8e6;
@@ -44,15 +90,11 @@
 }
 
 .details-warning {
-  border: 2px solid #e6a700;
-  border-radius: 5px; 
-  padding: 5px;
+  border: 1px solid #e6a700;
 }
 
-.p-warning {
-  border-top: 2px solid #e6a700;
-  margin-top: 5px;
-  padding-top: 5px;
+.div-warning {
+  border-top: 1px solid #e6a700;
 }
 
 .alert-success {
@@ -61,24 +103,17 @@
 }
 
 .details-success {
-  border: 2px solid #009400;
-  border-radius: 5px; 
-  padding: 5px;
+  border: 1px solid #009400;
 }
 
-.p-success {
-  border-top: 2px solid #009400;
-  margin-top: 5px;
-  padding-top: 5px;
+.div-success {
+  border-top: 1px solid #009400;
 }
 
 .alert-title{
   color: #000 !important;
 }
 
-.alert-icon{
-  color: #000 !important;
-}
 
 // COOKIES
 #cookie-notice {

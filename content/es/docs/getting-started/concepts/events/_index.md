@@ -24,7 +24,7 @@ El ciclo de vida del evento se compone de 6 etapas, desde su solicitud de genera
 ### 1. Solicitud 
 Para cambiar el estado de un sujeto es necesario agregar un evento a su microledger. Para ello, el primer paso es generar una solicitud de evento . En Kore sólo el propietario del sujeto puede generar eventos sobre el mismo . Sin embargo, estos eventos pueden generarse por solicitudes de otros participantes, conocidos como **emisores** . De esta forma, el titular actúa como organizador de las solicitudes de eventos, que pueden ser generadas por él mismo o por otros participantes.
 
-{{< alert type="warning" title="Precaución">}}Al ser el único que puede ingresar eventos en el microledger, el propietario tiene la última palabra sobre si crear o no un evento a partir de una solicitud, incluso si lo envía otro participante. En situaciones en las que sea necesario garantizar que la solicitud ha sido registrada, se deben implementar medidas de seguridad adicionales a las ofrecidas por Kore.{{< /alert >}}
+{{< alert type="warning" title="ATENCIÓN">}}Al ser el único que puede ingresar eventos en el microledger, el propietario tiene la última palabra sobre si crear o no un evento a partir de una solicitud, incluso si lo envía otro participante. En situaciones en las que sea necesario garantizar que la solicitud ha sido registrada, se deben implementar medidas de seguridad adicionales a las ofrecidas por Kore.{{< /alert >}}
 
 Las solicitudes de eventos contienen lo siguiente:
 

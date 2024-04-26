@@ -1,7 +1,7 @@
 ---
 title: Contratos en Kore
 linkTitle: Introducción
-date: 2023-11-29
+date: 2024-04-26
 weight: 1
 description: Introducción a la programación de contratos en Kore Ledger.
 ---
@@ -24,7 +24,7 @@ Cuando un contrato termina de ejecutarse, genera tres resultados:
 
    * **Flag de aprobación**: el contrato debe decidir si un evento debe [aprobarse](../../../getting-started/concepts/roles/_index.md/#aprobador) o no. Nuevamente, esto dependerá enteramente del caso de uso, siendo responsabilidad del programador establecer cuándo es necesario. Así, la aprobación se fija como una fase facultativa pero también **condicional**.
 
-{{< alert type="warning" title="CAUTION" >}}Los contratos Kore funcionan sin ningún estado asociado. Toda la información con la que pueden trabajar es la que reciben como entrada. Esto significa que el valor de las variables no se retiene entre ejecuciones, marcando una diferencia importante respecto a los contratos inteligentes de otras plataformas, como Ethereum. {{< /alert >}}
+{{< alert type="warning" title="ATENCIÓN" >}}Los contratos Kore funcionan sin ningún estado asociado. Toda la información con la que pueden trabajar es la que reciben como entrada. Esto significa que el valor de las variables no se retiene entre ejecuciones, marcando una diferencia importante respecto a los contratos inteligentes de otras plataformas, como Ethereum. {{< /alert >}}
 
 ## Ciclo de vida
 {{< imgproc cycle Fit "2000x600" >}}
@@ -36,7 +36,7 @@ Los contratos se definen en proyectos locales de Rust, el único lenguaje permit
 ### Distribución
 Una vez definido el contrato, se debe incluir en una gobernanza y asociar a un esquema para que pueda ser utilizado por los nodos de una red. Para ello es necesario realizar una operación de actualización de gobernanza en la que se incluye el contrato en el apartado correspondiente y se codifica en **base64**. Si se ha definido una batería de prueba, no es necesario incluirla en el proceso de codificación.
 
-{{< alert type="warning" title="CAUTION" >}}Dado que los nodos Kore están a cargo de la compilación del contrato, es necesario que la **base64** incluya el contrato en su totalidad. En otras palabras, el contrato debe redactarse íntegramente en un único archivo y codificado.
+{{< alert type="warning" title="ATENCIÓN" >}}Dado que los nodos Kore están a cargo de la compilación del contrato, es necesario que la **base64** incluya el contrato en su totalidad. En otras palabras, el contrato debe redactarse íntegramente en un único archivo y codificado.
 
 Esta es una limitación actual y se espera que haya otras alternativas disponibles en el futuro. {{< /alert >}}
 

@@ -1,5 +1,5 @@
 ---
 title: Conceptos
 description: Definiciones de conceptos clave en Kore Ledger.
-date: 2023-11-30
+date: 2024-04-26
 ---

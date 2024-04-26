@@ -23,7 +23,7 @@ These are the persons, entities or organizations that participate in **governanc
 The **policies** define the specific conditions under which the life cycle of an event is affected, such as the number of signatures required to carry out the evaluation, approval and validation processes. This is called quorum.
 The **governance** configuration allows the definition of [different types of quorum] , more or less restrictive, depending on the need of the use case.
 
-{{< alert type="warning" title="Caution">}}As we know, the owner of a subject is the only one who can act on it , and therefore has absolute freedom to modify it. Governance cannot prevent malicious owners from trying to perform forbidden actions, but it does define the conditions under which the other participants ignore or penalize these malicious behaviors. {{< /alert >}}
+{{< alert type="warning" title="CAUTION">}}As we know, the owner of a subject is the only one who can act on it , and therefore has absolute freedom to modify it. Governance cannot prevent malicious owners from trying to perform forbidden actions, but it does define the conditions under which the other participants ignore or penalize these malicious behaviors. {{< /alert >}}
 
 ## Governance as a subject
 The **governance** is a subject of traceability, since it can evolve and adapt to business needs, and therefore its lifecycle is also determined by a **governance**, which endows our infrastructure with transparency and trust for all participants.

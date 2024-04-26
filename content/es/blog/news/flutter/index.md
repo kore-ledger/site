@@ -1,5 +1,5 @@
 ---
-date: 2024-04-19
+date: 2024-04-26
 title: Flutter Rust Bridge 🦀 Una Historia de Innovación y Desafíos
 linkTitle: Flutter Rust Bridge 🦀
 description: >
@@ -27,7 +27,7 @@ El viaje comienza con la instalación de los requisitos previos, primero necesit
 - [Instalación de Flutter](https://flutter.dev/docs/get-started/install)
 - [Instalación de Rust](https://www.rust-lang.org/tools/install)
 
-{{< alert type="warning"  title="Advertencia" >}}Asegúrate de ejecutar `flutter doctor` y resolver cualquier problema que se presente antes de comenzar a trabajar con __Flutter Rust Bridge__. Esta herramienta verifica que tengas todas las dependencias y configuraciones necesarias para trabajar con Flutter.{{< /alert >}}
+{{< alert type="warning"  title="ATENCIÓN" >}}Asegúrate de ejecutar `flutter doctor` y resolver cualquier problema que se presente antes de comenzar a trabajar con __Flutter Rust Bridge__. Esta herramienta verifica que tengas todas las dependencias y configuraciones necesarias para trabajar con Flutter.{{< /alert >}}
 
 ### La Creación del Proyecto
 Con los cimientos en su lugar, los desarrolladores dan el siguiente paso: iniciar un nuevo proyecto. Aquí es donde la magia realmente comienza. Para iniciar el proyecto debemos ejecutar el siguiente comando que nos permitira instalar la librería [flutter_rust_bridge_codegen](https://github.com/fzyzcjy/flutter_rust_bridge) encargada entre otras cosas de realizar la conversión de rust a dart.
@@ -127,7 +127,7 @@ class UserAuth {
 Podemos observar como se ha creado una función transformado el _async_ a _Future_ en dart y se crea una tarea que realiza una llamada a la función de rust(`callFfi`) tomando un puerto, definido en `_port`. Dentro de la llamada se pasan los argumentos del nombre y contraseña del usuario.
 Posteriormente se ha tranformado el _struct_ a una clase con los atributos de tipo _String_. Además se realiza un getter para obtener los datos de la clase y una sobrecarga del operador `==`.
 
-{{< alert type="warning" title="Advertencia" >}}En este ejemplo se han usado tipo básicos como _String_ pero  no todos los tipos de rust tienen conversión actualmente soportada. Para revisar los tipos dirijase a este [enlace](https://cjycode.com/flutter_rust_bridge/guides/types)  {{< /alert >}}
+{{< alert type="warning" title="ATENCIÓN" >}}En este ejemplo se han usado tipo básicos como _String_ pero  no todos los tipos de rust tienen conversión actualmente soportada. Para revisar los tipos dirijase a este [enlace](https://cjycode.com/flutter_rust_bridge/guides/types)  {{< /alert >}}
 
 Por último desde nuestra applicación de flutter podremos importar y usar esa función.
 
@@ -155,7 +155,7 @@ En caso de un build para aplicaciones
 ```bash
 flutter build [macos|ios|apk|window]
 ```
-{{< alert type="warning"title="Advertencia"  >}}Dependiendo del host que realice el build podremos compilar para otros sistemas por ejemplo si estamos en Windows solo podremos hacer build para Android y Windows, si estamos en Mac podremos hacer build en Ios, Mac y Android.{{< /alert >}}
+{{< alert type="warning"title="ATENCIÓN"  >}}Dependiendo del host que realice el build podremos compilar para otros sistemas por ejemplo si estamos en Windows solo podremos hacer build para Android y Windows, si estamos en Mac podremos hacer build en Ios, Mac y Android.{{< /alert >}}
 
 
 ## Arquitectura

@@ -1,6 +1,6 @@
 ---
 title: DLT
-date: 2023-11-29
+date: 2024-04-26
 weight: 11
 description: Concepto de Tecnología de Contabilidad Distribuida (DLT por sus siglas en inglés).
 resources:

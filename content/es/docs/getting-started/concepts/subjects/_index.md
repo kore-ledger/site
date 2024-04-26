@@ -14,15 +14,18 @@ Cada sujeto cumple con lo siguiente:
 ## Microledger
 Cada sujeto contiene internamente un libro de contabilidad en el que se registran los eventos que afectan únicamente a ese sujeto, el **microledger**. Este **microledger** es un conjunto de eventos encadenados mediante mecanismos criptográficos. Es similar a una blockchain en que los diferentes elementos de la cadena se relacionan incluyendo la huella criptográfica del elemento inmediatamente anterior, pero, a diferencia de las blockchains en las que cada bloque puede incluir un conjunto de transacciones, posiblemente de diferentes cuentas, en el **microledger**. cada elemento representa un único evento del propio sujeto.
 
+{{< imgproc microledger Fit "1800x400" >}}
+{{< /imgproc >}}
+
 ## Estado del Sujeto
 El estado es la representación de la información almacenada por un sujeto en un instante determinado, normalmente el momento actual. El estado se obtiene aplicando, uno tras otro, los diferentes eventos del **microledger** sobre el estado inicial del sujeto definido en su **evento-génesis**. 
 
-{{< imgproc subject Fit "1800x800" >}}
-{{< /imgproc >}}
 
-{{< alert type="info" title="Información">}}La estructura del estado debe corresponder a un esquema válido. Para obtener más información sobre los esquemas, visite la página [Esquemas](../schema).{{< /alert >}}
+![Subject](subject.gif)
 
-{{< alert type="warning" title="Precaución">}}A diferencia de otras DLT, Kore no tiene tablas de datos. La información se almacena en una sola entidad, el estado sujeto. Esta entidad debe representar únicamente el estado final de nuestro sujeto, mientras que los detalles de los diferentes eventos se almacenarán en el microledger.{{< /alert >}}
+{{< alert type="info" title="INFORMACIÓN">}}La estructura del estado debe corresponder a un esquema válido. Para obtener más información sobre los esquemas, visite la página [Esquemas](../schema).{{< /alert >}}
+
+{{< alert type="warning" title="ATENCIÓN">}}A diferencia de otras DLT, Kore no tiene tablas de datos. La información se almacena en una sola entidad, el estado sujeto. Esta entidad debe representar únicamente el estado final de nuestro sujeto, mientras que los detalles de los diferentes eventos se almacenarán en el microledger.{{< /alert >}}
 
 ## Modelo de propiedad
 Cualquier sujeto tiene un único propietario, siendo este el único participante de la red que puede realizar modificaciones efectivas sobre el sujeto, es decir, agregar eventos en el **microledger**. Sin embargo, otros participantes, los emisores, pueden generar solicitudes de eventos. Estas solicitudes de eventos son firmadas por el emisor y enviadas al propietario del sujeto.

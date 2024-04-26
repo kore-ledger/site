@@ -18,7 +18,7 @@ The approval process consists of the following steps:
   - There are so many negative votes that it is impossible to get the application approved.
 In both cases, the owner will generate an event. In the case that the vote has not been successful, the event will be generated but it will not produce changes in the state of the subject, remaining merely for informational purposes.
 
-{{< alert type="warning" title="Warning">}}It is important to remember that the subject owner is the only one who can force an effective change on a subject. Therefore, the owner, after the approval process, could decide whether or not to include the event in the chain. This would not follow the standard behavior defined by Kore, but it would not break compatibility.{{< /alert >}}
+{{< alert type="warning" title="CAUTION">}}It is important to remember that the subject owner is the only one who can force an effective change on a subject. Therefore, the owner, after the approval process, could decide whether or not to include the event in the chain. This would not follow the standard behavior defined by Kore, but it would not break compatibility.{{< /alert >}}
 
 ```mermaid
 sequenceDiagram

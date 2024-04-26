@@ -1,7 +1,7 @@
 ---
 title: Contracts in Kore
 linkTitle: Introduction
-date: 2024-04-25
+date: 2024-04-26
 weight: 1
 description: Introduction to contract programming in Kore Ledger.
 ---
@@ -24,7 +24,7 @@ When a contract is finished executing, it generates three outputs:
 
   * **Approval flag**: The contract must decide whether or not an event should be [approved](../../../getting-started/concepts/roles/_index.md/#approved). Again, this will depend entirely on the use case, being the responsibility of the programmer to establish when it is necessary. Thus, approval is set as an optional but also **conditional** phase.
 
-{{< alert type="warning" title="ATENCIÓN" >}}Kore contracts work without any associated status. All the information they can work with is what they receive as input. This means that the value of variables is not retained between executions, marking an important difference with respect to smart contracts on other platforms, such as Ethereum. {{< /alert >}}
+{{< alert type="warning" title="CAUTION" >}}Kore contracts work without any associated status. All the information they can work with is what they receive as input. This means that the value of variables is not retained between executions, marking an important difference with respect to smart contracts on other platforms, such as Ethereum. {{< /alert >}}
 
 ## Life cycle
 {{< imgproc cycle Fit "2000x600" >}}
@@ -36,7 +36,7 @@ Contracts are defined in local Rust projects, the only language allowed for writ
 ### Distribution
 Once the contract has been defined, it must be included in a governance and associated to a schema so that it can be used by the nodes of a network. To this end, it is necessary to perform a governance update operation in which the contract is included in the corresponding section and coded in **base64**. If a test battery has been defined, it does not need to be included in the encoding process.
 
-{{< alert type="warning" title="ATENCIÓN" >}}Since the Kore nodes are in charge of contract compilation, it is necessary that the **base64** includes the contract in its entirety. In other words, the contract should be written entirely in a single file and encoded.
+{{< alert type="warning" title="CAUTION" >}}Since the Kore nodes are in charge of contract compilation, it is necessary that the **base64** includes the contract in its entirety. In other words, the contract should be written entirely in a single file and encoded.
 
 This is a current limitation and other alternatives are expected to be available in the future. {{< /alert >}}
 

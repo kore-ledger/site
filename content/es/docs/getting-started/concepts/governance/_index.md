@@ -23,7 +23,7 @@ Los [roles](../roles/_index.md) representan grupos de participantes con algún t
 Las **políticas** definen las condiciones específicas bajo las cuales se afecta el ciclo de vida de un evento, como el número de firmas necesarias para llevar a cabo los procesos de evaluación, aprobación y validación. A esto se le llama quórum.
 La configuración de **gobernanza** permite la definición de [distintos tipos de quórum] , más o menos restrictivos, dependiendo de la necesidad del caso de uso.
 
-{{< alert type="warning" title="Precaución">}}Como sabemos, el propietario de un sujeto es el único que puede actuar sobre él , y por tanto tiene absoluta libertad para modificarlo. La gobernanza no puede impedir que los propietarios maliciosos intenten realizar acciones prohibidas, pero sí define las condiciones bajo las cuales el resto de participantes ignoran o penalizan estos comportamientos maliciosos. {{< /alert >}}
+{{< alert type="warning" title="ATENCIÓN">}}Como sabemos, el propietario de un sujeto es el único que puede actuar sobre él , y por tanto tiene absoluta libertad para modificarlo. La gobernanza no puede impedir que los propietarios maliciosos intenten realizar acciones prohibidas, pero sí define las condiciones bajo las cuales el resto de participantes ignoran o penalizan estos comportamientos maliciosos. {{< /alert >}}
 
 ## La gobernanza como sujeto
 La **gobernanza** es un sujeto de trazabilidad, dado que puede evolucionar y adaptarse a las necesidades de negocio, y por tanto su ciclo de vida también esta determinado por una **gobernanza**, lo que dota a nuestra infraestructura de transparencia y confianza para todos los participantes.
