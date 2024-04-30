@@ -1,6 +1,11 @@
 ---
 title: Eventos
 description: Eventos dentro de la red Kore Ledger.
+weight: 5
+resources:
+- src: "protocol.png"
+  params: 
+    byline: "*Figure 1: Ciclo de vida.*"
 ---
 
 Los eventos son las estructuras de datos que representan los hechos que se deben rastrear durante la vida de un sujeto. Estas estructuras constituyen el **micrologger**, es decir, la cadena de acontecimientos.
@@ -17,8 +22,8 @@ Cada evento se compone de lo siguiente:
 La **gobernanza** determina el procolo por el que los eventos son incorporados al ciclo de vida del sujeto de trazabilidad.
 El ciclo de vida del evento se compone de 6 etapas, desde su solicitud de generación hasta su distribución.
 
-{{< imgproc protocol Fit "1800x800" >}}
-{{< /imgproc >}}
+{{% imgproc protocol Fit "1800x800"  %}}
+{{% /imgproc %}}
 
 
 ### 1. Solicitud 

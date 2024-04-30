@@ -1,6 +1,7 @@
 ---
 title: Identity
 description: Identity disciption in Kore Ledger.
+weight: 6
 ---
 
 Each participant in a Kore Ledger network has a unique identifier and a private key that allows him/her to sign the transactions made. In addition, depending on their interest in each subject and their level of involvement with the network, each participant will have one or more different roles.

@@ -1,6 +1,7 @@
 ---
 title: Esquema
 description: Descripción del esquema.
+weight: 4
 ---
 
 El **esquema** es la estructura del estado contenido en un sujeto.
@@ -18,3 +19,7 @@ Los **esquemas** se componen de 2 elementos:
 }
 
 ```
+
+{{< alert type="info" title="INFO">}}
+Si desea aprender cómo definir un esquema JSON, visite el siguiente [enlace](../../../learn/json-schema/).
+{{< /alert >}}

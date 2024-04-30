@@ -1,6 +1,14 @@
 ---
 title: Governance
 description: Governance Description.
+weight: 1
+resources:
+- src: "diagram.png"
+  params: 
+    byline: "*Figure 2: Hierarchy of relationships .*"
+- src: "governance.png"
+  params: 
+    byline: "*Figure 1: Governance components.*"
 ---
 
 The **governance** is the set of definitions and rules that establish how the different nodes participating in a network relate to the subjects of traceability and interact with each other. The components of **governance** are:
@@ -10,8 +18,9 @@ The **governance** is the set of definitions and rules that establish how the di
 - The contract to apply the events that modify the state of the subject.
 - The permissions of each participant to participate in the network.
 
-{{< imgproc governance Fit "1800x400" >}}
-{{< /imgproc >}}
+{{% imgproc governance Fit "1800x400"  %}}
+{{% /imgproc %}}
+
 
 ## Members
 These are the persons, entities or organizations that participate in **governance** and therefore may be part of the supported use cases. Each member declares a unique identifier representing the cryptographic material with which it will operate in the network, its [identity](../identifiers/_index.md) .
@@ -43,5 +52,5 @@ Governance defines the rules to be followed in a use case. However, the owner of
   - is modeled by a schema.
   - has namespaces.
 
-{{< imgproc diagram Fit "1800x700" >}}
-{{< /imgproc >}}
+{{% imgproc diagram Fit "1800x700"  %}}
+{{% /imgproc %}}

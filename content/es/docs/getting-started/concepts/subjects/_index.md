@@ -1,6 +1,14 @@
 ---
 title: Sujeto
 description: Descripción del sujeto.
+weight: 2
+resources:
+- src: "microledger.png"
+  params: 
+    byline: "*Figure 1: Registro de eventos en Blockchain y Kore Ledger.*"
+- src: "subject.gif"
+  params: 
+    byline: "*Figure 2: Evento de registro.*"
 ---
 
 En lugar de tener un único libro de contabilidad compartido por todos los participantes, la información se estructura sujeto por sujeto. Los sujetos son entidades lógicas que representan un activo o proceso dentro de una red
@@ -14,8 +22,8 @@ Cada sujeto cumple con lo siguiente:
 ## Microledger
 Cada sujeto contiene internamente un libro de contabilidad en el que se registran los eventos que afectan únicamente a ese sujeto, el **microledger**. Este **microledger** es un conjunto de eventos encadenados mediante mecanismos criptográficos. Es similar a una blockchain en que los diferentes elementos de la cadena se relacionan incluyendo la huella criptográfica del elemento inmediatamente anterior, pero, a diferencia de las blockchains en las que cada bloque puede incluir un conjunto de transacciones, posiblemente de diferentes cuentas, en el **microledger**. cada elemento representa un único evento del propio sujeto.
 
-{{< imgproc microledger Fit "1800x400" >}}
-{{< /imgproc >}}
+{{% imgproc microledger Fit "1800x400"  %}}
+{{% /imgproc %}}
 
 ## Estado del Sujeto
 El estado es la representación de la información almacenada por un sujeto en un instante determinado, normalmente el momento actual. El estado se obtiene aplicando, uno tras otro, los diferentes eventos del **microledger** sobre el estado inicial del sujeto definido en su **evento-génesis**. 

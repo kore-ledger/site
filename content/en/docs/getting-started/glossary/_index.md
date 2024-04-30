@@ -32,7 +32,7 @@ Stands for "Distributed Ledger Technology". A DLT is nothing more than a databas
 ## E
 
 ### Edge Devices
-A device that provides an entry point into enterprise or service provider core networks.
+A device that provides an entry point into enterprise or service provider kore networks.
 
 ### Event
 The incident that occurs when the state of a subject is intended to be modified.
@@ -44,7 +44,7 @@ It is an architecture that uses edge devices to carry out a substantial amount o
 
 
 ### Fog GateWay
-Synonym for Edge Devices. A device that provides an entry point into enterprise or service provider core networks.
+Synonym for Edge Devices. A device that provides an entry point into enterprise or service provider kore networks.
 
 ## G
 

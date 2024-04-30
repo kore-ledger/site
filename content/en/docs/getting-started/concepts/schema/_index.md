@@ -1,6 +1,7 @@
 ---
 title: Schema
 description: Description of schema.
+weight: 4
 ---
 
 The **schema** is the structure of the state contained in a subject.
@@ -18,3 +19,7 @@ The **schemas** are composed of 2 elements:
 }
 
 ```
+
+{{< alert type="info" title="INFO">}}
+If you want to learn how to define a JSON schema, visit the following [link](../../../learn/json-schema/).
+{{< /alert >}}

@@ -1,6 +1,7 @@
 ---
 title: Roles
 description: Descripción de los roles.
+weight: 3
 ---
 
 Cada participante de la red interactúa con ella en función de diferentes intereses. Estos intereses están representados en Kore como roles

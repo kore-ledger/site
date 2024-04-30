@@ -1,6 +1,6 @@
 ---
 title: Proceso de evaluación de eventos
-description: Descripción del proceso de evaluación del Evento.
+description: Descripción del proceso de evaluación del evento.
 ---
 La fase de evaluación consiste en que el propietario del sujeto envía una solicitud de evaluación a los evaluadores, justo después de que el emisor generó una solicitud de evento con el tipo de evento y su contenido. Actualmente, la evaluación sólo está presente en eventos de tipo Fact, en los otros tipos se omite. Estos acontecimientos afectan a un determinado sujeto para establecer un Fact que puede modificar o no el estado del sujeto. También se envía un contexto que contiene la información necesaria para que los evaluadores ejecuten el **contrato** que contiene la lógica de evaluación de nuestro sujeto, como el estado anterior, si el emisor es el propietario del sujeto, etc. Este es el caso porque los evaluadores no necesariamente tienen una copia del sujeto, por lo que necesitan estos datos, que incluyen todo lo necesario para la ejecución del contrato.
 

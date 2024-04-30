@@ -1,6 +1,14 @@
 ---
 title: Gobernanza
 description: Descripción de la gobernanza.
+weight: 1
+resources:
+- src: "diagram.png"
+  params: 
+    byline: "*Figure 2: Jerarquía de relaciones .*"
+- src: "governance.png"
+  params: 
+    byline: "*Figure 1: Componentes de la gobernanza.*"
 ---
 
 La **gobernanza** es el conjunto de definiciones y reglas que establecen cómo los diferentes nodos participantes en una red se relacionan con los sujetos de la trazabilidad e interaccionan entre si. Los componentes de las **gobernanza** son:
@@ -10,8 +18,8 @@ La **gobernanza** es el conjunto de definiciones y reglas que establecen cómo l
 - El contrato para aplicar los eventos que modifican el estado del sujeto.
 - Los permisos de cada participante para participar en la red.
 
-{{< imgproc governance Fit "1800x400" >}}
-{{< /imgproc >}}
+{{% imgproc governance Fit "1800x400"  %}}
+{{% /imgproc %}}
 
 ## Miembros
 Estas son las personas, entidades u organizaciones que participan en la **gobernanza** y por tanto pueden ser parte de los casos de uso que se soportan. Cada miembro declara un identificador único que representa el material criptográfico con el que operará en la red, su [identidad](../identifiers/_index.md) .
@@ -43,5 +51,5 @@ La gobernanza define las reglas a seguir en un caso de uso. Sin embargo, el titu
   - está modelado por un esquema.
   - tiene espacios de nombres.
 
-{{< imgproc diagram Fit "1800x700" >}}
-{{< /imgproc >}}
+{{% imgproc diagram Fit "1800x700"  %}}
+{{% /imgproc %}}

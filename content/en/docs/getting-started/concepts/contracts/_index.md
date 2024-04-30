@@ -1,6 +1,7 @@
 ---
 title: Contracts
 description: Kore Ledger Contracts.
+weight: 7
 ---
 
 ## Definition

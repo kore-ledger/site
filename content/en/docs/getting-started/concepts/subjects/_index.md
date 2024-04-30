@@ -1,6 +1,14 @@
 ---
 title: Subject
 description: Description of subject.
+weight: 2
+resources:
+- src: "microledger.png"
+  params: 
+    byline: "*Figure 1: Event registration in Blockchain and Kore Ledger.*"
+- src: "subject.gif"
+  params: 
+    byline: "*Figure 2: Evento de registro.*"
 ---
 
 Instead of having a single ledger shared by all participants, the information is structured subject by subject. Subjects are logical entities that represent an asset or process within a network.
@@ -14,15 +22,15 @@ Each subject complies with the following:
 ## Microledger
 Each subject internally contains a ledger in which events affecting only that subject are recorded, the **microledger**. This **microledger** is a set of events chained together using cryptographic mechanisms. It is similar to a blockchain in that the different elements of the chain are related including the cryptographic fingerprint of the immediately preceding element, but, unlike blockchains where each block may include a set of transactions, possibly from different accounts, in the **microledger**. each element represents a single event of the subject itself.
 
-{{< imgproc microledger Fit "1800x400" >}}
-{{< /imgproc >}}
+{{% imgproc microledger Fit "1800x400"  %}}
+{{% /imgproc %}}
 
 ## Subject State
 The state is the representation of the information stored by a subject at a given instant, usually the current time. The state is obtained by applying, one after the other, the different events of the **microledger** on the initial state of the subject defined in its **event-genesis**. 
 
 ![Subject](subject.gif)
 
-{{< alert type="info" title="INFO">}}The state structure must correspond to a valid schema. For more information about schemas, please visit the [Schemas](../schema/_index.md).{{< /alert >}}
+{{< alert type="info" title="INFO">}}The state structure must correspond to a valid schema. For more information about schemas, please visit the [Schemas](../schema).{{< /alert >}}
 
 {{< alert type="warning" title="CAUTION">}} Unlike other DLTs, Kore has no data tables. The information is stored in a single entity, the subject state. This entity should represent only the final state of our subject, while the details of the different events will be stored in the microledger.{{< /alert >}}
 

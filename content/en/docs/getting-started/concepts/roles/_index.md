@@ -1,6 +1,7 @@
 ---
 title: Roles
 description: Role description.
+weight: 3
 ---
 
 Each participant in the network interacts with it based on different interests. These interests are represented in Kore as roles
