@@ -13,7 +13,7 @@ There are different ways in which the user can acquire these tools. The first an
 ### Compiling binaries
 
 ```bash
-git clone -b release-0.3 https://github.com/opencanarias/Kore-client.git
+git clone -b release-0.3 https://github.com/kore-ledger/Kore-client.git
 cd Kore-client
 sudo apt install -y libprotobuf-dev protobuf-compiler cmake
 cargo install --path tools/keygen
@@ -27,7 +27,7 @@ Kore-patch -h
 ### Using docker images
 
 ```bash
-git clone -b release-0.3 https://github.com/opencanarias/Kore-client.git
+git clone -b release-0.3 https://github.com/kore-ledger/Kore-client.git
 cd Kore-client
 chmod +x ./tools/scripts/Kore-keygen
 chmod +x ./tools/scripts/Kore-sign

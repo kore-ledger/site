@@ -27,7 +27,7 @@ Kore-patch -h
 ### Usando imágenes docker
 
 ```bash
-git clone -b release-0.3 https://github.com/opencanarias/Kore-client.git
+git clone -b release-0.3 https://github.com/kore-ledger/Kore-client.git
 cd Kore-client
 chmod +x ./tools/scripts/Kore-keygen
 chmod +x ./tools/scripts/Kore-sign

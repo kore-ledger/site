@@ -24,7 +24,7 @@ When a contract is finished executing, it generates three outputs:
 
   * **Approval flag**: The contract must decide whether or not an event should be [approved](../../../getting-started/concepts/roles/_index.md/#approved). Again, this will depend entirely on the use case, being the responsibility of the programmer to establish when it is necessary. Thus, approval is set as an optional but also **conditional** phase.
 
-{{< alert type="warning" title="CAUTION" >}}Kore contracts work without any associated status. All the information they can work with is what they receive as input. This means that the value of variables is not retained between executions, marking an important difference with respect to smart contracts on other platforms, such as Ethereum. {{< /alert >}}
+{{< alert type="warning" title="CAUTION" >}}Kore contracts work without any associated status. All the information they can work with is what they receive as input. This means that the value of variables is not retained between executions, marking an important difference with respect to contracts on other platforms, such as Ethereum. {{< /alert >}}
 
 ## Life cycle
 {{< imgproc cycle Fit "2000x600" >}}

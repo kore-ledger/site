@@ -28,9 +28,9 @@ Owner->>Evaluator2: Generate Evaluation Request
 Owner->>Evaluator3: Generate Evaluation Request
 
 alt Governance Access Granted and Governance Version Matches
-    Evaluator1->>Evaluator1: Check Governance and Execute Smart Contract
-    Evaluator2->>Evaluator2: Check Governance and Execute Smart Contract
-    Evaluator3->>Evaluator3: Check Governance and Execute Smart Contract
+    Evaluator1->>Evaluator1: Check Governance and Execute Contract
+    Evaluator2->>Evaluator2: Check Governance and Execute Contract
+    Evaluator3->>Evaluator3: Check Governance and Execute Contract
     alt Evaluation Successful
         Evaluator1->>Owner: Return Evaluation Response and Evaluator's Signature
         Evaluator2->>Owner: Return Evaluation Response and Evaluator's Signature

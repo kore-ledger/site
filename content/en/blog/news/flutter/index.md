@@ -8,7 +8,6 @@ resources:
   - src: "**.{png,jpg}"
     title: "Image #:counter"
 ---
-
 ## Introduction
 
 A few years ago, in a corner of the technology world, a group of visionary developers sought to combine the best of two worlds: the power and security of Rust with the versatility of Flutter. Thus was born __Flutter Rust Bridge__, a tool that breaks new ground for developers who want to integrate Rust code into Flutter applications.
@@ -28,6 +27,9 @@ The journey begins with installing the prerequisites, first you need to have Flu
 - [Rust installation](https://www.rust-lang.org/tools/install)
 
 {{< alert type="warning" title="CAUTION">}}Be sure to run `flutter doctor` and resolve any problems before you start working with __Flutter Rust Bridge__. This tool verifies that you have all the dependencies and configurations needed to work with Flutter.{{< /alert >}}
+
+
+
 
 
 ### The Creation of the Project

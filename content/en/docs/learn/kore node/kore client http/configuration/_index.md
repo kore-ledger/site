@@ -150,7 +150,7 @@ The configuration of a Kore-Client node can be done in different ways. The suppo
 <table>
   <tr>
     <td><b>Description</b></td>
-    <td>Path where smart contracts are compiled</td>
+    <td>Path where contracts are compiled</td>
   </tr>
   <tr>
     <td><b>EnvVar</b></td>
