@@ -2,6 +2,7 @@
 title: Creating the governance
 description: Steps to create governance
 weight: 2
+date: 2024-05-02
 ---
 
 Now that we have been able to launch our first node, the first thing we must do for it to be useful is to create a [governance](../../../docs/getting-started/concepts/governance/_index.md). Governances are special subjects that define the rules of the use case at hand. Without governance, there can be no subjects. Both its [scheme and its contract](../../../docs/learn/Governance/schema/_index.md) are fixed and defined in kore's code. The same goes for its [structure](../../../docs/learn/Governance/structure/_index.md).

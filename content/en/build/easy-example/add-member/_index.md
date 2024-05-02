@@ -2,6 +2,7 @@
 title: Adding members
 description: Adding members to governance
 weight: 3
+date: 2024-05-02
 ---
 {{ partial "page-meta-lastmod.html" .}}
 ## Second node

@@ -2,6 +2,7 @@
 title: Run first node
 description: Steps to set up the first Kore node
 weight: 1
+date: 2024-05-02
 ---
 To launch a kore node, you must execute the [kore-client](https://github.com/kore-ledger/kore-client) binary, located in the client folder of the repository. To use its Docker image, go to the page on [dockerhub](https://hub.docker.com/r/kore-ledger/kore-client).
 
