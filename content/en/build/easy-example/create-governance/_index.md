@@ -69,7 +69,7 @@ The endpoint to use is the same as for creation, but the type of event will be [
 {
   "request": {
     "Fact": {
-      "subject_id": "{{governance_id}}",
+      "subject_id": "{{GOVERNANCE-ID}}",
       "payload": {
           "Patch": {
               "data": [
@@ -115,7 +115,7 @@ curl --silent 'http://localhost:3000/api/event-requests' \
 }'
 ```
 
-Replace  **{{governance_id}}** with the **SubjectId**  of the governance we have created. The id of our user we get from when we used kore-keygen in the previous step. It is our KeyIdentifier, which identifies our public key. The Patch method is the only one that currently contains the contract of the governance and it simply applies a json-patch to its state. This method requires the [Approval phase](../../../docs/getting-started/advanced/approval/_index.md).
+Replace  **{{GOVERNANCE-ID}}** with the **SubjectId**  of the governance we have created. The id of our user we get from when we used kore-keygen in the previous step. It is our KeyIdentifier, which identifies our public key. The Patch method is the only one that currently contains the contract of the governance and it simply applies a json-patch to its state. This method requires the [Approval phase](../../../docs/getting-started/advanced/approval/_index.md).
 
 As we mentioned earlier, the creator will be the signer in all phases if no one else is defined, so for this event 1 we will be the [Evaluator](../../../docs/getting-started/advanced/evaluation/_index.md), [Approver](../../../docs/getting-started/advanced/approval/_index.md), and [Validator](../../../docs/getting-started/advanced/validation/_index.md). Evaluation and validation work automatically, but the approval part requires user intervention through the API (provided the environment variable that automatically approves is not defined).
 

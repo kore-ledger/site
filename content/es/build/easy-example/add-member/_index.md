@@ -17,7 +17,7 @@ La nueva solicitud sería:
 {
   "request": {
     "Fact": {
-      "subject_id": "{{governance_id}}",
+      "subject_id": "{{GOVERNANCE-ID}}",
       "payload": {
           "Patch": {
               "data": [
@@ -84,7 +84,7 @@ kore-ledger/kore-client:0.3
 Preste atención a la dirección IP especificada en `KORE_NETWORK_KNOWN_NODE` ya que puede ser diferente en su caso. Debe especificar una IP que permita que el segundo contenedor se comunique con el primero.
 {{< /alert >}}
 
-Ahora que está activo y encuentra el nodo definido en **KORE_NETWORK_KNOWN_NODE**. Los eventos de la gobernanza comenzarán a llegar al segundo nodo, aunque aún no quedarán guardados en su base de datos. Esto se debe a que las gobernanzas siempre deben estar previamente autorizadas para permitir la recepción de sus eventos. Para esto se utiliza el endpoint **/api/allowed-subjects/{{governance_id}}** y el método **PUT**. Recordad que en este caso hay que lanzarlo en el segundo nodo, que por la configuración que hemos puesto estará escuchando en el puerto 3001 de localhost. El segundo nodo ahora se actualizará correctamente con el sujeto de gobernanza.
+Ahora que está activo y encuentra el nodo definido en **KORE_NETWORK_KNOWN_NODE**. Los eventos de la gobernanza comenzarán a llegar al segundo nodo, aunque aún no quedarán guardados en su base de datos. Esto se debe a que las gobernanzas siempre deben estar previamente autorizadas para permitir la recepción de sus eventos. Para esto se utiliza el endpoint **/api/allowed-subjects/{{GOVERNANCE-ID}}** y el método **PUT**. Recordad que en este caso hay que lanzarlo en el segundo nodo, que por la configuración que hemos puesto estará escuchando en el puerto 3001 de localhost. El segundo nodo ahora se actualizará correctamente con el sujeto de gobernanza.
 
 ```bash
 curl --silent --request PUT 'http://localhost:3001/api/allowed-subjects/Jz6RNP5F7wNoSeCH65MXYuNVInyuhLvjKb5IpRiH_J6M' \
@@ -144,7 +144,7 @@ Entonces el cuerpo de la solicitud será:
 {
   "request": {
     "Fact": {
-      "subject_id": "{{governance_id}}",
+      "subject_id": "{{GOVERNANCE-ID}}",
       "payload": {
           "Patch": {
               "data": [
@@ -231,7 +231,7 @@ Ahora lanzaremos el evento que suma al tercer miembro a la gobernanza, pero para
 {
   "request": {
     "Fact": {
-      "subject_id": "{{governance_id}}",
+      "subject_id": "{{GOVERNANCE-ID}}",
       "payload": {
           "Patch": {
               "data": [

@@ -67,7 +67,7 @@ El punto final a utilizar es el mismo que para la creación, pero el tipo de eve
 {
   "request": {
     "Fact": {
-      "subject_id": "{{governance_id}}",
+      "subject_id": "{{GOVERNANCE-ID}}",
       "payload": {
           "Patch": {
               "data": [
@@ -113,7 +113,7 @@ curl --silent 'http://localhost:3000/api/event-requests' \
 }'
 ```
 
-Reemplace **{{governance_id}}** con el **SubjectId** de la gobernanza que hemos creado. La identificación de nuestro usuario que obtenemos cuando usamos kore-keygen en el paso anterior. Es nuestro KeyIdentifier, que identifica nuestra clave pública. El método Patch es el único que actualmente contiene el contrato de gobernanza y simplemente aplica un JSON Patch a su estado. Este método requiere la fase de [Aprobación](../../../docs/getting-started/advanced/approval/_index.md).
+Reemplace **{{GOVERNANCE-ID}}** con el **SubjectId** de la gobernanza que hemos creado. La identificación de nuestro usuario que obtenemos cuando usamos kore-keygen en el paso anterior. Es nuestro KeyIdentifier, que identifica nuestra clave pública. El método Patch es el único que actualmente contiene el contrato de gobernanza y simplemente aplica un JSON Patch a su estado. Este método requiere la fase de [Aprobación](../../../docs/getting-started/advanced/approval/_index.md).
 
 Como mencionamos anteriormente, el creador será el firmante en todas las fases si no hay nadie más definido, por lo que para este evento 1 seremos el [Evaluador](../../../docs/getting-started/advanced/evaluation/_index.md), [Aprobador](../../../docs/getting-started/advanced/approval/_index.md) y [Validador](../../../docs/getting-started/advanced/validation/_index.md). La evaluación y validación funcionan automáticamente, pero la parte de aprobación requiere la intervención del usuario a través de la API (siempre que la variable de entorno que aprueba automáticamente no esté definida).
 
