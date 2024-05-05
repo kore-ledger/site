@@ -754,7 +754,7 @@ curl --request PATCH 'http://localhost:3000/api/approval-requests/{{PREVIUS-ID}}
 --data-raw '{"state": "RespondedAccepted"}'
 ```
 
-Finally, we query the governance to verify that the change has been successfully applied. If everything has gone according to plan, it should now have an `sn` of 2, and the new policy, schema, initial state for *Wine* subjects, and the smart contract should be present:
+Finally, we query the governance to verify that the change has been successfully applied. If everything has gone according to plan, it should now have an `sn` of 2, and the new policy, schema, initial state for *Wine* subjects, and the contract should be present:
 
 ```bash
 curl --request GET 'http://localhost:3000/api/subjects/{{GOVERNANCE-ID}}'
