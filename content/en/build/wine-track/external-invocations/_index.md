@@ -177,7 +177,7 @@ curl --request PATCH 'http://localhost:3000/api/approval-requests/{{PREVIUS-ID}}
 --data-raw '{"state": "RespondedAccepted"}'
 ```
 
-```bash title="Node: WFO"
+```bash
 curl --request PATCH 'http://localhost:3002/api/approval-requests/{{PREVIUS-ID}}' \
 --header 'Content-Type: application/json' \
 --data-raw '{"state": "RespondedAccepted"}'
@@ -185,7 +185,7 @@ curl --request PATCH 'http://localhost:3002/api/approval-requests/{{PREVIUS-ID}}
 
 With all these actions, upon querying our governance once more, the new corresponding version should appear:
 
-```bash title="Node: WPO"
+```bash
 curl --silent --request GET 'http://localhost:3002/api/subjects?subject_type=governances'
 ```
 
@@ -440,7 +440,7 @@ curl --request POST 'http://localhost:3001/api/event-requests' \
 
 If everything has gone correctly, running the following command should update the subject with an `sn` value of 2 and reflect the changes mentioned above:
 
-```bash title="Node: Premium Wines"
+```bash
 curl --request GET 'http://localhost:3001/api/subjects/{{SUBJECT-ID}}'
 ```
 

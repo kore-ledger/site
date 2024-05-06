@@ -10,7 +10,7 @@ A continuación, describiremos los pasos para crear el nodo WPO:
 
 * Primero, asegúrese de descargar la imagen del Cliente kore adecuada desde Dockerhub:
 
-    ```bash bash title="Node: WPO"
+    ```bash
     docker pull kore-ledger/kore-client:0.3
     ```
 * A continuación, iniciaremos el nodo usando el siguiente comando:

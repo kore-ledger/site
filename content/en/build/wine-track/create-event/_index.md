@@ -142,13 +142,13 @@ At this point, we need to discuss a new concept: [emitting certain events requir
 
 Therefore, we must check our list of pending approval requests in the system:
 
-```bash title="Node: WPO"
+```bash
 curl --request GET 'http://localhost:3000/api/approval-requests?status=pending'
 ```
 
 The result of this operation will be a list with a single element, representing the event waiting to be approved. To approve this request to update the governance, copy the value shown in its `id` field and execute the following command:
 
-```bash title="Node: WPO"
+```bash
 curl --request PATCH 'http://localhost:3000/api/approval-requests/{{PREVIOUS-ID}}' \
 --header 'Content-Type: application/json' \
 --data-raw '{"state": "RespondedAccepted"}'
@@ -156,7 +156,7 @@ curl --request PATCH 'http://localhost:3000/api/approval-requests/{{PREVIOUS-ID}
 
 Then, we check the governance again to verify the changes. The result should show an `sn` field equal to 1 and the inclusion of the new member:
 
-```bash title="Node: WPO"
+```bash
 curl --request GET 'http://localhost:3000/api/subjects/{{GOVERNANCE-ID}}'
 ```
 

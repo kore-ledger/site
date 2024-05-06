@@ -25,7 +25,7 @@ curl --request POST 'http://localhost:3001/api/event-requests' \
 
 Upon performing this action, we will receive a `request-id`, which we need to copy and use in the following command:
 
-```bash title="Node: Premium wines"
+```bash
 curl --request GET 'http://localhost:3001/api/event-requests/{{REQUEST-ID}}/state'
 ```
 
@@ -106,7 +106,7 @@ curl --request POST 'http://localhost:3001/api/event-requests' \
 
 If everything has gone correctly, running the following command should update the subject with an `sn` value of 1 and reflect the changes mentioned above:
 
-```bash title="Node: Premium Wines"
+```bash
 curl --request GET 'http://localhost:3001/api/subjects/{{SUBJECT-ID}}'
 ```
 

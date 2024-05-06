@@ -149,7 +149,7 @@ curl --request GET 'http://localhost:3000/api/approval-requests?status=pending'
 
 El resultado de esta operación será una lista con un solo elemento, que representa el evento pendiente de aprobación. Para aprobar esta solicitud de actualización de la gobernanza, copie el valor que se muestra en su campo `id` y ejecute el siguiente comando:
 
-```bash title="Node: WPO"
+```bash
 curl --request PATCH 'http://localhost:3000/api/approval-requests/{{PREVIOUS-ID}}' \
 --header 'Content-Type: application/json' \
 --data-raw '{"state": "RespondedAccepted"}'
@@ -157,7 +157,7 @@ curl --request PATCH 'http://localhost:3000/api/approval-requests/{{PREVIOUS-ID}
 
 Luego, revisamos nuevamente la gobernanza para verificar los cambios. El resultado debería mostrar un campo `sn` igual a 1 y la inclusión del nuevo miembro:
 
-```bash title="Node: WPO"
+```bash
 curl --request GET 'http://localhost:3000/api/subjects/{{GOVERNANCE-ID}}'
 ```
 

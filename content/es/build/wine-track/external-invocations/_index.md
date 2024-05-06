@@ -183,7 +183,7 @@ curl --request PATCH 'http://localhost:3002/api/approval-requests/{{PREVIUS-ID}}
 
 Con todas estas acciones, al consultar una vez más nuestra gobernanza, debería aparecer la nueva versión correspondiente:
 
-```bash title="Node: WPO"
+```bash
 curl --silent --request GET 'http://localhost:3002/api/subjects?subject_type=governances'
 ```
 
