@@ -1,6 +1,6 @@
 ---
 title: Easy example
-description: Ejemplo básico para usar la tecnlogía Kore Ledger (Crear gobernanza y añadir miembros)
+description: Basic example to use Kore Ledger technology (Create governance and add members)
 weight: 1
 date: 2024-05-02
 ---

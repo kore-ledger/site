@@ -1,5 +1,5 @@
 ---
-title: External invocations
+title: Invocaciones externas
 pagination_next: build/assets-traceability/running-node
 date: 2024-05-02
 weight: 7

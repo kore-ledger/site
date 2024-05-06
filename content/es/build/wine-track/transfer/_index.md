@@ -1,5 +1,5 @@
 ---
-title: Transfer
+title: Transferencia
 pagination_next: build/assets-traceability/running-node
 date: 2024-05-06
 weight: 9

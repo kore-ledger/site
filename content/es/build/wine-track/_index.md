@@ -2,10 +2,10 @@
 title: Trazabilidad del vino
 pagination_next: build/assets-traceability/running-node
 date: 2024-05-02
-description: Aplicar la tecnología Kore-ledger para trazar el vino
+description: Aplicar la tecnología Kore ledger para trazar el vino
 weight: 2
 ---
-Este tutorial cubrirá una serie de conceptos avanzados dentro de Kore-ledger, en los que aprenderemos:
+Este tutorial cubrirá una serie de conceptos avanzados dentro de Kore ledger, en los que aprenderemos:
 
 1. Cómo realizar invocaciones externas a métodos de un contrato.
 2. Cómo transferir la propiedad de un sujeto a otro participante.
@@ -25,4 +25,4 @@ Para lograr este objetivo será necesario el apoyo de diferentes participantes, 
 * **Organización Española de la Alimentación (OFS)**: Responsable de validar los cambios en la materia vino.
 * **Ciudadano**: Entidad externa a quien se transferirá la propiedad de una botella de vino.
 
-A lo largo de este tutorial se proporcionarán instrucciones detalladas y los comandos necesarios para realizar cada paso. ¡Comencemos con el desarrollo de este caso de uso para rastrear el ciclo de vida del vino en Kore
+A lo largo de este tutorial se proporcionarán instrucciones detalladas y los comandos necesarios para realizar cada paso. ¡Comencemos con el desarrollo de este caso de uso para rastrear el ciclo de vida del vino en Kore!.
