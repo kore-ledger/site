@@ -5,7 +5,7 @@ weight: 1
 description: Kore Base architecture.
 ---
 
-[Kore Base](https://github.com/kore-ledger/kore-base) is a library that implements most of the functionality of the Kore protocols. The most straightforward way to develop a Kore-compliant application is to use this library as, for example, [Kore Client](../../kore%20client/) does.
+[Kore Base](https://github.com/kore-ledger/kore-base) is a library that implements most of the functionality of the Kore protocols. The most straightforward way to develop a Kore-compliant application is to use this library as, for example, [Kore Client](https://github.com/kore-ledger/kore-client) does.
 
 Internally, it is structured in a series of layers with different responsibilities. The following is a simplified layer and block level view of the Kore Base structure. 
 
