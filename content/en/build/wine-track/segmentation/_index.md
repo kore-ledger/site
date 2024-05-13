@@ -6,7 +6,7 @@ weight: 10
 ---
 Currently, we have witnesses and approvers for the *Wine* subjects. However, a problem arises with one of the nodes we added, **SFO**, as it is specific to Spain, and we do not want it to influence decisions made in other countries.
 
-To address this need, the concept of segmentation by [namespace](../../../docs/getting-started/concepts/subjects/_index.md#namespace) emerges. This allows us to define specific permissions and roles for certain namespaces, ensuring that only nodes we consider valid can access specific information based on our interests.
+To address this need, the concept of segmentation by [namespace](../../../docs/getting-started/concepts/subjects/) emerges. This allows us to define specific permissions and roles for certain namespaces, ensuring that only nodes we consider valid can access specific information based on our interests.
 
 With this new knowledge, it is time to continue adapting our use case. *PremiumWines* not only has vineyards in Spain but also in France, allowing them to produce bottles with different origins. As we know, in Spain, there is an organization (**SFO**) capable of approving the quality analysis of the product, but this is not the case in France, where this responsibility falls on **WFO**.
 
@@ -279,7 +279,7 @@ We will make changes to the roles declared in the governance. Here's how the pro
 ```
 {{< /alert-details >}}
 
-To generate these changes, we will use our tool [**kore-Patch**](../../../docs/learn/tools/_index.md#kore-patch) following this procedure:
+To generate these changes, we will use our tool [**kore-Patch**](../../../docs/learn/tools/) following this procedure:
 
 ```bash
 kore-patch '{"roles":[{"namespace":"","role":"WITNESS","schema":{"ID":"governance"},"who":"MEMBERS"},{"namespace":"","role":"APPROVER","schema":{"ID":"governance"},"who":{"NAME":"WPO"}},{"namespace":"","role":"CREATOR","schema":{"ID":"Wine"},"who":{"NAME":"PremiumWines"}},{"namespace":"","role":"APPROVER","schema":{"ID":"governance"},"who":{"NAME":"WFO"}},{"namespace":"","role":"VALIDATOR","schema":{"ID":"governance"},"who":{"NAME":"WFO"}},{"namespace":"","role":"EVALUATOR","schema":{"ID":"governance"},"who":{"NAME":"WFO"}},{"namespace":"","role":"WITNESS","schema":{"ID":"Wine"},"who":{"NAME":"WFO"}},{"namespace":"","role":"ISSUER","schema":{"ID":"Wine"},"who":"NOT_MEMBERS"},{"namespace":"","role":"WITNESS","schema":{"ID":"Wine"},"who":{"NAME":"SFO"}},{"namespace":"","role":"APPROVER","schema":{"ID":"Wine"},"who":{"NAME":"SFO"}}]}' '{"roles":[{"namespace":"","role":"WITNESS","schema":{"ID":"governance"},"who":"MEMBERS"},{"namespace":"","role":"APPROVER","schema":{"ID":"governance"},"who":{"NAME":"WPO"}},{"namespace":"Spain","role":"CREATOR","schema":{"ID":"Wine"},"who":{"NAME":"PremiumWines"}},{"namespace":"France","role":"CREATOR","schema":{"ID":"Wine"},"who":{"NAME":"PremiumWines"}},{"namespace":"","role":"APPROVER","schema":{"ID":"governance"},"who":{"NAME":"WFO"}},{"namespace":"","role":"VALIDATOR","schema":{"ID":"governance"},"who":{"NAME":"WFO"}},{"namespace":"","role":"EVALUATOR","schema":{"ID":"governance"},"who":{"NAME":"WFO"}},{"namespace":"Spain","role":"WITNESS","schema":{"ID":"Wine"},"who":{"NAME":"WFO"}},{"namespace":"France","role":"WITNESS","schema":{"ID":"Wine"},"who":{"NAME":"WFO"}},{"namespace":"Spain","role":"APPROVER","schema":{"ID":"Wine"},"who":{"NAME":"WFO"}},{"namespace":"France","role":"APPROVER","schema":{"ID":"Wine"},"who":{"NAME":"WFO"}},{"namespace":"Spain","role":"ISSUER","schema":{"ID":"Wine"},"who":"NOT_MEMBERS"},{"namespace":"France","role":"ISSUER","schema":{"ID":"Wine"},"who":"NOT_MEMBERS"},{"namespace":"Spain","role":"WITNESS","schema":{"ID":"Wine"},"who":{"NAME":"SFO"}},{"namespace":"Spain","role":"APPROVER","schema":{"ID":"Wine"},"who":{"NAME":"SFO"}}]}'
@@ -1057,7 +1057,7 @@ curl --request GET 'http://localhost:3001/api/subjects/{{SUBJECT-ID}}'
 }
 ```
 
-We will test issuing the certification event. To do this, we will generate the event signature we want to issue using [kore-Sign](../../../docs/learn/tools/_index.md#kore-sign), with the following format, replacing `subject_id` with the identifier of our wine subject:
+We will test issuing the certification event. To do this, we will generate the event signature we want to issue using [kore-Sign](../../../docs/learn/tools/), with the following format, replacing `subject_id` with the identifier of our wine subject:
 
 ```bash
 kore-sign 'f855c6736463a65f515afe7b85d1418c096ed73852b42bbe4c332eb43d532326' '{"Fact":{"subject_id":"{{SUBJECT-ID}}","payload":{"OrganicCertification":{"fertilizers_control":false,"pesticides_control":false,"analytics":false,"additional_info":"test"}}}}'

@@ -50,7 +50,7 @@ curl --request PUT 'http://localhost:3004/api/allowed-subjects/{{SUBJECT-ID}}' \
 }'
 ```
 
-Now, we need to sign the transfer request with the material from the new node. To do this, we will use our [kore-Sign tool](../../../docs/learn/tools/_index.md#kore-sign) and execute the following command:
+Now, we need to sign the transfer request with the material from the new node. To do this, we will use our [kore-Sign tool](../../../docs/learn/tools/) and execute the following command:
 
 ```bash   
 kore-sign '2a71a0aff12c2de9e21d76e0538741aa9ac6da9ff7f467cf8b7211bd008a3198' '{"Transfer":{"subject_id":"{{SUBJECT-ID}}","public_key":"{{PUBLIC-KEY}}"}}'

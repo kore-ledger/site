@@ -104,7 +104,7 @@ Respuesta:
 
 Como hemos visto anteriormente, el contrato de gobernanza actualmente solo tiene un método para modificar su estado, el método Patch. Este método incluye un objeto con un atributo de datos que a su vez es una matriz que representa un JSON Patch. Este parche se aplicará al estado actual de la gobernanza para modificarlo. Además al realizar la modificación se comprueba que el estado obtenido sea válido para una gobernanza, no sólo realizando la validación con el propio esquema de gobernanza sino también realizando comprobaciones exhaustivas, como que no haya miembros repetidos, cada esquema definido por turno...
 
-Para facilitar la obtención del resultado que queremos y generar el JSON Patch específico podemos utilizar la herramienta kore-patch, incluida entre las [kore-tools](../../../docs/learn/tools/_index.md). A este ejecutable se le pasa el estado actual y el estado deseado y genera el parche correspondiente tras cuya aplicación se pasa de uno a otro.
+Para facilitar la obtención del resultado que queremos y generar el JSON Patch específico podemos utilizar la herramienta kore-patch, incluida entre las [kore-tools](../../../docs/learn/tools/). A este ejecutable se le pasa el estado actual y el estado deseado y genera el parche correspondiente tras cuya aplicación se pasa de uno a otro.
 
 Por ejemplo, haremos que todos los miembros de la gobernanza sean aprobadores, para ello debemos agregar el rol:
 
@@ -225,7 +225,7 @@ kore-ledger/kore-client:0.3
 
 ### Modificar la gobernanza
 
-Ahora lanzaremos el evento que suma al tercer miembro a la gobernanza, pero para comprobar el funcionamiento de las aprobaciones votaremos `sí` con un nodo y `no` con el otro, lo que dejará el evento como rechazado en la [fase de aprobación](../../../docs/getting-started/advanced/approval/_index.md). Aún se agregará a la cadena del sujeto, pero no modificará su estado.
+Ahora lanzaremos el evento que suma al tercer miembro a la gobernanza, pero para comprobar el funcionamiento de las aprobaciones votaremos `sí` con un nodo y `no` con el otro, lo que dejará el evento como rechazado en la [fase de aprobación](../../../docs/getting-started/advanced/approval/). Aún se agregará a la cadena del sujeto, pero no modificará su estado.
 
 ```json
 {

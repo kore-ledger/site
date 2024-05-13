@@ -4,9 +4,9 @@ pagination_next: build/assets-traceability/running-node
 date: 2024-05-02
 weight: 3
 ---
-Una vez que hemos inicializado nuestra gobernanza para comenzar a formalizar el caso de uso para el ciclo de vida del vino, es necesario completarlo y adaptarlo a nuestras necesidades. Para realizar estas modificaciones debemos generar un evento en la red. En *kore*, existen diferentes tipos de eventos, como el evento **génesis**, que se utiliza para crear la gobernanza. Sin embargo, en este caso, necesitamos generar un evento de tipo **[Fact](../../../docs/getting-started/concepts/events/_index.md#tipos-de-eventos)**, que permita modificar el estado de un sujeto en la red.
+Una vez que hemos inicializado nuestra gobernanza para comenzar a formalizar el caso de uso para el ciclo de vida del vino, es necesario completarlo y adaptarlo a nuestras necesidades. Para realizar estas modificaciones debemos generar un evento en la red. En *kore*, existen diferentes tipos de eventos, como el evento **génesis**, que se utiliza para crear la gobernanza. Sin embargo, en este caso, necesitamos generar un evento de tipo **[Fact](../../../docs/getting-started/concepts/events/)**, que permita modificar el estado de un sujeto en la red.
 
-Estos eventos de Fact interactúan con las operaciones definidas en el *contrato* del sujeto y actúan sobre ellas. En el caso de la gobernanza, su contrato es especial, ya que tanto su esquema como su contrato son [internos de kore](../../../docs/learn/Governance/schema/_index.md).
+Estos eventos de Fact interactúan con las operaciones definidas en el *contrato* del sujeto y actúan sobre ellas. En el caso de la gobernanza, su contrato es especial, ya que tanto su esquema como su contrato son [internos de kore](../../../docs/learn/Governance/schema/).
 
 El contrato de la gobernanza expone solo un método de modificación, que debe usarse a través de *JSON Patch*.
 
@@ -56,7 +56,7 @@ Ahora, necesitamos incluir al miembro que creó la gobernanza, lo que daría com
 }
 ```
 
-Para generar los cambios mencionados, usaremos nuestra herramienta [**kore-Patch**](../../../docs/learn/tools/_index.md#kore-patch) de la siguiente manera:
+Para generar los cambios mencionados, usaremos nuestra herramienta [**kore-Patch**](../../../docs/learn/tools/) de la siguiente manera:
 
 ```bash 
 kore-patch '{"members":[],"roles":[{"namespace":"","role":"WITNESS","schema":{"ID":"governance"},"who":"MEMBERS"}]}' '{"members":[{"id":"EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs","name":"WPO"}],"roles":[{"namespace":"","role":"WITNESS","schema":{"ID":"governance"},"who":"MEMBERS"},{"namespace":"","role":"APPROVER","schema":{"ID":"governance"},"who":{"NAME":"WPO"}}]}'
@@ -139,7 +139,7 @@ Tenga en cuenta que los cambios que se encuentran dentro de la lista de `data` s
 {{< /alert >}}
 
 
-En este punto, necesitamos discutir un nuevo concepto: [la emisión de ciertos eventos requiere aprobación](../../../docs/getting-started/advanced/approval/_index.md), que se define en el nivel de contrato para un sujeto. En el caso de la gobernanza, sus cambios deben ser aprobados por aquellos miembros cuyo rol dentro de la misma hayan sido especificado como aprobador. Si no se definen aprobadores, el propietario de la gobernanza asume este rol.
+En este punto, necesitamos discutir un nuevo concepto: [la emisión de ciertos eventos requiere aprobación](../../../docs/getting-started/advanced/approval/), que se define en el nivel de contrato para un sujeto. En el caso de la gobernanza, sus cambios deben ser aprobados por aquellos miembros cuyo rol dentro de la misma hayan sido especificado como aprobador. Si no se definen aprobadores, el propietario de la gobernanza asume este rol.
 
 Por lo tanto, debemos revisar nuestra lista de solicitudes de aprobación pendientes en el sistema:
 

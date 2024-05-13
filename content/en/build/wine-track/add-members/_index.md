@@ -92,7 +92,7 @@ Now, we need to incorporate the mentioned changes:
 }
 ```
 
-We'll use our [**Kore-Patch**](../../../docs/learn/tools/_index.md#kore-patch) tool to generate these changes, following the procedure below:
+We'll use our [**Kore-Patch**](../../../docs/learn/tools/) tool to generate these changes, following the procedure below:
 
 ```bash   
 kore-patch '{"members":[{"id":"EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs","name":"WPO"}],"roles":[{"namespace":"","role":"WITNESS","schema":{"ID":"governance"},"who":"MEMBERS"},{"namespace":"","role":"APPROVER","schema":{"ID":"governance"},"who":{"NAME":"WPO"}}]}' '{"members":[{"id":"EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs","name":"WPO"},{"id":"Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI","name":"PremiumWines"}],"roles":[{"namespace":"","role":"WITNESS","schema":{"ID":"governance"},"who":"MEMBERS"},{"namespace":"","role":"APPROVER","schema":{"ID":"governance"},"who":{"NAME":"WPO"}},{"namespace":"","role":"CREATOR","schema":{"ID":"Wine"},"who":{"NAME":"PremiumWines"}}]}'

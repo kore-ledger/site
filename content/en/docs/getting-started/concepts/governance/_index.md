@@ -23,11 +23,11 @@ The **governance** is the set of definitions and rules that establish how the di
 
 
 ## Members
-These are the persons, entities or organizations that participate in **governance** and therefore may be part of the supported use cases. Each member declares a unique identifier representing the cryptographic material with which it will operate in the network, its [identity](../identifiers/_index.md) .
+These are the persons, entities or organizations that participate in **governance** and therefore may be part of the supported use cases. Each member declares a unique identifier representing the cryptographic material with which it will operate in the network, its [identity](../identifiers/) .
 ## Schemas
-[Schemas](../schema/_index.md) are the data structures that model the information stored in the **subjects**. Within a **governance**, different **schemas** can be defined to support different use cases. When a subject is created, it defines which governance it is associated with and which schema it will use. In addition, each schema has an associated **contract** that will allow you to modify the state of the subjects.
+[Schemas](../schema/) are the data structures that model the information stored in the **subjects**. Within a **governance**, different **schemas** can be defined to support different use cases. When a subject is created, it defines which governance it is associated with and which schema it will use. In addition, each schema has an associated **contract** that will allow you to modify the state of the subjects.
 ## Roles
-[Roles](../roles/_index.md) represent groups of participants with some kind of common interest in a set of subjects. **Roles** allow us to assign permissions on these groups of subjects more easily than if we had to assign them individually to each member of the government.
+[Roles](../roles/) represent groups of participants with some kind of common interest in a set of subjects. **Roles** allow us to assign permissions on these groups of subjects more easily than if we had to assign them individually to each member of the government.
 ## Policies
 The **policies** define the specific conditions under which the life cycle of an event is affected, such as the number of signatures required to carry out the evaluation, approval and validation processes. This is called quorum.
 The **governance** configuration allows the definition of [different types of quorum] , more or less restrictive, depending on the need of the use case.
@@ -44,7 +44,7 @@ Governance defines the rules to be followed in a use case. However, the owner of
   - define one or more: members, policies, schemas and roles.
   - A governance: support one or more use cases.
 - A participant (person, entity or organization):
-  - has an [identity](../identifiers/_index.md) , and the identity acts as a member of a governance.
+  - has an [identity](../identifiers/) , and the identity acts as a member of a governance.
   - runs a node that stores many subjects.
   - Is involved in one or more use cases.
 - A subject:

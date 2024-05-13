@@ -33,7 +33,7 @@ pub struct ContractResult<State> {
     pub success: bool,
 }
 ```
-Contiene el resultado de la ejecución del contrato, siendo este una conjunción del estado resultante y dos flags que indican, por un lado, si la ejecución ha sido exitosa según los criterios establecidos por el programador (o si se ha producido en la carga de datos); y por otro lado, si el evento requiere [aprobación](../../../getting-started/concepts/roles/_index.md/#aprobador) o no.
+Contiene el resultado de la ejecución del contrato, siendo este una conjunción del estado resultante y dos flags que indican, por un lado, si la ejecución ha sido exitosa según los criterios establecidos por el programador (o si se ha producido en la carga de datos); y por otro lado, si el evento requiere [aprobación](../../../getting-started/concepts/roles/) o no.
 
 ```rust
 pub fn execute_contract<F, State, Event>(
@@ -290,4 +290,4 @@ fn contract_test_change_all() {
 
 Como puede ver, lo único que necesita hacer para crear una prueba válida es definir manualmente un estado inicial y un evento entrante en lugar de utilizar la función ejecutora del SDK, que sólo puede ser ejecutada correctamente por Kore. Una vez definidas las entradas, hacer una llamada a la función principal de la lógica del contrato debería ser suficiente.
 
-Una vez probado el contrato, está listo para ser enviado a Kore como se indica en la sección de [introducción](../introduction/_index.md). Tenga en cuenta que no es necesario enviar las pruebas del contrato a los nodos Kore. De hecho, enviarlas supondrá un mayor uso de bytes del fichero codificado y, en consecuencia, al estar almacenado en el gobierno, un mayor consumo de bytes del mismo.
+Una vez probado el contrato, está listo para ser enviado a Kore como se indica en la sección de [introducción](../introduction/). Tenga en cuenta que no es necesario enviar las pruebas del contrato a los nodos Kore. De hecho, enviarlas supondrá un mayor uso de bytes del fichero codificado y, en consecuencia, al estar almacenado en el gobierno, un mayor consumo de bytes del mismo.

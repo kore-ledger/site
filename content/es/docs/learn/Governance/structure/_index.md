@@ -6,7 +6,7 @@ weight: 1
 description: Estructura que conforma una gobernanza.
 ---
 
-En esta página describiremos la estructura y configuración de gobierno. Si desea saber más sobre qué es una gobernanza visite la página [Gobernanza](../../../getting-started/concepts/governance/_index.md).
+En esta página describiremos la estructura y configuración de gobierno. Si desea saber más sobre qué es una gobernanza visite la página [Gobernanza](../../../getting-started/concepts/governance/).
 
 {{< alert-details type="info" title="GOVERNANZA DE EJEMPLO" summary="Haga clic para ver un ejemplo de gobernanza completo. Cada sección se analizará por separado en las siguientes secciones." >}}
 ```rust
@@ -120,15 +120,15 @@ En esta página describiremos la estructura y configuración de gobierno. Si des
 Esta propiedad nos permite definir las condiciones que se deben cumplir en las diferentes fases de generación de un evento que requiere la participación de diferentes miembros, como aprobación, evaluación y validación.
 
   * **name**: Nombre corto y coloquial por el que se conoce al nodo en la red. No tiene otra función que la descriptiva. No actúa como un identificador único dentro de la gobernanza.
-  * **id**: Corresponde al ID del controlador del nodo. Actúa como [identificador](../../../getting-started/concepts/identifiers/_index.md) único dentro de la red y corresponde a la clave pública criptográfica del nodo.
+  * **id**: Corresponde al ID del controlador del nodo. Actúa como [identificador](../../../getting-started/concepts/identifiers/) único dentro de la red y corresponde a la clave pública criptográfica del nodo.
 
 ## Esquemas
-Define la lista de [esquemas](../../../getting-started/concepts/schema/_index.md) que se permite utilizar en los sujetos asociados con la gobernanza. Cada esquema incluye las siguientes propiedades:
+Define la lista de [esquemas](../../../getting-started/concepts/schema/) que se permite utilizar en los sujetos asociados con la gobernanza. Cada esquema incluye las siguientes propiedades:
 
   * **id**: Identificador único del esquema.
-  * **schema**: Descripción del esquema en formato [JSON-Schema](../../json-schema/_index.md).
+  * **schema**: Descripción del esquema en formato [JSON-Schema](../../json-schema/).
   * **initial_value**: Objeto JSON que representa el estado inicial de un sujeto recién creado para este esquema.
-  * **contract**: El [contrato](../../../getting-started/concepts/contracts/_index.md) compilado en Raw String base 64.
+  * **contract**: El [contrato](../../../getting-started/concepts/contracts/) compilado en Raw String base 64.
 
 ## Rols
 En este apartado definimos quiénes son los encargados de dar su consentimiento para que el evento avance por las diferentes fases de su ciclo de vida (evaluación, aprobación y validación), y por otro lado también sirve para indicar quiénes pueden realizar determinadas acciones (creación de sujetos e invocación externa).
@@ -144,19 +144,19 @@ En este apartado definimos quiénes son los encargados de dar su consentimiento 
     * open.dev es equivalente a `open.dev*`, pero no a `open.dev`
     * Si está vacío, equivale a todo, es decir, `*`.
   * **role**: Indica a qué fase afecta:
-    * **VALIDATOR**: Para la [fase de validación](../../../getting-started/advanced/validation/_index.md).
+    * **VALIDATOR**: Para la [fase de validación](../../../getting-started/advanced/validation/).
     * **CREATOR**: Indica quién puede crear sujetos de este tipo.
     * **ISSUER**: Indica quién puede realizar la invocación externa de este tipo.
-    * **WITNESS**: Indica quién es el [testigo](../../../getting-started/concepts/roles/_index.md/#testigo) del sujeto.
-    * **APPROVER**: Indica quiénes son los [aprobadores](../../../getting-started/concepts/roles/_index.md/#aprobador)  del sujeto. Requerido para la [fase de aprobación](../../../getting-started/advanced/approval/_index.md).
-    * **EVALUATOR**: Indica quiénes son los [evaluadores](../../../getting-started/concepts/roles/_index.md/#evaluador) del sujeto. Requerido para la [fase de evaluación](../../../getting-started/advanced/evaluation/_index.md).
-  * **esquema**: Indica qué [esquemas](../../../getting-started/concepts/schema/_index.md) se ven afectados por el rol. Se pueden especificar por su id, todos o aquellos que no son de gobernanza.
+    * **WITNESS**: Indica quién es el [testigo](../../../getting-started/concepts/roles/) del sujeto.
+    * **APPROVER**: Indica quiénes son los [aprobadores](../../../getting-started/concepts/roles/)  del sujeto. Requerido para la [fase de aprobación](../../../getting-started/advanced/approval/).
+    * **EVALUATOR**: Indica quiénes son los [evaluadores](../../../getting-started/concepts/roles/) del sujeto. Requerido para la [fase de evaluación](../../../getting-started/advanced/evaluation/).
+  * **esquema**: Indica qué [esquemas](../../../getting-started/concepts/schema/) se ven afectados por el rol. Se pueden especificar por su id, todos o aquellos que no son de gobernanza.
     * **ID**{ID}: identificador único del esquema.
     * **NOT_GOVERNANCE**: Todos los esquemas excepto el de gobernanza.
     * **ALL**: Todos los esquemas.
 
 ## Políticas
-Esta propiedad establece los permisos de los usuarios previamente definidos en la sección de miembros, otorgándoles roles respecto a los esquemas que hayan definido. Las políticas se definen de forma independiente para cada [esquema](../../../getting-started/concepts/schema/_index.md) definido en la gobernanza.
+Esta propiedad establece los permisos de los usuarios previamente definidos en la sección de miembros, otorgándoles roles respecto a los esquemas que hayan definido. Las políticas se definen de forma independiente para cada [esquema](../../../getting-started/concepts/schema/) definido en la gobernanza.
 
   * **approve**: Define quiénes son los aprobadores de los sujetos que se crean con ese esquema. Asimismo, el quórum requerido para considerar aprobado un evento.
   * **evaluate**: Define quiénes son los evaluadores de los sujetos que se crean con ese esquema. Asimismo, el quórum requerido para considerar evaluado un evento.

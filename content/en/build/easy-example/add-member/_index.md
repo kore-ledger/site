@@ -107,7 +107,7 @@ Response:
 
 As we have seen previously, the governance contract currently only has one method to modify its state, the Patch method. This method includes an object with a data attribute which in turn is an array representing a json-patch. This patch will be applied to the current state of the governance to modify it. Also when making the modification it is checked that the obtained state is valid for a governance, not only by performing the validation with the governance schema itself but also by performing exhaustive checks, such as that there are no repeated members, each defined schema in turn has some policies...
 
-To facilitate obtaining the result we want and generate the specific json-patch we can use the kore-patch tool, included among the [kore-tools](../../../docs/learn/tools/_index.md). This executable is passed the current state and the desired state and generates the corresponding patch after whose application one passes from one to another.
+To facilitate obtaining the result we want and generate the specific json-patch we can use the kore-patch tool, included among the [kore-tools](../../../docs/learn/tools)x. This executable is passed the current state and the desired state and generates the corresponding patch after whose application one passes from one to another.
 
 and send the request, make the approval etc...
 
@@ -231,7 +231,7 @@ kore-ledger/kore-client:0.3
 
 ### Modify the governance
 
-Now we will launch the event that adds the third member to the governance, but to check the operation of the approvals we will vote `yes` with one node and `no` with the other, which will leave the event as rejected by the [approval phase](../../../docs/getting-started/advanced/approval/_index.md). It will still be added to the subject's chain, but it will not modify its state.
+Now we will launch the event that adds the third member to the governance, but to check the operation of the approvals we will vote `yes` with one node and `no` with the other, which will leave the event as rejected by the [approval phase](../../../docs/getting-started/advanced/approval). It will still be added to the subject's chain, but it will not modify its state.
 
 ```json
 {

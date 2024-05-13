@@ -9,7 +9,7 @@ Kore Ledger es la combinación de las palabras "**verde**” en el idioma africa
 
 El factor diferencial es que se hará de forma descentralizada, segura e inmune a la manipulación, garantizando además la privacidad de los datos y la sostenibilidad de las soluciones. Este planteamiento proporciona una solución integral, económica, de fácil implantación y no invasiva con la digitalización existente en nuestros clientes. 
 
-Por otra parte, la tecnología de Kore Ledger ofrece la capacidad de enlazar la información de trazabilidad de diferentes [sujetos](../../getting-started/concepts/subjects/_index.md) y a diferentes niveles de su ciclo de vida, lo que la convierte en la solución ideal en el ámbito de economía circular, producción de energía sostenible, ciclo integral del agua, huella de carbono, trazabilidad agroalimentaria, seguridad industrial, etc.
+Por otra parte, la tecnología de Kore Ledger ofrece la capacidad de enlazar la información de trazabilidad de diferentes [sujetos](../../getting-started/concepts/subjects/) y a diferentes niveles de su ciclo de vida, lo que la convierte en la solución ideal en el ámbito de economía circular, producción de energía sostenible, ciclo integral del agua, huella de carbono, trazabilidad agroalimentaria, seguridad industrial, etc.
 
 
 Kore Ledger ofrece la mejor solución de infraestructura tecnológica para la digitalización de la trazabilidad de activos y procesos. Basada en una tecnología de registro distribuido segura e inmune a la manipulación, proporciona unos niveles de escalabilidad muy superiores a otras soluciones equivalentes, y de una forma mucho más sostenible.

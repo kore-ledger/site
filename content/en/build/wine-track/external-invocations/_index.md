@@ -108,7 +108,7 @@ The change we want to make will apply to the *roles* section and will be as foll
 }
 ```
 
-We'll use our [**kore-Patch**](../../../docs/learn/tools/_index.md#kore-patch) tool to generate these changes, following the procedure below:
+We'll use our [**kore-Patch**](../../../docs/learn/tools/) tool to generate these changes, following the procedure below:
 
 ```bash
 kore-patch '{"roles":[{"namespace":"","role":"WITNESS","schema":{"ID":"governance"},"who":"MEMBERS"},{"namespace":"","role":"APPROVER","schema":{"ID":"governance"},"who":{"NAME":"WPO"}},{"namespace":"","role":"CREATOR","schema":{"ID":"Wine"},"who":{"NAME":"PremiumWines"}},{"namespace":"","role":"APPROVER","schema":{"ID":"governance"},"who":{"NAME":"WFO"}},{"namespace":"","role":"VALIDATOR","schema":{"ID":"governance"},"who":{"NAME":"WFO"}},{"namespace":"","role":"EVALUATOR","schema":{"ID":"governance"},"who":{"NAME":"WFO"}},{"namespace":"","role":"WITNESS","schema":{"ID":"Wine"},"who":{"NAME":"WFO"}}]}' '{"roles":[{"namespace":"","role":"WITNESS","schema":{"ID":"governance"},"who":"MEMBERS"},{"namespace":"","role":"APPROVER","schema":{"ID":"governance"},"who":{"NAME":"WPO"}},{"namespace":"","role":"CREATOR","schema":{"ID":"Wine"},"who":{"NAME":"PremiumWines"}},{"namespace":"","role":"APPROVER","schema":{"ID":"governance"},"who":{"NAME":"WFO"}},{"namespace":"","role":"VALIDATOR","schema":{"ID":"governance"},"who":{"NAME":"WFO"}},{"namespace":"","role":"EVALUATOR","schema":{"ID":"governance"},"who":{"NAME":"WFO"}},{"namespace":"","role":"WITNESS","schema":{"ID":"Wine"},"who":{"NAME":"WFO"}},{"namespace":"","role":"ISSUER","schema":{"ID":"Wine"},"who":"NOT_MEMBERS"}]}'
@@ -405,7 +405,7 @@ curl --silent --request GET 'http://localhost:3002/api/subjects?subject_type=gov
 ```
 {{< /alert-details >}}
 
-Now, we'll proceed to test the external executions. To do this, we'll generate the signature of the event we want to emit using [**kore-Sign**](../../../docs/learn/tools/_index.md#kore-sign) with the following command. Replace `subject_id` with the identifier of our *Wine* subject:
+Now, we'll proceed to test the external executions. To do this, we'll generate the signature of the event we want to emit using [**kore-Sign**](../../../docs/learn/tools/) with the following command. Replace `subject_id` with the identifier of our *Wine* subject:
 
 ```bash
 kore-sign 'f855c6736463a65f515afe7b85d1418c096ed73852b42bbe4c332eb43d532326' '{"Fact":{"subject_id":"{{SUBJECT-ID}}","payload":{"OrganicCertification":{"fertilizers_control":true,"pesticides_control":true,"analytics":true,"additional_info":"test"}}}}'

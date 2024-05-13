@@ -7,7 +7,7 @@ menu: {main: {weight: 25}}
 -  Internet connection
 - [cURL](https://curl.se/)
 - [Docker](https://www.docker.com)
-- [Kore Tools](../docs/learn/tools/_index.md)
+- [Kore Tools](../docs/learn/tools)
 - [Git](https://git-scm.com/)
 
 

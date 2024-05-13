@@ -6,7 +6,7 @@ weight: 1
 description: Structure that makes up governance.
 ---
 
-In this page we will describe the governance structure and configuration. If you want to know more about what governance visit the [Governance](../../../getting-started/concepts/governance/_index.md) page.
+In this page we will describe the governance structure and configuration. If you want to know more about what governance visit the [Governance](../../../getting-started/concepts/governance/) page.
 
 {{< alert-details type="info" title="GOVERNANCE EXAMPLE" summary="Click to look a full governance example. Each section will be discussed separately in the following sections." >}}
 ```rust
@@ -120,15 +120,15 @@ In this page we will describe the governance structure and configuration. If you
 This property allows us to define the conditions that must be met in the different phases of generating an event that requires the participation of different members, such as approval, evaluation, and validation.
 
   * **name**: A short, colloquial name by which the node is known in the network. It serves no functionality other than being descriptive. It does not act as a unique identifier within the governance.
-  * **id**: Corresponds to the controller-id of the node. Acts as a unique [identifier](../../../getting-started/concepts/identifiers/_index.md) within the network and corresponds to the node's cryptographic public key.
+  * **id**: Corresponds to the controller-id of the node. Acts as a unique [identifier](../../../getting-started/concepts/identifiers/) within the network and corresponds to the node's cryptographic public key.
 
 ## Schemas
-Defines the list of [schemas](../../../getting-started/concepts/schema/_index.md) that are allowed to be used in the subjects associated with governance. Each scheme includes the following properties:
+Defines the list of [schemas](../../../getting-started/concepts/schema/) that are allowed to be used in the subjects associated with governance. Each scheme includes the following properties:
 
   * **id**: Schema unique identifier.
-  * **schema**: Schema description in [JSON-Schema](../../json-schema/_index.md) format.
+  * **schema**: Schema description in [JSON-Schema](../../json-schema/) format.
   * **initial_value**: JSON Object that represents the initial state of a newly created subject for this schema.
-  * **contract**: The compiled [contract](../../../getting-started/concepts/schema/_index.md) in Raw String base 64.
+  * **contract**: The compiled [contract](../../../getting-started/concepts/schema/) in Raw String base 64.
 
 ## Roles
 In this section, we define who are in charge of giving their consent for the event to progress through the different phases of its life cycle (evaluation, approval, and validation), and on the other hand, it also serves to indicate who can perform certain actions (creation of subjects and external invocation).
@@ -144,19 +144,19 @@ In this section, we define who are in charge of giving their consent for the eve
     * open.dev is equivalent to `open.dev*`, but not to `open.dev`
     * If it's empty, it equates to everything, that is, `*`.
   * **role**: Indicates what phase it affects:
-    * **VALIDATOR**: For the [validation phase](../../../getting-started/advanced/validation/_index.md).
+    * **VALIDATOR**: For the [validation phase](../../../getting-started/advanced/validation/).
     * **CREATOR**: Indicates who can create subjects of this type.
     * **ISSUER**: Indicates who can invoke the external invocation of this type.
-    * **WITNESS**: Indicates who are the [witness](../../../getting-started/concepts/roles/_index.md/#witness) of the subject.
-    * **APPROVER**: Indicates who are the [approvators](../../../getting-started/concepts/roles/_index.md/#approver) of the subject. Required for the [approval phase](../../../getting-started/advanced/approval/_index.md).
-    * **EVALUATOR**: Indicates who are the [evaluators](../../../getting-started/concepts/roles/_index.md/#evaluator) of the subject. Required for the [evaluation phase](../../../getting-started/advanced/evaluation/_index.md).
-  * **schema**: Indicates which [schemas](../../../getting-started/concepts/schema/_index.md) are affected by the Role. They can be specified by their id, all or those that are not governance.
+    * **WITNESS**: Indicates who are the [witness](../../../getting-started/concepts/roles/) of the subject.
+    * **APPROVER**: Indicates who are the [approvators](../../../getting-started/concepts/roles/) of the subject. Required for the [approval phase](../../../getting-started/advanced/approval/).
+    * **EVALUATOR**: Indicates who are the [evaluators](../../../getting-started/concepts/roles/) of the subject. Required for the [evaluation phase](../../../getting-started/advanced/evaluation/).
+  * **schema**: Indicates which [schemas](../../../getting-started/concepts/schema/) are affected by the Role. They can be specified by their id, all or those that are not governance.
     * **ID**{ID}: Schema unique identifier.
     * **NOT_GOVERNANCE**: All schemas except governance.
     * **ALL**: All schemas.
 
 ## Policies
-This property defines the permissions of the users previously defined in the members section, granting them roles with respect to the schemas they have defined. Policies are defined independently for each [scheme](../../../getting-started/concepts/schema/_index.md) defined in governance.
+This property defines the permissions of the users previously defined in the members section, granting them roles with respect to the schemas they have defined. Policies are defined independently for each [scheme](../../../getting-started/concepts/schema/) defined in governance.
   * **approve**: Defines who the approvators are for the subjects that are created with that schema. Also, the quorum required to consider an event as approved.
   * **evaluate**: Defines who the evaluators are for the subjects that are created with that schema. Also, the quorum required to consider an event as evaluated.
   * **validate**: Defines who the validators are for the subjects that are created with that schema. Also, the quorum required to consider an event as validated.

@@ -4,9 +4,9 @@ pagination_next: build/assets-traceability/running-node
 date: 2024-05-02
 weight: 3
 ---
-Once we have initialized our governance to begin formalizing the use case for the wine life cycle, it's necessary to fill it and adapt it to our needs. To make these modifications, we must generate an event in the network. In *kore*, there are different types of events, such as the **génesis** event, which is used to create the governance. However, in this case, we need to generate an event of type **[fact](../../../docs/getting-started/concepts/events/_index.md#tipos-de-eventos)**, which allows modifying the state of a subject in the network.
+Once we have initialized our governance to begin formalizing the use case for the wine life cycle, it's necessary to fill it and adapt it to our needs. To make these modifications, we must generate an event in the network. In *kore*, there are different types of events, such as the **génesis** event, which is used to create the governance. However, in this case, we need to generate an event of type **[fact](../../../docs/getting-started/concepts/events/)**, which allows modifying the state of a subject in the network.
 
-These Fact events interact with the operations defined in the subject's *contract* and act upon them. In the case of governance, its contract is special, as both its schema and contract are [internal to kore](../../../docs/learn/Governance/schema/_index.md).
+These Fact events interact with the operations defined in the subject's *contract* and act upon them. In the case of governance, its contract is special, as both its schema and contract are [internal to kore](../../../docs/learn/Governance/schema/).
 
 The governance contract exposes only one method for modification, which must be used through *json-patch*.
 
@@ -56,7 +56,7 @@ Now, we need to include the member who created the governance, which would resul
 }
 ```
 
-To generate the mentioned changes, we will use our [**kore-Patch**](../../../docs/learn/tools/_index.md#kore-patch) tool as follows:
+To generate the mentioned changes, we will use our [**kore-Patch**](../../../docs/learn/tools/) tool as follows:
 
 ```bash
 kore-patch '{"members":[],"roles":[{"namespace":"","role":"WITNESS","schema":{"ID":"governance"},"who":"MEMBERS"}]}' '{"members":[{"id":"EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs","name":"WPO"}],"roles":[{"namespace":"","role":"WITNESS","schema":{"ID":"governance"},"who":"MEMBERS"},{"namespace":"","role":"APPROVER","schema":{"ID":"governance"},"who":{"NAME":"WPO"}}]}'
@@ -138,7 +138,7 @@ Please note that the changes found within the `data` list are the changes that w
 {{< /alert >}}
 
 
-At this point, we need to discuss a new concept: [emitting certain events requires approval](../../../docs/getting-started/advanced/approval/_index.md), which is defined at the contract level for a subject. In the case of governance, its changes must be approved by those members whose role within the governance has been specified as an approver. If no approvers are defined, the owner of the governance assumes this role.
+At this point, we need to discuss a new concept: [emitting certain events requires approval](../../../docs/getting-started/advanced/approval/), which is defined at the contract level for a subject. In the case of governance, its changes must be approved by those members whose role within the governance has been specified as an approver. If no approvers are defined, the owner of the governance assumes this role.
 
 Therefore, we must check our list of pending approval requests in the system:
 
