@@ -11,7 +11,7 @@ resources:
   params: 
     byline: "*Figura 1: Ciclo del agua con Kore Ledger.*"
 ---
-Kore ha sido diseñado teniendo en cuenta los casos de uso de trazabilidad. Se considera que en estos casos de uso la gran mayoría de eventos son unilaterales, lo que permite aprovechar las características diferenciadoras de Kore, como el modelo de [propiedad única](../../getting-started/concepts/subjects/_index.md#modelo-de-propiedad) del libro mayor. Algunos casos de uso de la tecnología Kore se presentarán como ejemplos para facilitar la comprensión.
+Kore ha sido diseñado teniendo en cuenta los casos de uso de trazabilidad. Se considera que en estos casos de uso la gran mayoría de eventos son unilaterales, lo que permite aprovechar las características diferenciadoras de Kore, como el modelo de [propiedad única](../../getting-started/concepts/subjects/) del libro mayor. Algunos casos de uso de la tecnología Kore se presentarán como ejemplos para facilitar la comprensión.
 
 ## Procesos
 

@@ -76,7 +76,7 @@ Haremos el cambio necesario en las políticas para los temas de *Vino*:
 }
 ```
 
-Para generar estos cambios usaremos nuestra herramienta [**kore-Patch**](../../../docs/learn/tools/_index.md#kore-patch) siguiendo este procedimiento:
+Para generar estos cambios usaremos nuestra herramienta [**kore-Patch**](../../../docs/learn/tools/) siguiendo este procedimiento:
 
 ```bash title="Another terminal"
 kore-patch '{"policies":[{"approve":{"quorum":"MAJORITY"},"evaluate":{"quorum":"MAJORITY"},"id":"governance","validate":{"quorum":"MAJORITY"}},{"approve":{"quorum":"MAJORITY"},"evaluate":{"quorum":"MAJORITY"},"id":"Wine","validate":{"quorum":"MAJORITY"}}]}' '{"policies":[{"approve":{"quorum":"MAJORITY"},"evaluate":{"quorum":"MAJORITY"},"id":"governance","validate":{"quorum":"MAJORITY"}},{"approve":{"quorum":"MAJORITY"},"evaluate":{"quorum":"MAJORITY"},"id":"Wine","validate":{"quorum":{"FIXED":1}}}]}'
@@ -528,7 +528,7 @@ curl --request GET 'http://localhost:3001/api/subjects/{{SUBJECT-ID}}'
 }
 ```
 
-Ahora probaremos la emisión del evento de certificación. Para ello generaremos la firma del evento que queremos emitir usando [**kore-Sign**](../../../docs/learn/tools/_index.md#kore-sign), con el siguiente formato, reemplazando `subject_id` con el identificador de nuestro asunto *Wine*:
+Ahora probaremos la emisión del evento de certificación. Para ello generaremos la firma del evento que queremos emitir usando [**kore-Sign**](../../../docs/learn/tools/), con el siguiente formato, reemplazando `subject_id` con el identificador de nuestro asunto *Wine*:
 
 ```bash title="Another terminal"
 kore-sign 'f855c6736463a65f515afe7b85d1418c096ed73852b42bbe4c332eb43d532326' '{"Fact":{"subject_id":"{{SUBJECT-ID}}","payload":{"OrganicCertification":{"fertilizers_control":false,"pesticides_control":false,"analytics":false,"additional_info":"test"}}}}'

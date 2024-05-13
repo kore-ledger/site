@@ -33,7 +33,7 @@ pub struct ContractResult<State> {
     pub success: bool,
 }
 ```
-It contains the result of the execution of the contract, being this a conjunction of the resulting state and two flags that indicate, on the one hand, if the execution has been successful according to the criteria established by the programmer (or if an error has occurred in the data loading); and on the other hand, if the event requires [approval](../../../getting-started/concepts/roles/_index.md/#approval) or not.
+It contains the result of the execution of the contract, being this a conjunction of the resulting state and two flags that indicate, on the one hand, if the execution has been successful according to the criteria established by the programmer (or if an error has occurred in the data loading); and on the other hand, if the event requires [approval](../../../getting-started/concepts/roles/) or not.
 
 ```rust
 pub fn execute_contract<F, State, Event>(
@@ -291,4 +291,4 @@ fn contract_test_change_all() {
 
 As you can see, the only thing you need to do to create a valid test is to manually define an initial state and an incoming event instead of using the SDK executor function, which can only be properly executed by Kore. Once the inputs are defined, making a call to the main function of the contract logic should be sufficient.
 
-Once the contract is tested, it is ready to be sent to Kore as indicated in the [introduction](../introduction/_index.md) section. Note that it is not necessary to send the contract tests to the Kore nodes. In fact, sending them will result in a higher byte usage of the encoded file and, consequently, as it is stored in the governance, a higher byte consumption of the governance.
+Once the contract is tested, it is ready to be sent to Kore as indicated in the [introduction](../introduction/) section. Note that it is not necessary to send the contract tests to the Kore nodes. In fact, sending them will result in a higher byte usage of the encoded file and, consequently, as it is stored in the governance, a higher byte consumption of the governance.

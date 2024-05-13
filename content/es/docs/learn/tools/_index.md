@@ -42,7 +42,7 @@ Estas utilidades pueden usarse con relativa frecuencia, por lo que recomendamos 
 
 ## Kore Keygen
 
-Cualquier nodo Kore necesita material criptográfico para funcionar. Para ello es necesario generarlo externamente y luego indicarlo al nodo, ya sea mediante variables de entorno o mediante parámetros de entrada. La utilidad Kore Keygen satisface esta necesidad permitiendo, de forma sencilla, la generación de este material criptográfico. En concreto, su ejecución permite obtener una ***clave privada*** en formato hexadecimal, así como el ***identificador (controller ID)*** que es el identificador a nivel Kore en el que su formato incluye la clave pública. , más información del esquema criptográfico utilizado (puede obtener más información en el siguiente **[link](../../getting-started/concepts/identifiers/_index.md)**).
+Cualquier nodo Kore necesita material criptográfico para funcionar. Para ello es necesario generarlo externamente y luego indicarlo al nodo, ya sea mediante variables de entorno o mediante parámetros de entrada. La utilidad Kore Keygen satisface esta necesidad permitiendo, de forma sencilla, la generación de este material criptográfico. En concreto, su ejecución permite obtener una ***clave privada*** en formato hexadecimal, así como el ***identificador (controller ID)*** que es el identificador a nivel Kore en el que su formato incluye la clave pública. , más información del esquema criptográfico utilizado (puede obtener más información en el siguiente **[link](../../getting-started/concepts/identifiers/)**).
 
 ```bash
 # Ejemplo de uso básico
@@ -66,7 +66,7 @@ Kore-keygen --help
 
 ## Kore Sign
 
-Esta es una utilidad que tiene como objetivo facilitar la ejecución de invocaciones externas. Para proporcionar contexto, [una invocación externa](../../getting-started/concepts/events/_index.md#ciclo-de-vida) es el proceso mediante el cual un nodo propone un cambio a un sujeto de la red que no controla, es decir, de del que no es propietario. También existen una serie de reglas que regulan qué usuarios de la red tienen la capacidad de realizar estas operaciones. En cualquiera de los casos, el nodo invocante deberá presentar, además de los cambios que desee sugerir, una firma válida que acredite su identidad.
+Esta es una utilidad que tiene como objetivo facilitar la ejecución de invocaciones externas. Para proporcionar contexto, [una invocación externa](../../getting-started/concepts/events/) es el proceso mediante el cual un nodo propone un cambio a un sujeto de la red que no controla, es decir, de del que no es propietario. También existen una serie de reglas que regulan qué usuarios de la red tienen la capacidad de realizar estas operaciones. En cualquiera de los casos, el nodo invocante deberá presentar, además de los cambios que desee sugerir, una firma válida que acredite su identidad.
 
 Kore Sign permite precisamente esto último, generando la firma necesaria para acompañar la solicitud de cambios. Además, como la utilidad está estrictamente diseñada para tal escenario, lo que realmente devuelve su ejecución es la estructura de datos completa (en formato JSON) que debe entregarse a otros nodos de la red para que consideren la solicitud.
 
@@ -107,7 +107,7 @@ echo '{"Transfer":{"subject_id":"JjyqcA-44TjpwBjMTu9kLV21kYfdIAu638juh6ye1gyU","
 {{< /alert >}}
 
 ## Kore Patch
-Actualmente, el [contrato que maneja los cambios de gobernanza](../Governance/schema/_index.md) solo permite un tipo de evento que incluye un **JSON Patch**.
+Actualmente, el [contrato que maneja los cambios de gobernanza](../Governance/schema/) solo permite un tipo de evento que incluye un **JSON Patch**.
 
 JSON Patch es un formato de datos que representa cambios en las estructuras de datos JSON. Así, partiendo de una estructura inicial, tras aplicar el JSON-Patch se obtiene una estructura actualizada. En el caso de Kore, el JSON Patch define los cambios que se realizarán en la estructura de datos que representa la gobernanza cuando es necesario modificarla. Kore Patch nos permite calcular el JSON Patch de forma sencilla si tenemos la gobernanza original y la gobernanza modificada.
 

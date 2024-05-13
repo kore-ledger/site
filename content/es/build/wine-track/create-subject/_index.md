@@ -4,7 +4,7 @@ pagination_next: build/assets-traceability/running-node
 date: 2024-05-02
 weight: 6
 ---
-En este punto, somos capaces de rastrear el ciclo de vida de nuestras botellas de vino a través de [sujetos](../../../docs/getting-started/concepts/subjects/_index.md) de tipo *Vino* , que están definidos en nuestra red Kore. Adicionalmente contamos con la entidad **Premium Wines**, que será la encargada de llevar a cabo esta acción.
+En este punto, somos capaces de rastrear el ciclo de vida de nuestras botellas de vino a través de [sujetos](../../../docs/getting-started/concepts/subjects/) de tipo *Vino* , que están definidos en nuestra red Kore. Adicionalmente contamos con la entidad **Premium Wines**, que será la encargada de llevar a cabo esta acción.
 
 Comencemos lanzando un evento **génesis** para crear nuestro primer sujeto tipo *Vino*:
 

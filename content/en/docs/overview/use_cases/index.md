@@ -11,7 +11,7 @@ resources:
   params: 
     byline: "*Figure 1: Water cycle with Kore Ledger.*"
 ---
-Kore has been designed with traceability use cases in mind. It is considered that in these use cases the vast majority of events are unilateral, which allows taking advantage of Kore's differentiating features, such as ledger single [ownership model](../../getting-started/concepts/subjects/_index.md#ownership-model). Some Kore technology use cases will be presented as examples to facilitate understanding.
+Kore has been designed with traceability use cases in mind. It is considered that in these use cases the vast majority of events are unilateral, which allows taking advantage of Kore's differentiating features, such as ledger single [ownership model](../../getting-started/concepts/subjects/). Some Kore technology use cases will be presented as examples to facilitate understanding.
 
 ## Processes
 

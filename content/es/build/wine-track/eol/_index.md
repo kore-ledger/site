@@ -6,7 +6,7 @@ weight: 12
 ---
 Para concluir el tutorial, planteemos un último escenario: cuando las botellas no cumplen con los estándares de calidad, deben retirarse del mercado para impedir su distribución.
 
-Para abordar esta situación,  kore proporciona una solución: el uso de [**EOL**](../../../docs/getting-started/concepts/events/_index.md#types-of-events) evento. Este evento nos permite terminar el ciclo de vida de un sujeto en la red, evitando que se emitan eventos futuros sobre él.
+Para abordar esta situación,  kore proporciona una solución: el uso de [**EOL**](../../../docs/getting-started/concepts/events/) evento. Este evento nos permite terminar el ciclo de vida de un sujeto en la red, evitando que se emitan eventos futuros sobre él.
 
 Para probar esto, lo aplicaremos a la última botella que creamos (la española). Para hacer esto, ejecute el siguiente comando:
 

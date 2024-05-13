@@ -67,7 +67,7 @@ Kore-keygen --help
 
 ## Kore Sign
 
-This is an utility that is intended to facilitate the execution of external invocations. In order to provide context, [an external invocation](../../getting-started/concepts/events/_index.md#life-cycle) is the process by which a node proposes a change to a network subject that it does not control, i.e., of which it is not the owner. There are also a number of rules that regulate which network users have the ability to perform these operations. In either case, the invoking node must present, in addition to the changes it wishes to suggest, a valid signature to prove its identity.
+This is an utility that is intended to facilitate the execution of external invocations. In order to provide context, [an external invocation](../../getting-started/concepts/events/) is the process by which a node proposes a change to a network subject that it does not control, i.e., of which it is not the owner. There are also a number of rules that regulate which network users have the ability to perform these operations. In either case, the invoking node must present, in addition to the changes it wishes to suggest, a valid signature to prove its identity.
 
 Kore Sign allows precisely the latter, generating the necessary signature to accompany the request for changes. Additionally, as the utility is strictly intended for such a scenario, what is actually returned by its execution is the entire data structure (in JSON format) that must be delivered to other nodes in the network for them to consider the request.
 
@@ -108,7 +108,7 @@ echo '{"Transfer":{"subject_id":"JjyqcA-44TjpwBjMTu9kLV21kYfdIAu638juh6ye1gyU","
 {{< /alert >}}
 
 ## Kore Patch
-Currently the [contract that handles governance changes](../Governance/schema/_index.md) only allows one type of event that includes a **JSON Patch**.
+Currently the [contract that handles governance changes](../Governance/schema/) only allows one type of event that includes a **JSON Patch**.
 
 JSON Patch is a data format that represents changes to JSON data structures. Thus, starting from an initial structure, after applying the JSON Patch, an updated structure is obtained. In the case of Kore, the JSON Patch defines the changes to be made to the data structure that represents governance when it needs to be modified. Kore Patch allows us to calculate the JSON Patch in a simple way if we have the original governance and the modified governance.
 

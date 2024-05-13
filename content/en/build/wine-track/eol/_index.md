@@ -6,7 +6,7 @@ weight: 12
 ---
 To conclude the tutorial, let's set up one last scenario: when bottles do not meet quality standards, they must be withdrawn from the market to prevent distribution.
 
-To address this situation, kore provides a solution: the use of the [**EOL**](../../../docs/getting-started/concepts/events/_index.md#types-of-events) event. This event allows us to terminate the lifecycle of a subject in the network, preventing any future events from being issued on it.
+To address this situation, kore provides a solution: the use of the [**EOL**](../../../docs/getting-started/concepts/events/) event. This event allows us to terminate the lifecycle of a subject in the network, preventing any future events from being issued on it.
 
 To test this, we will apply it to the last bottle we created (the Spanish one). To do this, execute the following command:
 

@@ -6,7 +6,7 @@ weight: 10
 ---
 Actualmente contamos con testigos y aprobadores para los sujetos *Vino*. Sin embargo, surge un problema con uno de los nodos que agregamos, **SFO**, ya que es específico de España y no queremos que influya en las decisiones tomadas en otros países.
 
-Para abordar esta necesidad surge el concepto de segmentación por [espacio de nombres](../../../docs/getting-started/concepts/subjects/_index.md#espacio-de-nombres). Esto nos permite definir permisos y roles específicos para ciertos espacios de nombres, asegurando que solo los nodos que consideramos válidos puedan acceder a información específica según nuestros intereses.
+Para abordar esta necesidad surge el concepto de segmentación por [espacio de nombres](../../../docs/getting-started/concepts/subjects/). Esto nos permite definir permisos y roles específicos para ciertos espacios de nombres, asegurando que solo los nodos que consideramos válidos puedan acceder a información específica según nuestros intereses.
 
 Con este nuevo conocimiento, es hora de seguir adaptando nuestro caso de uso. *PremiumWines* no sólo cuenta con viñedos en España sino también en Francia, lo que les permite elaborar botellas con distintos orígenes. Como sabemos, en España existe un organismo (**SFO**) capaz de aprobar el análisis de calidad del producto, pero este no es el caso en Francia, donde esta responsabilidad recae en **WFO**.
 
@@ -280,7 +280,7 @@ Haremos cambios en los roles declarados en la gobernanza. Así es como deberían
 {{< /alert-details >}}
 
 
-Para generar estos cambios usaremos nuestra herramienta [**kore-Patch**](../../../docs/learn/tools/_index.md#kore-patch) siguiendo este procedimiento:
+Para generar estos cambios usaremos nuestra herramienta [**kore-Patch**](../../../docs/learn/tools/) siguiendo este procedimiento:
 
 ```bash
 kore-patch '{"roles":[{"namespace":"","role":"WITNESS","schema":{"ID":"governance"},"who":"MEMBERS"},{"namespace":"","role":"APPROVER","schema":{"ID":"governance"},"who":{"NAME":"WPO"}},{"namespace":"","role":"CREATOR","schema":{"ID":"Wine"},"who":{"NAME":"PremiumWines"}},{"namespace":"","role":"APPROVER","schema":{"ID":"governance"},"who":{"NAME":"WFO"}},{"namespace":"","role":"VALIDATOR","schema":{"ID":"governance"},"who":{"NAME":"WFO"}},{"namespace":"","role":"EVALUATOR","schema":{"ID":"governance"},"who":{"NAME":"WFO"}},{"namespace":"","role":"WITNESS","schema":{"ID":"Wine"},"who":{"NAME":"WFO"}},{"namespace":"","role":"ISSUER","schema":{"ID":"Wine"},"who":"NOT_MEMBERS"},{"namespace":"","role":"WITNESS","schema":{"ID":"Wine"},"who":{"NAME":"SFO"}},{"namespace":"","role":"APPROVER","schema":{"ID":"Wine"},"who":{"NAME":"SFO"}}]}' '{"roles":[{"namespace":"","role":"WITNESS","schema":{"ID":"governance"},"who":"MEMBERS"},{"namespace":"","role":"APPROVER","schema":{"ID":"governance"},"who":{"NAME":"WPO"}},{"namespace":"Spain","role":"CREATOR","schema":{"ID":"Wine"},"who":{"NAME":"PremiumWines"}},{"namespace":"France","role":"CREATOR","schema":{"ID":"Wine"},"who":{"NAME":"PremiumWines"}},{"namespace":"","role":"APPROVER","schema":{"ID":"governance"},"who":{"NAME":"WFO"}},{"namespace":"","role":"VALIDATOR","schema":{"ID":"governance"},"who":{"NAME":"WFO"}},{"namespace":"","role":"EVALUATOR","schema":{"ID":"governance"},"who":{"NAME":"WFO"}},{"namespace":"Spain","role":"WITNESS","schema":{"ID":"Wine"},"who":{"NAME":"WFO"}},{"namespace":"France","role":"WITNESS","schema":{"ID":"Wine"},"who":{"NAME":"WFO"}},{"namespace":"Spain","role":"APPROVER","schema":{"ID":"Wine"},"who":{"NAME":"WFO"}},{"namespace":"France","role":"APPROVER","schema":{"ID":"Wine"},"who":{"NAME":"WFO"}},{"namespace":"Spain","role":"ISSUER","schema":{"ID":"Wine"},"who":"NOT_MEMBERS"},{"namespace":"France","role":"ISSUER","schema":{"ID":"Wine"},"who":"NOT_MEMBERS"},{"namespace":"Spain","role":"WITNESS","schema":{"ID":"Wine"},"who":{"NAME":"SFO"}},{"namespace":"Spain","role":"APPROVER","schema":{"ID":"Wine"},"who":{"NAME":"SFO"}}]}'
@@ -1059,7 +1059,7 @@ curl --request GET 'http://localhost:3001/api/subjects/{{SUBJECT-ID}}'
 }
 ```
 
-Probaremos la emisión del evento de certificación. Para ello generaremos la firma del evento que queremos emitir usando [kore-Sign](../../../docs/learn/tools/_index.md#kore-sign), con el siguiente formato, reemplazando `subject_id` por el identificador de nuestro sujeto vino:
+Probaremos la emisión del evento de certificación. Para ello generaremos la firma del evento que queremos emitir usando [kore-Sign](../../../docs/learn/tools/), con el siguiente formato, reemplazando `subject_id` por el identificador de nuestro sujeto vino:
 
 ```bash
 kore-sign 'f855c6736463a65f515afe7b85d1418c096ed73852b42bbe4c332eb43d532326' '{"Fact":{"subject_id":"{{SUBJECT-ID}}","payload":{"OrganicCertification":{"fertilizers_control":false,"pesticides_control":false,"analytics":false,"additional_info":"test"}}}}'

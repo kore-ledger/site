@@ -22,11 +22,11 @@ La **gobernanza** es el conjunto de definiciones y reglas que establecen cómo l
 {{% /imgproc %}}
 
 ## Miembros
-Estas son las personas, entidades u organizaciones que participan en la **gobernanza** y por tanto pueden ser parte de los casos de uso que se soportan. Cada miembro declara un identificador único que representa el material criptográfico con el que operará en la red, su [identidad](../identifiers/_index.md) .
+Estas son las personas, entidades u organizaciones que participan en la **gobernanza** y por tanto pueden ser parte de los casos de uso que se soportan. Cada miembro declara un identificador único que representa el material criptográfico con el que operará en la red, su [identidad](../identifiers/) .
 ## Esquemas
-Los [esquemas](../schema/_index.md) son las estructuras de datos que modelan la información almacenada en los **sujetos**. Dentro de una **gobernanza**, se pueden definir diferentes **esquemas** para admitir diferentes casos de uso. Cuando se crea un sujeto, define a qué gobierno está asociado y qué esquema utilizará. Además, cada esquema tiene asociado un **contrato inteligente** que permitirá modificar el estado de los sujetos.
+Los [esquemas](../schema/) son las estructuras de datos que modelan la información almacenada en los **sujetos**. Dentro de una **gobernanza**, se pueden definir diferentes **esquemas** para admitir diferentes casos de uso. Cuando se crea un sujeto, define a qué gobierno está asociado y qué esquema utilizará. Además, cada esquema tiene asociado un **contrato inteligente** que permitirá modificar el estado de los sujetos.
 ## Roles
-Los [roles](../roles/_index.md) representan grupos de participantes con algún tipo de interés común en un conjunto de sujetos. Los **roles** nos permiten asignar permisos sobre estos grupos de sujetos más fácilmente que si tuviéramos que asignarlos individualmente a cada miembro del gobierno.
+Los [roles](../roles/) representan grupos de participantes con algún tipo de interés común en un conjunto de sujetos. Los **roles** nos permiten asignar permisos sobre estos grupos de sujetos más fácilmente que si tuviéramos que asignarlos individualmente a cada miembro del gobierno.
 ## Políticas
 Las **políticas** definen las condiciones específicas bajo las cuales se afecta el ciclo de vida de un evento, como el número de firmas necesarias para llevar a cabo los procesos de evaluación, aprobación y validación. A esto se le llama quórum.
 La configuración de **gobernanza** permite la definición de [distintos tipos de quórum] , más o menos restrictivos, dependiendo de la necesidad del caso de uso.
@@ -43,7 +43,7 @@ La gobernanza define las reglas a seguir en un caso de uso. Sin embargo, el titu
   - definir uno o varios: miembros, políticas, esquemas y roles.
   - admite uno o varios casos de uso.
 - Un participante (persona, entidad u organización):
-  - tiene una [identidad](../identifiers/_index.md) , y la identidad actúa como miembro de una gobernanza.
+  - tiene una [identidad](../identifiers/) , y la identidad actúa como miembro de una gobernanza.
   - ejecutar un nodo que almacena muchos sujetos.
   - está involucrado en uno o varios casos de uso.
 - Un sujeto:

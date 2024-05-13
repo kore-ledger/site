@@ -134,6 +134,7 @@ nav.foldable-nav {
 
   &#td-section-nav label {
     margin-bottom: 0;
+    margin-left: 0.5em;
     width: 100%;
   }
 
@@ -174,7 +175,7 @@ nav.foldable-nav {
     -webkit-font-smoothing: antialiased;
     font-family: $font-awesome-font-name;
     font-weight: 900;
-    content: "\f0da";
+    content: "\f105";
     position: absolute;
     left: 0.1em;
     padding-left: 0.4em;
@@ -202,11 +203,15 @@ nav.foldable-nav {
   nav.foldable-nav {
     .ul-1 .with-child > label:hover:before {
       color: $primary;
+      cursor: pointer;
+      box-shadow: 0 0 0 0.2rem rgba($primary, 0.10);
       transition: color 0.3s;
     }
 
     .ul-1 .with-child > input:checked ~ label:hover:before {
       color: $primary;
+      cursor: pointer;
+      box-shadow: 0 0 0 0.2rem rgba($primary, 0.10);
       transition: color 0.3s;
     }
   }

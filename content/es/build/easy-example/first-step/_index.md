@@ -48,5 +48,5 @@ docker run -p 3000:3000 -p 50000:50000 \
 kore-ledger/kore-client:0.3
 ```
 {{< alert type="info"  title="INFORMACIÓN" >}}
-Para conocer más sobre las variables de entorno vaya a la sección de [configuración](../../../docs/learn/kore%20node/kore%20client%20http/configuration/_index.md)
+Para conocer más sobre las variables de entorno vaya a la sección de [configuración](../../../docs/learn/kore%20node/kore%20client%20http/configuration/)
 {{< /alert >}}
