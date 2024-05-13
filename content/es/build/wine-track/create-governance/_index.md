@@ -4,7 +4,7 @@ pagination_next: build/assets-traceability/running-node
 date: 2024-05-02
 weight: 2
 ---
-Una vez que el **WPO** tiene un nodo en la red kore, es momento de definir el caso de uso, que incluye participantes, reglas de interacción, modelos de información, entre otros aspectos. En la red kore, esto se logra creando una [gobernanza](../../../docs/learn/Governance/), donde se especifica la funcionalidad específica del caso de uso.
+Una vez que el **WPO** tiene un nodo en la red kore, es momento de definir el caso de uso, que incluye participantes, reglas de interacción, modelos de información, entre otros aspectos. En la red kore, esto se logra creando una [gobernanza](../../../docs/learn/governance/), donde se especifica la funcionalidad específica del caso de uso.
 
 Para crear una gobernanza básica, se requieren los siguientes pasos:
 
