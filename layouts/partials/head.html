@@ -51,10 +51,9 @@
   {{ if (or $enableGtagForUniversalAnalytics (hasPrefix .Site.GoogleAnalytics "G-")) -}}
     {{ template "_internal/google_analytics_gtag.html" . -}}
   {{ else -}}
-    {{ template "_internal/google_analytics_async.html" . -}}
+    {{ partial "cookieconsent.html" . }}
   {{ end -}}
 {{ end -}}
-
 {{ define "algolia/head" -}}
 
 {{ if and .Site.Params.search (isset .Site.Params.search "algolia") -}}

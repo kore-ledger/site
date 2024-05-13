@@ -1,5 +1,8 @@
 {{ $original := .Get "src" }}
 <div id="docsy_swagger_ui"></div>
+<script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist/swagger-ui-bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist/swagger-ui-standalone-preset.js"></script>
+
 <script>
   window.onload = function () {
     const ui = SwaggerUIBundle({
@@ -12,4 +15,5 @@
     });
     window.ui = ui;
   };
+  console.log("Swagger UI loaded");
 </script>

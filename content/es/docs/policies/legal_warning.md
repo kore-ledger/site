@@ -1,6 +1,6 @@
 ---
 title: Aviso legal
-date: 2023-12-18
+date: 2024-04-26
 description: Declaración de aviso legal de Kore Ledger.
 ---
 
