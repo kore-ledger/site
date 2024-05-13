@@ -108,7 +108,7 @@ echo '{"Transfer":{"subject_id":"JjyqcA-44TjpwBjMTu9kLV21kYfdIAu638juh6ye1gyU","
 {{< /alert >}}
 
 ## Kore Patch
-Currently the [contract that handles governance changes](../Governance/schema/) only allows one type of event that includes a **JSON Patch**.
+Currently the [contract that handles governance changes](../governance/schema/) only allows one type of event that includes a **JSON Patch**.
 
 JSON Patch is a data format that represents changes to JSON data structures. Thus, starting from an initial structure, after applying the JSON Patch, an updated structure is obtained. In the case of Kore, the JSON Patch defines the changes to be made to the data structure that represents governance when it needs to be modified. Kore Patch allows us to calculate the JSON Patch in a simple way if we have the original governance and the modified governance.
 

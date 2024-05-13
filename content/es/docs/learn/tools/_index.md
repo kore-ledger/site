@@ -107,7 +107,7 @@ echo '{"Transfer":{"subject_id":"JjyqcA-44TjpwBjMTu9kLV21kYfdIAu638juh6ye1gyU","
 {{< /alert >}}
 
 ## Kore Patch
-Actualmente, el [contrato que maneja los cambios de gobernanza](../Governance/schema/) solo permite un tipo de evento que incluye un **JSON Patch**.
+Actualmente, el [contrato que maneja los cambios de gobernanza](../governance/schema/) solo permite un tipo de evento que incluye un **JSON Patch**.
 
 JSON Patch es un formato de datos que representa cambios en las estructuras de datos JSON. Así, partiendo de una estructura inicial, tras aplicar el JSON-Patch se obtiene una estructura actualizada. En el caso de Kore, el JSON Patch define los cambios que se realizarán en la estructura de datos que representa la gobernanza cuando es necesario modificarla. Kore Patch nos permite calcular el JSON Patch de forma sencilla si tenemos la gobernanza original y la gobernanza modificada.
 

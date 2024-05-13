@@ -63,7 +63,7 @@ Please email us to learn how we can help you implement our technology.
 
 {{% blocks/feature icon="fab fa-github" title="Contributions welcome!"
     url="https://github.com/kore-ledger" %}}
-We do a [Pull Request](/)
+We do a [Pull Request](https://github.com/orgs/kore-ledger/repositories)
 contributions workflow on **GitHub**. New users are always welcome!
 {{% /blocks/feature %}}
 
