@@ -1,7 +1,7 @@
 ---
 title: Wine traceability
 pagination_next: build/assets-traceability/running-node
-date: 2024-05-02
+date: 2024-06-06
 description: Apply Kore-ledger technology to trace wine
 weight: 2
 ---

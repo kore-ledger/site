@@ -1,7 +1,7 @@
 ---
 title: Trazabilidad del vino
 pagination_next: build/assets-traceability/running-node
-date: 2024-05-02
+date: 2024-06-06
 description: Aplicar la tecnología Kore ledger para trazar el vino
 weight: 2
 ---

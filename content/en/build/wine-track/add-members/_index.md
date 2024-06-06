@@ -1,27 +1,31 @@
 ---
 title: Add members
 pagination_next: build/assets-traceability/running-node
-date: 2024-05-02
+date: 2024-06-06
 weight: 5
 ---
 
-Excellent, now we have the necessary schema to create *Wine* type subjects. However, upon reflection, we realize that there is no one authorized to create and emit events related to this new schema. Therefore, we need to add a new participant to our network responsible for this task.
+Excellent, we now have the necessary schema to create the *Wine* type subject. However, on reflection, we realize that there is no one authorized to create and issue events related to this new schema. Therefore, we need to add a new participant to our network responsible for this task.
 
-Let's start by setting up the corresponding node:
+Let's start by configuring the corresponding node:
 
-```bash   
-docker run \
-    -p 3001:3000 \
-    -p 50001:50000 \
-    -e KORE_HTTP=true \
-    -e KORE_ID_PRIVATE_KEY=4f0e3c9cd24ab3420b81220bb7ebccb4e42501d3667dea81838b3bfaae20c936 \
-    -e KORE_NETWORK_LISTEN_ADDR=/ip4/0.0.0.0/tcp/50001 \
-    -e KORE_NETWORK_KNOWN_NODE=/ip4/172.17.0.1/tcp/50000/p2p/12D3KooWHHjN5vKSKeCWiBG3gHaDRDp6YzsEgu9iTesYqrWxAgFk \
-    kore-ledger/kore-client:0.3
+```json
+{
+    "kore": {
+      "network": {
+          "listen_addresses": ["/ip4/0.0.0.0/tcp/50000"],
+          "routing": {
+            "boot_nodes": ["/ip4/172.17.0.1/tcp/50000/p2p/{{PEER-ID}}"]
+          }
+      }
+    }
+  }
 ```
-
-Next, we'll proceed to update the governance to include this new member and allow them to create *Wine* type subjects.
-
+We map port 3001 to make requests from our machine and indicate the `peer-id` of node 1.
+```bash   
+docker run -p 3001:3000 -p 50001:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config2.json:/config.json koreadmin/kore-http:arm64-leveldb-prometheus
+```
+We will then proceed to update the governance to include this new member and allow him/her to create *Wine* type issues.
 
 {{< alert type="info" title="INFORMATION">}}
 It's not necessary to assign them the role of a witness, as the subject's owner is the default witness.
@@ -34,7 +38,7 @@ Let's verify the changes we want to make in the governance properties. At this p
 {
     "members": [
         {
-            "id": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
+            "id": "{{CONTROLLER-ID}}",
             "name": "WPO"
         }
     ],
@@ -70,7 +74,7 @@ Now, we need to incorporate the mentioned changes:
         ...
 
         {
-            "id": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
+            "id": "{{CONTROLLER-ID}}",
             "name": "PremiumWines"
         }
     ],
@@ -95,7 +99,7 @@ Now, we need to incorporate the mentioned changes:
 We'll use our [**Kore-Patch**](../../../docs/learn/tools/) tool to generate these changes, following the procedure below:
 
 ```bash   
-kore-patch '{"members":[{"id":"EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs","name":"WPO"}],"roles":[{"namespace":"","role":"WITNESS","schema":{"ID":"governance"},"who":"MEMBERS"},{"namespace":"","role":"APPROVER","schema":{"ID":"governance"},"who":{"NAME":"WPO"}}]}' '{"members":[{"id":"EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs","name":"WPO"},{"id":"Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI","name":"PremiumWines"}],"roles":[{"namespace":"","role":"WITNESS","schema":{"ID":"governance"},"who":"MEMBERS"},{"namespace":"","role":"APPROVER","schema":{"ID":"governance"},"who":{"NAME":"WPO"}},{"namespace":"","role":"CREATOR","schema":{"ID":"Wine"},"who":{"NAME":"PremiumWines"}}]}'
+kore-patch '{"members":[{"id":"{{CONTROLLER-ID}}","name":"WPO"}],"roles":[{"namespace":"","role":"WITNESS","schema":{"ID":"governance"},"who":"MEMBERS"},{"namespace":"","role":"APPROVER","schema":{"ID":"governance"},"who":{"NAME":"WPO"}}]}' '{"members":[{"id":"{{CONTROLLER-ID}}","name":"WPO"},{"id":"{{CONTROLLER-ID}}","name":"PremiumWines"}],"roles":[{"namespace":"","role":"WITNESS","schema":{"ID":"governance"},"who":"MEMBERS"},{"namespace":"","role":"APPROVER","schema":{"ID":"governance"},"who":{"NAME":"WPO"}},{"namespace":"","role":"CREATOR","schema":{"ID":"Wine"},"who":{"NAME":"PremiumWines"}}]}'
 ```
 
 The result obtained will be as follows:
@@ -106,7 +110,7 @@ The result obtained will be as follows:
     "op": "add",
     "path": "/members/1",
     "value": {
-      "id": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
+      "id": "{{CONTROLLER-ID}}",
       "name": "PremiumWines"
     }
   },
@@ -131,7 +135,7 @@ Now, it's time to call the method of the governance contract responsible for upd
 
 {{< alert-details type="info" title="Event" summary="Click to see the event" >}}
 ```bash   
-curl --request POST 'http://localhost:3000/api/event-requests' \
+curl --request POST 'http://localhost:3000/event-requests' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "request": {
@@ -143,7 +147,7 @@ curl --request POST 'http://localhost:3000/api/event-requests' \
                         "op": "add",
                         "path": "/members/1",
                         "value": {
-                        "id": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
+                        "id": "{{CONTROLLER-ID}}",
                         "name": "PremiumWines"
                         }
                     },
@@ -172,13 +176,13 @@ curl --request POST 'http://localhost:3000/api/event-requests' \
 Once the event is emitted, we need to obtain the new update request. To do this, we run the following:
 
 ```bash   
-curl --request GET 'http://localhost:3000/api/approval-requests?status=Pending'
+curl --request GET 'http://localhost:3000/approval-requests?status=Pending'
 ```
 
 We copy the value of the `id` field and accept the governance update request:
 
 ```bash   
-curl --request PATCH 'http://localhost:3000/api/approval-requests/{{PREVIUS-ID}}' \
+curl --request PATCH 'http://localhost:3000/approval-requests/{{PREVIUS-ID}}' \
 --header 'Content-Type: application/json' \
 --data-raw '{"state": "RespondedAccepted"}'
 ```
@@ -186,13 +190,13 @@ curl --request PATCH 'http://localhost:3000/api/approval-requests/{{PREVIUS-ID}}
 We query the governance from the new node:
 
 ```bash   
-curl --request GET 'http://localhost:3001/api/subjects/{{GOVERNANCE-ID}}'
+curl --request GET 'http://localhost:3001/subjects/{{GOVERNANCE-ID}}'
 ```
 
 And we will get:
 
 ```bash
-Not found Subject JLblI3wVzvQZPxQlz-GE1p_6OmYuKr_WyFFV97wyQV54
+[]
 ```
 
 An error? But didn't we just include the new node in the governance, and it's a witness of it?
@@ -202,7 +206,7 @@ While the last statement is true, we must consider the following: for security r
 Therefore, we need to execute the following to receive governance information:
 
 ```bash   
-curl --request PUT 'http://localhost:3001/api/allowed-subjects/{{GOVERNANCE-ID}}' \
+curl --request PUT 'http://localhost:3001/allowed-subjects/{{GOVERNANCE-ID}}' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "providers": []
@@ -212,7 +216,7 @@ curl --request PUT 'http://localhost:3001/api/allowed-subjects/{{GOVERNANCE-ID}}
 Now, when trying to query the governance from the new node, we will get the expected information:
 
 ```bash   
-curl --request GET 'http://localhost:3001/api/subjects/{{GOVERNANCE-ID}}'
+curl --request GET 'http://localhost:3001/subjects/{{GOVERNANCE-ID}}'
 ```
 
 {{< alert-details type="info" title="Response" summary="Click to see the response" >}}
@@ -225,16 +229,16 @@ curl --request GET 'http://localhost:3001/api/subjects/{{GOVERNANCE-ID}}'
     "namespace": "",
     "name": "wine_track",
     "schema_id": "governance",
-    "owner": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
-    "creator": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
+    "owner": "{{CONTROLLER-ID}}",
+    "creator": "{{CONTROLLER-ID}}",
     "properties": {
         "members": [
             {
-                "id": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
+                "id": "{{CONTROLLER-ID}}",
                 "name": "WPO"
             },
             {
-                "id": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
+                "id": "{{CONTROLLER-ID}}",
                 "name": "PremiumWines"
             }
         ],
@@ -388,20 +392,13 @@ To achieve this, we'll allow **WFO** to take on the roles of an approver, valida
 Let's start by setting up the **WFO** node:
 
 ```bash   
-docker run \
-    -p 3002:3000 \
-    -p 50002:50000 \
-    -e KORE_HTTP=true \
-    -e KORE_ID_PRIVATE_KEY=6d3103185146ecedd28d3759df693999927e69aacb55e1aa9fe7ac17555da81c \
-    -e KORE_NETWORK_LISTEN_ADDR=/ip4/0.0.0.0/tcp/50002 \
-    -e KORE_NETWORK_KNOWN_NODE=/ip4/172.17.0.1/tcp/50000/p2p/12D3KooWHHjN5vKSKeCWiBG3gHaDRDp6YzsEgu9iTesYqrWxAgFk \
-    kore-ledger/kore-client:0.3 
+docker run -p 3002:3000 -p 50002:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config2.json:/config.json koreadmin/kore-http:arm64-leveldb-prometheus
 ```
 
 Next, we'll proceed to update the governance to grant it the mentioned properties:
 {{< alert-details type="info" title="Event" summary="Click to see the event" >}}
 ```bash
-curl --request POST 'http://localhost:3000/api/event-requests' \
+curl --request POST 'http://localhost:3000/event-requests' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "request": {
@@ -413,7 +410,7 @@ curl --request POST 'http://localhost:3000/api/event-requests' \
                         "op": "add",
                         "path": "/members/2",
                         "value": {
-                        "id": "EICgJYOXXRFqDMiFsrCcUgPYnCSgUT-zwe66LP8rDpPU",
+                        "id": "{{CONTROLLER-ID}}",
                         "name": "WFO"
                         }
                     },
@@ -489,13 +486,13 @@ At this point, the steps to generate the new *json-patch* for the governance are
 Once this command is executed, we should obtain the update request again. To do this, we run:
 
 ```bash   
-curl --request GET 'http://localhost:3000/api/approval-requests?status=Pending'
+curl --request GET 'http://localhost:3000/approval-requests?status=Pending'
 ```
 
 We copy the value of the `id` field and accept the governance update request:
 
 ```bash   
-curl --request PATCH 'http://localhost:3000/api/approval-requests/{{PREVIUS-ID}}' \
+curl --request PATCH 'http://localhost:3000/approval-requests/{{PREVIUS-ID}}' \
 --header 'Content-Type: application/json' \
 --data-raw '{"state": "RespondedAccepted"}'
 ```
@@ -503,7 +500,7 @@ curl --request PATCH 'http://localhost:3000/api/approval-requests/{{PREVIUS-ID}}
 At this point, we'll find ourselves in a situation similar to the one described in the previous section. Although the new node is part of the governance, it's not able to receive its information, so we need to perform its pre-authorization. To do this, we'll execute the following command:
 
 ```bash   
-curl --request PUT 'http://localhost:3002/api/allowed-subjects/{{GOVERNANCE-ID}}' \
+curl --request PUT 'http://localhost:3002/allowed-subjects/{{GOVERNANCE-ID}}' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "providers": []
@@ -513,7 +510,7 @@ curl --request PUT 'http://localhost:3002/api/allowed-subjects/{{GOVERNANCE-ID}}
 If everything has gone as expected, we can now query the governance from the new node, and it should now have an `sn` value of 4, as well as the change made in members and roles.
 
 ```bash   
-curl --request GET 'http://localhost:3002/api/subjects/{{GOVERNANCE-ID}}'
+curl --request GET 'http://localhost:3002/subjects/{{GOVERNANCE-ID}}'
 ```
 
 {{< alert-details type="info" title="Governance" summary="Click to see the governance" >}}
@@ -526,20 +523,20 @@ curl --request GET 'http://localhost:3002/api/subjects/{{GOVERNANCE-ID}}'
     "namespace": "",
     "name": "wine_track",
     "schema_id": "governance",
-    "owner": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
-    "creator": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
+    "owner": "{{CONTROLLER-ID}}",
+    "creator": "{{CONTROLLER-ID}}",
     "properties": {
         "members": [
             {
-                "id": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
+                "id": "{{CONTROLLER-ID}}",
                 "name": "WPO"
             },
             {
-                "id": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
+                "id": "{{CONTROLLER-ID}}",
                 "name": "PremiumWines"
             },
             {
-                "id": "EICgJYOXXRFqDMiFsrCcUgPYnCSgUT-zwe66LP8rDpPU",
+                "id": "{{CONTROLLER-ID}}",
                 "name": "WFO"
             }
         ],

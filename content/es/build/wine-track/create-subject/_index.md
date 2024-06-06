@@ -1,7 +1,7 @@
 ---
 title: Creando un sujeto
 pagination_next: build/assets-traceability/running-node
-date: 2024-05-02
+date: 2024-06-06
 weight: 6
 ---
 En este punto, somos capaces de rastrear el ciclo de vida de nuestras botellas de vino a través de [sujetos](../../../docs/getting-started/concepts/subjects/) de tipo *Vino* , que están definidos en nuestra red Kore. Adicionalmente contamos con la entidad **Premium Wines**, que será la encargada de llevar a cabo esta acción.
@@ -9,12 +9,12 @@ En este punto, somos capaces de rastrear el ciclo de vida de nuestras botellas d
 Comencemos lanzando un evento **génesis** para crear nuestro primer sujeto tipo *Vino*:
 
 ```bash
-curl --request POST 'http://localhost:3001/api/event-requests' \
+curl --request POST 'http://localhost:3001/event-requests' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "request": {
         "Create": {
-        "governance_id": {{GOVERNANCE-ID}},
+        "governance_id": "{{GOVERNANCE-ID}}",
         "schema_id": "Wine",
         "namespace": "",
         "name": "Wine"
@@ -25,7 +25,7 @@ curl --request POST 'http://localhost:3001/api/event-requests' \
 Al realizar esta acción, recibiremos un `request-id`, que debemos copiar y usar en el siguiente comando:
 
 ```bash
-curl --request GET 'http://localhost:3001/api/event-requests/{{REQUEST-ID}}/state'
+curl --request GET 'http://localhost:3001/event-requests/{{REQUEST-ID}}/state'
 ```
 
 El último comando proporcionará una respuesta como la siguiente:
@@ -48,7 +48,7 @@ Mantenga el `subject_id` del **sujeto**, ya que lo necesitaremos en pasos poster
 Podemos consultar el asunto creado usando el siguiente comando:
 
 ```bash
-curl --request GET 'http://localhost:3001/api/subjects/{{SUBJECT-ID}}'
+curl --request GET 'http://localhost:3001/subjects/{{SUBJECT-ID}}'
 ```
 
 ```json
@@ -60,8 +60,8 @@ curl --request GET 'http://localhost:3001/api/subjects/{{SUBJECT-ID}}'
     "namespace": "",
     "name": "Wine",
     "schema_id": "Wine",
-    "owner": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
-    "creator": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
+    "owner": "{{CONTROLLER-ID}}",
+    "creator": "{{CONTROLLER-ID}}",
     "properties": {
         "grape": null,
         "harvest": 0,
@@ -86,12 +86,12 @@ Las características que queremos que tenga nuestra botella son las siguientes:
 Por tanto, el comando que debemos ejecutar es el siguiente:
 
 ```bash
-curl --request POST 'http://localhost:3001/api/event-requests' \
+curl --request POST 'http://localhost:3001/event-requests' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "request": {
         "Fact": {
-            "subject_id": {{SUBJECT-ID}},
+            "subject_id": "{{SUBJECT-ID}}",
             "payload": {
                 "Init": {
                     "harvest": 1,
@@ -107,7 +107,7 @@ curl --request POST 'http://localhost:3001/api/event-requests' \
 Si todo ha ido correctamente, ejecutar el siguiente comando debería actualizar el sujeto con un valor `sn` de 1 y reflejar los cambios mencionados anteriormente:
 
 ```bash
-curl --request GET 'http://localhost:3001/api/subjects/{{SUBJECT-ID}}'
+curl --request GET 'http://localhost:3001/subjects/{{SUBJECT-ID}}'
 ```
 
 ```json
@@ -119,8 +119,8 @@ curl --request GET 'http://localhost:3001/api/subjects/{{SUBJECT-ID}}'
     "namespace": "",
     "name": "Wine",
     "schema_id": "Wine",
-    "owner": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
-    "creator": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
+    "owner": "{{CONTROLLER-ID}}",
+    "creator": "{{CONTROLLER-ID}}",
     "properties": {
         "grape": "CabernetSauvignon",
         "harvest": 1,

@@ -3,50 +3,61 @@ title: Levantar el primer nodo
 description: Pasos para configurar el primer nodo Kore
 weight: 1
 ---
-Para lanzar un nodo kore, debe ejecutar el binario [kore-client](https://github.com/kore-ledger/kore-client), ubicado en la carpeta cliente del repositorio. Para utilizar su imagen Docker, hay que ir a la página de [dockerhub](https://hub.docker.com/r/kore-ledger/kore-client).
+Para lanzar un nodo kore, debe ejecutar el binario [kore-http](https://github.com/kore-ledger/kore-http), ubicado en la carpeta cliente del repositorio. Para utilizar su imagen Docker, hay que ir a la página de [dockerhub](https://hub.docker.com/repositories/koreadmin).
 
 Si no disponemos de la imagen o no tenemos la última versión, descárgala con:
 
 ```bash
-docker pull kore-ledger/kore-client:0.3
+docker pull koreadmin/kore-http:arm64-sqlite
 ```
 
 Podemos ejecutarlo lanzándolo:
 
 ```bash
-docker run kore-ledger/kore-client:0.3
+docker run koreadmin/kore-http:arm64-sqlite
 ```
+
 
 Sin embargo, esto nos dará un error, ya que debemos especificar obligatoriamente ciertos aspectos de la configuración.
-
-Lo primero que debemos añadir obligatoriamente a la configuración es la clave privada. Podemos generar una válida utilizando kore-tools, que se encuentra en el mismo repositorio que el cliente en el directorio kore-tools, y en [dockerhub](https://hub.docker.com/r/kore-ledger/kore-tools). En concreto, su binario keygen, que creará el material criptográfico necesario para el nodo. Una salida sin configuración extra nos dará un resultado como:
-
+También podemos crear nosotros la imagen dependiendo de la arquitectura
 ```bash
-PRIVATE KEY ED25519 (HEX): f78e9b42c3f265d0c5bf613f47bf4fb8fa3f18b3b38dd4e90ca7eed497e3394a
-CONTROLLER ID ED25519: EnyisBz0lX9sRvvV0H-BXTrVtARjUa0YDHzaxFHWH-N4
-PeerID: 12D3KooWLXexpg81PjdjnrhmHUxN7U5EtfXJgr9cahei1SJ9Ub3B
-```
+git clone git@github.com:kore-ledger/kore-http.git
+# Dependiendo de la arquitectura de tu máquina debera usar uno u otro
+docker build --platform linux/amd64 -t kore-http-sqlite:amd64 --target amd64 .
+docker build --platform linux/arm64 -t kore-http-sqlite:arm64 --target arm64 .
 
-Lo que debemos agregar a la variable de entorno KORE_SECRET_KEY es la clave privada, en este caso:`f78e9b42c3f265d0c5bf613f47bf4fb8fa3f18b3b38dd4e90ca7eed497e3394a`.
+```
+Podemos generar nosotros la clave criptográfica o dejar que el nodo la genere. En este tutorial el nodo se encargara de esa tarea.
+-  Lo primero que debemos añadir obligatoriamente a la configuración es la clave privada. Podemos generar una válida utilizando kore-tools, que se encuentra en el mismo repositorio que el cliente en el directorio [kore-tools](https://github.com/kore-ledger/kore-tools). En concreto, su binario keygen, que creará el material criptográfico necesario para el nodo.
 
 {{< alert type="warning"  title="PRECAUCIÓN" >}}
 Es importante resaltar que se debe utilizar el mismo esquema criptográfico al generar la clave y agregarla al cliente, keygen y cliente usan `ed25519` por defecto.
 {{< /alert >}}
 
-Otra variable de entorno que debemos añadir es **KORE_HTTP**, que nos permitirá lanzar el servidor http para poder utilizar la API REST. Para esto, debes configurar **KORE_HTTP=true**.
 
-Una vez que tengamos estas dos variables, podremos lanzar el nodo con la configuración mínima (el puerto **3000** es el predeterminado para el servicio http). Pondremos el nodo en modo informativo usando **RUST_LOG** con el valor **info**, en caso de querer más información podemos usar el valor **debug**. Por último lo pondremos a escuchar en todas las interfaces por el puerto **5000** definiendo la variable **KORE_NETWORK_LISTEN_ADDR**.
+- Una vez tenemos la imagen debemos generar un archivo de configuración indicando lo siguiente:
+. `listen_addresses` Dirección donde va a escuchar el nodo para comunicarse con otros nodos
+. `boot_nodes` un vector de nodos conocidos, como es el primer nodo lo dejaremos vacio
 
-
-
-```bash
-docker run -p 3000:3000 -p 50000:50000 \
--e KORE_ID_PRIVATE_KEY=f78e9b42c3f265d0c5bf613f47bf4fb8fa3f18b3b38dd4e90ca7eed497e3394a \
--e KORE_HTTP=true \
--e KORE_NETWORK_LISTEN_ADDR=/ip4/0.0.0.0/tcp/50000 \
--e RUST_LOG=info \
-kore-ledger/kore-client:0.3
+```json
+// config.json
+{
+    "kore": {
+      "network": {
+          "listen_addresses": ["/ip4/0.0.0.0/tcp/50000"],
+          "routing": {
+            "boot_nodes": [""]
+          }
+      }
+    }
+  }
 ```
+Para levantar el nodo debemos indicar desde que puerto de nuestra máquina podemos acceder a la API, además del puerto donde escuchara el nodo. Po último importante indicar el archivo de configuración.
+```bash
+docker run -p 3000:3000 -p 50000:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config.json:/config.json koreadmin/kore-http:arm64-sqlite
+```
+
+
 {{< alert type="info"  title="INFORMACIÓN" >}}
 Para conocer más sobre las variables de entorno vaya a la sección de [configuración](../../../docs/learn/kore%20node/kore%20client%20http/configuration/)
 {{< /alert >}}

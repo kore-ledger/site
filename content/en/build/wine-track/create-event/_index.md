@@ -1,7 +1,7 @@
 ---
 title: Creating an event
 pagination_next: build/assets-traceability/running-node
-date: 2024-05-02
+date: 2024-06-06
 weight: 3
 ---
 Once we have initialized our governance to begin formalizing the use case for the wine life cycle, it's necessary to fill it and adapt it to our needs. To make these modifications, we must generate an event in the network. In *kore*, there are different types of events, such as the **génesis** event, which is used to create the governance. However, in this case, we need to generate an event of type **[fact](../../../docs/getting-started/concepts/events/)**, which allows modifying the state of a subject in the network.
@@ -34,7 +34,7 @@ Now, we need to include the member who created the governance, which would resul
 {
     "members": [
         {
-            "id": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
+            "id": "{{CONTROLLER-ID}}",
             "name": "WPO"
         }
     ],
@@ -59,7 +59,7 @@ Now, we need to include the member who created the governance, which would resul
 To generate the mentioned changes, we will use our [**kore-Patch**](../../../docs/learn/tools/) tool as follows:
 
 ```bash
-kore-patch '{"members":[],"roles":[{"namespace":"","role":"WITNESS","schema":{"ID":"governance"},"who":"MEMBERS"}]}' '{"members":[{"id":"EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs","name":"WPO"}],"roles":[{"namespace":"","role":"WITNESS","schema":{"ID":"governance"},"who":"MEMBERS"},{"namespace":"","role":"APPROVER","schema":{"ID":"governance"},"who":{"NAME":"WPO"}}]}'
+kore-patch '{"members":[],"roles":[{"namespace":"","role":"WITNESS","schema":{"ID":"governance"},"who":"MEMBERS"}]}' '{"members":[{"id":"{{CONTROLLER-ID}}","name":"WPO"}],"roles":[{"namespace":"","role":"WITNESS","schema":{"ID":"governance"},"who":"MEMBERS"},{"namespace":"","role":"APPROVER","schema":{"ID":"governance"},"who":{"NAME":"WPO"}}]}'
 ```
 
 The result will be as follows:
@@ -70,7 +70,7 @@ The result will be as follows:
         "op": "add",
         "path": "/members/0",
         "value": {
-        "id": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
+        "id": "{{CONTROLLER-ID}}",
         "name": "WPO"
         }
     },
@@ -94,7 +94,7 @@ The result will be as follows:
 Now, it's time to call the method of the governance contract responsible for updating its properties. To do this, we will execute the following:
 
 ```bash
-curl --request POST 'http://localhost:3000/api/event-requests' \
+curl --request POST 'http://localhost:3000/event-requests' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "request": {
@@ -107,7 +107,7 @@ curl --request POST 'http://localhost:3000/api/event-requests' \
                             "op": "add",
                             "path": "/members/0",
                             "value": {
-                            "id": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
+                            "id": "{{CONTROLLER-ID}}",
                             "name": "WPO"
                             }
                         },
@@ -143,13 +143,13 @@ At this point, we need to discuss a new concept: [emitting certain events requir
 Therefore, we must check our list of pending approval requests in the system:
 
 ```bash
-curl --request GET 'http://localhost:3000/api/approval-requests?status=pending'
+curl --request GET 'http://localhost:3000/approval-requests?status=pending'
 ```
 
 The result of this operation will be a list with a single element, representing the event waiting to be approved. To approve this request to update the governance, copy the value shown in its `id` field and execute the following command:
 
 ```bash
-curl --request PATCH 'http://localhost:3000/api/approval-requests/{{PREVIOUS-ID}}' \
+curl --request PATCH 'http://localhost:3000/approval-requests/{{PREVIOUS-ID}}' \
 --header 'Content-Type: application/json' \
 --data-raw '{"state": "RespondedAccepted"}'
 ```
@@ -157,7 +157,7 @@ curl --request PATCH 'http://localhost:3000/api/approval-requests/{{PREVIOUS-ID}
 Then, we check the governance again to verify the changes. The result should show an `sn` field equal to 1 and the inclusion of the new member:
 
 ```bash
-curl --request GET 'http://localhost:3000/api/subjects/{{GOVERNANCE-ID}}'
+curl --request GET 'http://localhost:3000/subjects/{{GOVERNANCE-ID}}'
 ```
 
 {{< alert-details type="info" title="Response" summary="Click to see the governance" >}}
@@ -170,12 +170,12 @@ curl --request GET 'http://localhost:3000/api/subjects/{{GOVERNANCE-ID}}'
     "namespace": "",
     "name": "wine_track",
     "schema_id": "governance",
-    "owner": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
-    "creator": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
+    "owner": "{{CONTROLLER-ID}}",
+    "creator": "{{CONTROLLER-ID}}",
     "properties": {
         "members": [
         {
-            "id": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
+            "id": "{{CONTROLLER-ID}}",
             "name": "WPO"
         }
         ],
