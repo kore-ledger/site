@@ -99,7 +99,7 @@ El resultado obtenido será:
 A continuación, invocaremos el método responsable de actualizar las propiedades de la gobernanza:
 
 ```bash title="Node: WPO"
-curl --request POST 'http://localhost:3000/api/event-requests' \
+curl --request POST 'http://localhost:3000/event-requests' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "request": {
@@ -126,19 +126,19 @@ curl --request POST 'http://localhost:3000/api/event-requests' \
 Una vez que hayamos enviado la solicitud de actualización de gobernanza, deberíamos recibir nuevamente la solicitud de aprobación. Para hacer esto, ejecute el siguiente comando:
 
 ```bash
-curl --request GET 'http://localhost:3000/api/approval-requests?status=Pending'
+curl --request GET 'http://localhost:3000/approval-requests?status=Pending'
 ```
 
 Copie el valor del campo `id`, pero esta vez también será necesaria la aprobación de **WFO**. Por tanto, realizaremos las siguientes dos acciones:
 
 ```bash title="Node: WPO"
-curl --request PATCH 'http://localhost:3000/api/approval-requests/{{PREVIUS-ID}}' \
+curl --request PATCH 'http://localhost:3000/approval-requests/{{PREVIUS-ID}}' \
 --header 'Content-Type: application/json' \
 --data-raw '{"state": "RespondedAccepted"}'
 ```
 
 ```bash title="Node: WFO"
-curl --request PATCH 'http://localhost:3002/api/approval-requests/{{PREVIUS-ID}}' \
+curl --request PATCH 'http://localhost:3002/approval-requests/{{PREVIUS-ID}}' \
 --header 'Content-Type: application/json' \
 --data-raw '{"state": "RespondedAccepted"}'
 ```
@@ -146,7 +146,7 @@ curl --request PATCH 'http://localhost:3002/api/approval-requests/{{PREVIUS-ID}}
 Si todo salió bien, cuando ejecute el siguiente comando, el gobierno `sn` debería ser 8 y deberían mostrarse los cambios realizados anteriormente:
 
 ```bash title="Node: WPO"
-curl --request GET 'http://localhost:3000/api/subjects/{{GOVERNANCE-ID}}'
+curl --request GET 'http://localhost:3000/subjects/{{GOVERNANCE-ID}}'
 ```
 {{< alert-details type="info" title="Gobernanza" summary="Pincha para ver la gobernanza" >}}
 ```json
@@ -158,20 +158,20 @@ curl --request GET 'http://localhost:3000/api/subjects/{{GOVERNANCE-ID}}'
     "namespace": "",
     "name": "wine_track",
     "schema_id": "governance",
-    "owner": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
-    "creator": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
+    "owner": "{{CONTROLLER-ID}}",
+    "creator": "{{CONTROLLER-ID}}",
     "properties": {
         "members": [
             {
-                "id": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
+                "id": "{{CONTROLLER-ID}}",
                 "name": "WPO"
             },
             {
-                "id": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
+                "id": "{{CONTROLLER-ID}}",
                 "name": "PremiumWines"
             },
             {
-                "id": "EICgJYOXXRFqDMiFsrCcUgPYnCSgUT-zwe66LP8rDpPU",
+                "id": "{{CONTROLLER-ID}}",
                 "name": "WFO"
             },
             {
@@ -441,7 +441,7 @@ curl --request GET 'http://localhost:3000/api/subjects/{{GOVERNANCE-ID}}'
 Ahora, creemos un nuevo sujeto de botella de vino en España para probar nuestro cambio:
 
 ```bash title="Node: Premium Wines"
-curl --request POST 'http://localhost:3001/api/event-requests' \
+curl --request POST 'http://localhost:3001/event-requests' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "request": {
@@ -458,7 +458,7 @@ curl --request POST 'http://localhost:3001/api/event-requests' \
 Cuando realices esta acción, recibirás un `request-id`, que deberás copiar y usar en el siguiente comando:
 
 ```bash title="Node: Premium wines"
-curl --request GET 'http://localhost:3001/api/event-requests/{{REQUEST-ID}}/state'
+curl --request GET 'http://localhost:3001/event-requests/{{REQUEST-ID}}/state'
 ```
 
 Este último comando te dará una respuesta similar a la siguiente:
@@ -479,7 +479,7 @@ Guarde el `subject_id` del **asunto**, ya que lo necesitará para los pasos post
 Antes de que podamos emitir un evento de certificación, debemos inicializar la botella. Para hacer esto, ejecute el siguiente comando:
 
 ```bash title="Node: Premium wines"
-curl --request POST 'http://localhost:3001/api/event-requests' \
+curl --request POST 'http://localhost:3001/event-requests' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "request": {
@@ -500,7 +500,7 @@ curl --request POST 'http://localhost:3001/api/event-requests' \
 Cuando consulta el asunto, debe tener un valor `sn` de 1 y mostrar la información mencionada anteriormente:
 
 ```bash
-curl --request GET 'http://localhost:3001/api/subjects/{{SUBJECT-ID}}'
+curl --request GET 'http://localhost:3001/subjects/{{SUBJECT-ID}}'
 ```
 
 ```json 
@@ -512,8 +512,8 @@ curl --request GET 'http://localhost:3001/api/subjects/{{SUBJECT-ID}}'
     "namespace": "Spain",
     "name": "Wine",
     "schema_id": "Wine",
-    "owner": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
-    "creator": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
+    "owner": "{{CONTROLLER-ID}}",
+    "creator": "{{CONTROLLER-ID}}",
     "properties": {
         "grape": "PinotNoir",
         "harvest": 3,
@@ -537,7 +537,7 @@ kore-sign 'f855c6736463a65f515afe7b85d1418c096ed73852b42bbe4c332eb43d532326' '{"
 El resultado de esta ejecución se incluirá en la siguiente solicitud:
 
 ```bash title="Node: Premium Wines"
-curl --request POST 'http://localhost:3001/api/event-requests' \
+curl --request POST 'http://localhost:3001/event-requests' \
 --header 'Content-Type: application/json' \
 --data-raw {{SIGN-RESULT}}
 ```
@@ -546,17 +546,17 @@ Tras realizarla, debería aparecer la solicitud de aprobación a los nodos **WFO
 Después de realizar esta solicitud, debería ver la solicitud de aprobación para **WFO** y **SFO**. Puedes comprobarlo de la siguiente manera:
 
 ```bash title="Node: WFO"
-curl --request GET 'http://localhost:3002/api/approval-requests?status=pending'
+curl --request GET 'http://localhost:3002/approval-requests?status=pending'
 ```
 
 ```bash title="Node: SFO"
-curl --request GET 'http://localhost:3003/api/approval-requests?status=pending'
+curl --request GET 'http://localhost:3003/approval-requests?status=pending'
 ```
 
 Intentaremos aprobarlo en uno de los dos nodos, por ejemplo, en **SFO**:
 
 ```bash title="Node: SFO"
-curl --request PATCH 'http://localhost:3003/api/approval-requests/{{PREVIUS-ID}}' \
+curl --request PATCH 'http://localhost:3003/approval-requests/{{PREVIUS-ID}}' \
 --header 'Content-Type: application/json' \
 --data-raw '{"state": "RespondedAccepted"}'
 ```
@@ -564,7 +564,7 @@ curl --request PATCH 'http://localhost:3003/api/approval-requests/{{PREVIUS-ID}}
 Si todo salió bien, cuando inicies la solicitud de consulta de asunto, debería aparecer con `sn` 2 y `organic_certified` establecido en falso:
 
 ```bash title="Node: Premium Wines"
-curl --request GET 'http://localhost:3001/api/subjects?subject_type=all&governanceid={{GOVERNANCE-ID}}'
+curl --request GET 'http://localhost:3001/subjects?subject_type=all&governanceid={{GOVERNANCE-ID}}'
 ```
 
 ```json
@@ -576,8 +576,8 @@ curl --request GET 'http://localhost:3001/api/subjects?subject_type=all&governan
     "namespace": "Spain",
     "name": "Wine",
     "schema_id": "Wine",
-    "owner": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
-    "creator": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
+    "owner": "{{CONTROLLER-ID}}",
+    "creator": "{{CONTROLLER-ID}}",
     "properties": {
         "grape": "PinotNoir",
         "harvest": 3,

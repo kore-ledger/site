@@ -11,21 +11,13 @@ Any subject that has not completed its lifecycle in kore can be transferred to a
 To carry out this transfer, we need to set up a new node that will act as the new external owner outside the governance. We will follow these steps:
 
 ```bash
-docker run \
-    -p 3004:3000 \
-    -p 50004:50000 \
-    -e KORE_HTTP=true \
-    -e KORE_ID_PRIVATE_KEY=2a71a0aff12c2de9e21d76e0538741aa9ac6da9ff7f467cf8b7211bd008a3198 \
-    -e KORE_NETWORK_LISTEN_ADDR=/ip4/0.0.0.0/tcp/50004 \
-    -e KORE_NETWORK_KNOWN_NODE=/ip4/172.17.0.1/tcp/50000/p2p/12D3KooWHHjN5vKSKeCWiBG3gHaDRDp6YzsEgu9iTesYqrWxAgFk \
-    kore-ledger/kore-client:0.3
+docker run -p 3004:3000 -p 50004:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config2.json:/config.json koreadmin/kore-http:arm64-sqlite
 ```
 
 Up to this point, when creating the subject, we have not had to declare its public key, although we always had the possibility to do so. However, in this case, it's different because, during the transfer, the new owner must generate a public key with which they want to manage the subject being transferred to them. To do this, they must execute the following:
 
 ```bash
-curl --request POST 'http://localhost:3004/api/keys' \
---form 'algorithm="Ed25519"'
+curl --request 'http://localhost:3004/generate-keys
 ```
 
 This will generate a `public_key`, which must be copied and saved for later use.
@@ -33,17 +25,17 @@ This will generate a `public_key`, which must be copied and saved for later use.
 Next, we will activate the preauthorization of the governance from which we want to transfer the subject. Within the `providers`, we will specify the node that owns it. Since we are not members of the governance, no one will send it to us automatically, so we must authorize it and inform our node of its possible providers. In this case, we will request the governance from the **WPO** node, as it is the owner:
 
 ```bash  
-curl --request PUT 'http://localhost:3004/api/allowed-subjects/{{GOVERNANCE-ID}}' \
+curl --request PUT 'http://localhost:3004/allowed-subjects/{{GOVERNANCE-ID}}' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "providers": ["EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs"]
+    "providers": ["{{CONTROLLER-ID}}"]
 }'
 ```
 
 In addition to the above, it will also be necessary to preauthorize the subject that we want to receive since we are not witnesses to either the governance or the subjects of type *Wine*:
 
 ```bash  
-curl --request PUT 'http://localhost:3004/api/allowed-subjects/{{SUBJECT-ID}}' \
+curl --request PUT 'http://localhost:3004/allowed-subjects/{{SUBJECT-ID}}' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "providers": []
@@ -59,7 +51,7 @@ kore-sign '2a71a0aff12c2de9e21d76e0538741aa9ac6da9ff7f467cf8b7211bd008a3198' '{"
 The result of this execution will be included in the following request:
 
 ```bash    
-curl --request POST 'http://localhost:3001/api/event-requests' \
+curl --request POST 'http://localhost:3001/event-requests' \
 --header 'Content-Type: application/json' \
 --data-raw {{SIGN-RESULT}}
 ```
@@ -67,7 +59,7 @@ curl --request POST 'http://localhost:3001/api/event-requests' \
 This will generate a result similar to the following:
 
 ```bash    
-curl --request POST 'http://localhost:3001/api/event-requests' \
+curl --request POST 'http://localhost:3001/event-requests' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "request": {
@@ -87,7 +79,7 @@ curl --request POST 'http://localhost:3001/api/event-requests' \
 Once the above steps are completed, the new node should be able to view this subject, and the owner's identity should correspond to the **Citizen** node:
 
 ```bash  
-curl --request GET 'http://localhost:3004/api/subjects/{{SUBJECT-ID}}'
+curl --request GET 'http://localhost:3004/subjects/{{SUBJECT-ID}}'
 ```
 
 ```json
@@ -100,7 +92,7 @@ curl --request GET 'http://localhost:3004/api/subjects/{{SUBJECT-ID}}'
     "name": "Wine",
     "schema_id": "Wine",
     "owner": "EtbFWPL6eVOkvMMiAYV8qio291zd3viCMepUL6sY7RjA",
-    "creator": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
+    "creator": "{{CONTROLLER-ID}}",
     "properties": {
         "grape": "CabernetSauvignon",
         "harvest": 1,

@@ -1,7 +1,7 @@
 ---
 title: Invocaciones externas
 pagination_next: build/assets-traceability/running-node
-date: 2024-05-02
+date: 2024-06-06
 weight: 7
 ---
 Ha surgido una nueva necesidad: la certificación del origen ecológico del vino. Para llevar a cabo esta tarea, un laboratorio necesitará visitar nuestras tierras o viñedos y realizar una serie de análisis y pruebas que determinarán si el origen del vino es ecológico o no. Sin embargo, hay muchas empresas que ofrecen este servicio, y no es eficiente incorporarlas a todas al gobierno ni exigirles que tengan su propio nodo.
@@ -134,7 +134,7 @@ Una vez completado el proceso, obtendremos el siguiente resultado:
 A continuación, procederemos a invocar el método del contrato de gobierno responsable de actualizar sus propiedades. Para hacer esto, ejecutaremos lo siguiente:
 
 ```bash
-curl --request POST 'http://localhost:3000/api/event-requests' \
+curl --request POST 'http://localhost:3000/event-requests' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "request": {
@@ -164,19 +164,19 @@ curl --request POST 'http://localhost:3000/api/event-requests' \
 Después de enviar la solicitud de actualización de gobernanza, debemos obtener nuevamente una solicitud de aprobación:
 
 ```bash
-curl --request GET 'http://localhost:3000/api/approval-requests?status=Pending'
+curl --request GET 'http://localhost:3000/approval-requests?status=Pending'
 ```
 
 Copiaremos el valor del campo `id`. Sin embargo, esta vez también se requiere la aprobación de **WFO**. Por tanto, realizaremos las dos acciones siguientes:
 
 ```bash
-curl --request PATCH 'http://localhost:3000/api/approval-requests/{{PREVIUS-ID}}' \
+curl --request PATCH 'http://localhost:3000/approval-requests/{{PREVIUS-ID}}' \
 --header 'Content-Type: application/json' \
 --data-raw '{"state": "RespondedAccepted"}'
 ```
 
 ```bash
-curl --request PATCH 'http://localhost:3002/api/approval-requests/{{PREVIUS-ID}}' \
+curl --request PATCH 'http://localhost:3002/approval-requests/{{PREVIUS-ID}}' \
 --header 'Content-Type: application/json' \
 --data-raw '{"state": "RespondedAccepted"}'
 ```
@@ -184,7 +184,7 @@ curl --request PATCH 'http://localhost:3002/api/approval-requests/{{PREVIUS-ID}}
 Con todas estas acciones, al consultar una vez más nuestra gobernanza, debería aparecer la nueva versión correspondiente:
 
 ```bash
-curl --silent --request GET 'http://localhost:3002/api/subjects?subject_type=governances'
+curl --silent --request GET 'http://localhost:3002/subjects?subject_type=governances'
 ```
 
 {{< alert-details type="info" title="Gobernanza" summary="Pincha para ver la gobernanza" >}}
@@ -197,20 +197,20 @@ curl --silent --request GET 'http://localhost:3002/api/subjects?subject_type=gov
     "namespace": "",
     "name": "wine_track",
     "schema_id": "governance",
-    "owner": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
-    "creator": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
+    "owner": "{{CONTROLLER-ID}}",
+    "creator": "{{CONTROLLER-ID}}",
     "properties": {
         "members": [
             {
-                "id": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
+                "id": "{{CONTROLLER-ID}}",
                 "name": "WPO"
             },
             {
-                "id": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
+                "id": "{{CONTROLLER-ID}}",
                 "name": "PremiumWines"
             },
             {
-                "id": "EICgJYOXXRFqDMiFsrCcUgPYnCSgUT-zwe66LP8rDpPU",
+                "id": "{{CONTROLLER-ID}}",
                 "name": "WFO"
             }
         ],
@@ -412,7 +412,7 @@ kore-sign 'f855c6736463a65f515afe7b85d1418c096ed73852b42bbe4c332eb43d532326' '{"
 El resultado de esta ejecución se incluirá en la siguiente solicitud de esta manera:
 
 ```bash
-curl --request POST 'http://localhost:3001/api/event-requests' \
+curl --request POST 'http://localhost:3001/event-requests' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "request": {
@@ -439,7 +439,7 @@ curl --request POST 'http://localhost:3001/api/event-requests' \
 Si todo ha ido correctamente, ejecutar el siguiente comando debería actualizar el asunto con un valor `sn` de 2 y reflejar los cambios mencionados anteriormente:
 
 ```bash
-curl --request GET 'http://localhost:3001/api/subjects/{{SUBJECT-ID}}'
+curl --request GET 'http://localhost:3001/subjects/{{SUBJECT-ID}}'
 ```
 
 ```json
@@ -451,8 +451,8 @@ curl --request GET 'http://localhost:3001/api/subjects/{{SUBJECT-ID}}'
     "namespace": "",
     "name": "Wine",
     "schema_id": "Wine",
-    "owner": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
-    "creator": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
+    "owner": "{{CONTROLLER-ID}}",
+    "creator": "{{CONTROLLER-ID}}",
     "properties": {
         "grape": "CabernetSauvignon",
         "harvest": 1,

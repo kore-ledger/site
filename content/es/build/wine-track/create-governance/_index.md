@@ -1,7 +1,7 @@
 ---
 title: Creando una gobernanza
 pagination_next: build/assets-traceability/running-node
-date: 2024-05-02
+date: 2024-06-06
 weight: 2
 ---
 Una vez que el **WPO** tiene un nodo en la red kore, es momento de definir el caso de uso, que incluye participantes, reglas de interacción, modelos de información, entre otros aspectos. En la red kore, esto se logra creando una [gobernanza](../../../docs/learn/governance/), donde se especifica la funcionalidad específica del caso de uso.
@@ -11,7 +11,7 @@ Para crear una gobernanza básica, se requieren los siguientes pasos:
 * Para comenzar, ejecute el siguiente comando para crear una versión básica de una gobernanza:
 
   ```bash
-  curl --request POST 'http://localhost:3000/api/event-requests' \
+  curl --request POST 'http://localhost:3000/event-requests' \
   --header 'Content-Type: application/json' \
   --data-raw '{
     "request": {
@@ -28,7 +28,7 @@ Para crear una gobernanza básica, se requieren los siguientes pasos:
 * Como resultado de la acción anterior, se devolverá un `request-id`. Cópialo y úsalo en el siguiente comando:
 
   ```bash
-  curl --request GET 'http://localhost:3000/api/event-requests/{{REQUEST-ID}}/state'
+  curl --request GET 'http://localhost:3000/event-requests/{{REQUEST-ID}}/state'
   ```
 
   Este último comando proporcionará una respuesta como la siguiente:
@@ -51,7 +51,7 @@ Para crear una gobernanza básica, se requieren los siguientes pasos:
 * Podemos verificar la gobernanza creada usando el siguiente comando:
 
   ```bash
-  curl --request GET 'http://localhost:3000/api/subjects/{{GOVERNANCE-ID}}'
+  curl --request GET 'http://localhost:3000/subjects/{{GOVERNANCE-ID}}'
   ```
 
   El resultado obtenido debería ser similar al siguiente:
@@ -65,8 +65,8 @@ Para crear una gobernanza básica, se requieren los siguientes pasos:
     "namespace": "",
     "name": "wine_track",
     "schema_id": "governance",
-    "owner": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
-    "creator": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
+    "owner": "{{CONTROLLER-ID}}",
+    "creator": "{{CONTROLLER-ID}}",
     "properties": {
       "members": [],
       "policies": [

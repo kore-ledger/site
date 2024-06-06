@@ -11,7 +11,7 @@ Para abordar esta situación,  kore proporciona una solución: el uso de [**EOL*
 Para probar esto, lo aplicaremos a la última botella que creamos (la española). Para hacer esto, ejecute el siguiente comando:
 
 ```bash title="Node: Premium Wines"
-curl --location --request POST 'http://localhost:3001/api/event-requests' \
+curl --location --request POST 'http://localhost:3001/event-requests' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "request": {
@@ -25,7 +25,7 @@ curl --location --request POST 'http://localhost:3001/api/event-requests' \
 Si todo salió bien, cuando solicites una lista de sujetos, deberías ver la botella con un valor `sn` de 3 y el campo `active` establecido en `false`:
 
 ```bash title="Node: Premium Wines"
-curl --location --request GET 'http://localhost:3001/api/subjects/{{SUBJECT-ID}}'
+curl --location --request GET 'http://localhost:3001/subjects/{{SUBJECT-ID}}'
 ```
 
 ```json
@@ -37,8 +37,8 @@ curl --location --request GET 'http://localhost:3001/api/subjects/{{SUBJECT-ID}}
     "namespace": "Spain",
     "name": "Wine",
     "schema_id": "Wine",
-    "owner": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
-    "creator": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
+    "owner": "{{CONTROLLER-ID}}",
+    "creator": "{{CONTROLLER-ID}}",
     "properties": {
         "grape": "PinotNoir",
         "harvest": 3,
@@ -56,12 +56,12 @@ curl --location --request GET 'http://localhost:3001/api/subjects/{{SUBJECT-ID}}
 Ahora bien, si intentas lanzar un nuevo evento sobre este sujeto, no se permitirá. Para demostrar esto, intentemos lanzar un evento **EOL** nuevamente:
 
 ```bash title="Node: Premium Wines"
-curl --location --request POST 'http://localhost:3001/api/event-requests' \
+curl --location --request POST 'http://localhost:3001/event-requests' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "request": {
         "EOL": {
-        "subject_id": {{SUBJECT-ID}}
+        "subject_id": "{{SUBJECT-ID}}"
         }
     }
 }'
@@ -69,8 +69,6 @@ curl --location --request POST 'http://localhost:3001/api/event-requests' \
 
 En este caso devolverá un mensaje indicando que no se puede lanzar un evento sobre un asunto que ha llegado al final de su ciclo de vida:
 
-
-
-``` afsfafafaf
-Subject Life Ended: {{SUBJECT-ID}}
+``` bash
+API error: Failed to process request
 ```

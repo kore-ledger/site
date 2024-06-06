@@ -37,7 +37,7 @@ With the foundation in place, developers take the next step: starting a new proj
 ```bash
 cargo install 'flutter_rust_bridge_codegen@^2.0.0-dev.0' && flutter_rust_bridge_codegen create my_app && cd my_app
 ```
-Next we will proceed to create our first function in rust, in this case we are going to consume an endpoint that allows the registration of a user. The path where we will write the function is `rust/src/api/request.rs`.
+Next we will proceed to create our first function in rust, in this case we are going to consume an endpoint that allows the registration of a user. The path where we will write the function is `rust/src/request.rs`.
 ```rust
 #[derive(Serialize, Clone)]
 pub struct UserAuth {
@@ -75,7 +75,7 @@ To transform the rust code to dart code we must execute the following command:
 flutter_rust_bridge_codegen generate
 ```
 Note that only the types that have been used in the functions will be converted.
-You should create the following in the path `rust/src/api/request.dart`.
+You should create the following in the path `rust/src/request.dart`.
 
 ```dart
 Future<String> register(
@@ -135,7 +135,7 @@ Subsequently the _struct_ has been transformed to a class with attributes of typ
 Finally from our flutter application we can import and use this function.
 
 ```dart
-import 'package:app/components/api/request.dart';
+import 'package:app/components/request.dart';
 
 register(username: usernameController.text,password: passwordController.text)
     .then((response) {

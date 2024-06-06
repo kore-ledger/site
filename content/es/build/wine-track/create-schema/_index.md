@@ -1,7 +1,7 @@
 ---
 title: Creando un schema
 pagination_next: build/assets-traceability/running-node
-date: 2024-05-02
+date: 2024-06-06
 weight: 4
 ---
 Hemos agregado nuestro primer miembro a la gobernanza, pero todavía hay más por completar, ya que no hemos definido la estructura de datos para rastrear sujetos de tipo *Wine* en este caso de uso.
@@ -69,8 +69,6 @@ El esquema debe definirse en formato [Json Schema](../../../docs/getting-started
 ```
 {{< /alert-details >}}
 
-
-
 ## Contrato
 
 Después de declarar nuestro esquema, el siguiente paso es crear el [*contrato*](../../../docs/learn/contracts/) ya que necesitamos una forma de actualizar los estados de los sujetos que declaramos. Por lo tanto, crearemos un pequeño proyecto para el desarrollo del contrato, tomando como referencia lo [declarado en esta sección](../../../docs/learn/contracts/programming%20contracts/).
@@ -100,7 +98,7 @@ Después de declarar nuestro esquema, el siguiente paso es crear el [*contrato*]
 
     [dependencies]
     serde = { version = "1.0.152", features = ["derive"] }
-    kore-sc-rust = { git = "https://github.com/kore-ledger/kore-sc-rust.git", branch = "main"}
+    kore-sc-rust = { git = "https://github.com/kore-ledger/kore-contract-sdk.git", branch = "main"}
     ```
 
     {{< alert type="info" title="INFORMACIÓN">}}De ahora en adelante, todos los pasos numerados restantes se realizarán dentro del archivo `main.rs`.{{< /alert >}}
@@ -624,7 +622,7 @@ Ahora es el momento de llamar al método del contrato de la gobernanza responsab
 
 {{< alert-details type="info" title="Evento" summary="Pincha para ver el evento" >}}
 ```bash
-curl --request POST 'http://localhost:3000/api/event-requests' \
+curl --request POST 'http://localhost:3000/event-requests' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "request": {
@@ -742,13 +740,13 @@ curl --request POST 'http://localhost:3000/api/event-requests' \
 Una vez emitido el evento, necesitamos obtener la nueva solicitud de actualización. Para ello ejecutamos lo siguiente:
 
 ```bash 
-curl --request GET 'http://localhost:3000/api/approval-requests?status=Pending'
+curl --request GET 'http://localhost:3000/approval-requests?status=Pending'
 ```
 
 Copiamos el valor del campo `id` y aceptamos la solicitud de actualización de gobernanza:
 
 ```bash
-curl --request PATCH 'http://localhost:3000/api/approval-requests/{{PREVIUS-ID}}' \
+curl --request PATCH 'http://localhost:3000/approval-requests/{{PREVIUS-ID}}' \
 --header 'Content-Type: application/json' \
 --data-raw '{"state": "RespondedAccepted"}'
 ```
@@ -756,7 +754,7 @@ curl --request PATCH 'http://localhost:3000/api/approval-requests/{{PREVIUS-ID}}
 Finalmente, consultamos la gobernanza para verificar que el cambio se haya aplicado exitosamente. Si todo ha ido según lo planeado, ahora debería tener un `sn` de 2, y la nueva política, esquema, estado inicial para los sujetos *Wine* y el contrato deberían estar presentes:
 
 ```bash
-curl --request GET 'http://localhost:3000/api/subjects/{{GOVERNANCE-ID}}'
+curl --request GET 'http://localhost:3000/subjects/{{GOVERNANCE-ID}}'
 ```
 
 
@@ -771,12 +769,12 @@ curl --request GET 'http://localhost:3000/api/subjects/{{GOVERNANCE-ID}}'
     "namespace": "",
     "name": "wine_track",
     "schema_id": "governance",
-    "owner": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
-    "creator": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
+    "owner": "{{CONTROLLER-ID}}",
+    "creator": "{{CONTROLLER-ID}}",
     "properties": {
         "members": [
         {
-            "id": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
+            "id": "{{CONTROLLER-ID}}",
             "name": "WPO"
         }
         ],

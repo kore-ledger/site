@@ -446,7 +446,7 @@ Next, we will invoke the governance contract method responsible for updating its
 
 {{< alert-details type="info" title="Petición" summary="Clic to see the response" >}}
 ```bash
-curl --request POST 'http://localhost:3000/api/event-requests' \
+curl --request POST 'http://localhost:3000/event-requests' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "request": {
@@ -615,19 +615,19 @@ curl --request POST 'http://localhost:3000/api/event-requests' \
 After sending the governance update request, we will receive an approval notification. To do this, run the following command:
 
 ```bash
-curl --request GET 'http://localhost:3000/api/approval-requests?status=Pending'
+curl --request GET 'http://localhost:3000/approval-requests?status=Pending'
 ```
 
 Copy the value of the `id` field from the notification and request approval from **WPO** and **WFO**:
 
 ```bash
-curl --request PATCH 'http://localhost:3000/api/approval-requests/{{PREVIUS-ID}}' \
+curl --request PATCH 'http://localhost:3000/approval-requests/{{PREVIUS-ID}}' \
 --header 'Content-Type: application/json' \
 --data-raw '{"state": "RespondedAccepted"}'
 ```
 
 ```bash
-curl --request PATCH 'http://localhost:3002/api/approval-requests/{{PREVIUS-ID}}' \
+curl --request PATCH 'http://localhost:3002/approval-requests/{{PREVIUS-ID}}' \
 --header 'Content-Type: application/json' \
 --data-raw '{"state": "RespondedAccepted"}'
 ```
@@ -635,7 +635,7 @@ curl --request PATCH 'http://localhost:3002/api/approval-requests/{{PREVIUS-ID}}
 If everything went well, when you execute the following command, the governance `sn` should be 7, and the changes made earlier should be displayed:
 
 ```bash
-curl --request GET 'http://localhost:3000/api/subjects?subject_type=governances'
+curl --request GET 'http://localhost:3000/subjects?subject_type=governances'
 ```
 
 {{< alert-details type="info" title="Governance" summary="Clic to see the governance" >}}
@@ -648,20 +648,20 @@ curl --request GET 'http://localhost:3000/api/subjects?subject_type=governances'
     "namespace": "",
     "name": "wine_track",
     "schema_id": "governance",
-    "owner": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
-    "creator": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
+    "owner": "{{CONTROLLER-ID}}",
+    "creator": "{{CONTROLLER-ID}}",
     "properties": {
         "members": [
             {
-                "id": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
+                "id": "{{CONTROLLER-ID}}",
                 "name": "WPO"
             },
             {
-                "id": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
+                "id": "{{CONTROLLER-ID}}",
                 "name": "PremiumWines"
             },
             {
-                "id": "EICgJYOXXRFqDMiFsrCcUgPYnCSgUT-zwe66LP8rDpPU",
+                "id": "{{CONTROLLER-ID}}",
                 "name": "WFO"
             },
             {
@@ -931,7 +931,7 @@ Once we have implemented *namespace* segmentation, we will perform tests to veri
 Let's create a French wine bottle using the following command:
 
 ```bash
-curl --request POST 'http://localhost:3001/api/event-requests' \
+curl --request POST 'http://localhost:3001/event-requests' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "request": {
@@ -948,7 +948,7 @@ curl --request POST 'http://localhost:3001/api/event-requests' \
 When you perform this action, you will receive a `request-id`, which you should copy and use in the following command:
 
 ```bash
-curl --request GET 'http://localhost:3001/api/event-requests/{{REQUEST-ID}}/state'
+curl --request GET 'http://localhost:3001/event-requests/{{REQUEST-ID}}/state'
 ```
 
 This last command will give you a response similar to the following:
@@ -969,7 +969,7 @@ Save the `subject_id` of the **subject**, as you will need it for subsequent ste
 To check our new wine bottle, execute the following command:
 
 ```bash
-curl --request GET 'http://localhost:3001/api/subjects/{{SUBJECT-ID}}'
+curl --request GET 'http://localhost:3001/subjects/{{SUBJECT-ID}}'
 ```
 
 ```json
@@ -981,8 +981,8 @@ curl --request GET 'http://localhost:3001/api/subjects/{{SUBJECT-ID}}'
     "namespace": "France",
     "name": "Wine",
     "schema_id": "Wine",
-    "owner": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
-    "creator": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
+    "owner": "{{CONTROLLER-ID}}",
+    "creator": "{{CONTROLLER-ID}}",
     "properties": {
         "grape": null,
         "harvest": 0,
@@ -1000,7 +1000,7 @@ curl --request GET 'http://localhost:3001/api/subjects/{{SUBJECT-ID}}'
 But if we execute:
 
 ```bash
-curl --request GET 'http://localhost:3000/api/subjects/{{SUBJECT-ID}}'
+curl --request GET 'http://localhost:3000/subjects/{{SUBJECT-ID}}'
 ```
 
 We get 404 arror because of the segmentation we have applied changing the namespace, which determine who are the witnesses of the subject.
@@ -1008,7 +1008,7 @@ We get 404 arror because of the segmentation we have applied changing the namesp
 Initialize the bottle before testing the certification event issuance:
 
 ```bash
-curl --request POST 'http://localhost:3001/api/event-requests' \
+curl --request POST 'http://localhost:3001/event-requests' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "request": {
@@ -1029,7 +1029,7 @@ curl --request POST 'http://localhost:3001/api/event-requests' \
 Now, when you execute the subject query again, it should have a `sn` value of 1 and display the previously mentioned information:
 
 ```bash
-curl --request GET 'http://localhost:3001/api/subjects/{{SUBJECT-ID}}'
+curl --request GET 'http://localhost:3001/subjects/{{SUBJECT-ID}}'
 ```
 
 ```json
@@ -1041,8 +1041,8 @@ curl --request GET 'http://localhost:3001/api/subjects/{{SUBJECT-ID}}'
     "namespace": "France",
     "name": "Wine",
     "schema_id": "Wine",
-    "owner": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
-    "creator": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
+    "owner": "{{CONTROLLER-ID}}",
+    "creator": "{{CONTROLLER-ID}}",
     "properties": {
         "grape": "Chardonnay",
         "harvest": 2,
@@ -1066,7 +1066,7 @@ kore-sign 'f855c6736463a65f515afe7b85d1418c096ed73852b42bbe4c332eb43d532326' '{"
 The result of this execution will be included in the following request:
 
 ```bash
-curl --request POST 'http://localhost:3001/api/event-requests' \
+curl --request POST 'http://localhost:3001/event-requests' \
 --header 'Content-Type: application/json' \
 --data-raw {{SIGN-RESULT}}
 ```
@@ -1074,7 +1074,7 @@ curl --request POST 'http://localhost:3001/api/event-requests' \
 This will give us a result similar to the following:
 
 ```bash
-curl --request POST 'http://localhost:3001/api/event-requests' \
+curl --request POST 'http://localhost:3001/event-requests' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "request": {
@@ -1101,13 +1101,13 @@ curl --request POST 'http://localhost:3001/api/event-requests' \
 If the segmentation has been successfully applied, the approval message for this subject should only have been received by **WFO**. To check it, execute the following command:
 
 ```bash
-curl --request GET 'http://localhost:3002/api/approval-requests?status=pending'
+curl --request GET 'http://localhost:3002/approval-requests?status=pending'
 ```
 
 Copy its `id` and use it to accept it with the following request:
 
 ```bash
-curl --request PATCH 'http://localhost:3002/api/approval-requests/{{PREVIUS-ID}}' \
+curl --request PATCH 'http://localhost:3002/approval-requests/{{PREVIUS-ID}}' \
 --header 'Content-Type: application/json' \
 --data-raw '{"state": "RespondedAccepted"}'
 ```
@@ -1115,20 +1115,20 @@ curl --request PATCH 'http://localhost:3002/api/approval-requests/{{PREVIUS-ID}}
 Now, when you query the subject again, it should show a `sn` value of 2, and the `organic_certified` field should be `false`:
 
 ```bash
-curl --request GET 'http://localhost:3001/api/subjects?subject_type=all&governanceid={{GOVERNANCE-ID}}'
+curl --request GET 'http://localhost:3001/subjects?subject_type=all&governanceid={{GOVERNANCE-ID}}'
 ```
 
 ```json
 {
     "subject_id": "{{SUBJECT_ID}}",
-    "governance_id": "{{GOVERNANCE_ID}}",
+    "governance_id": "{{GOVERNANCE-ID}}",
     "sn": 2,
     "public_key": "E5DkRaljajwUZ1HrpgdkIxdTu0fbrg-nqoBJFHqm6GJY",
     "namespace": "France",
     "name": "Wine",
     "schema_id": "Wine",
-    "owner": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
-    "creator": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
+    "owner": "{{CONTROLLER-ID}}",
+    "creator": "{{CONTROLLER-ID}}",
     "properties": {
         "grape": "Chardonnay",
         "harvest": 2,

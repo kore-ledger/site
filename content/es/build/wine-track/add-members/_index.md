@@ -1,22 +1,27 @@
 ---
 title: Añadir miembros
 pagination_next: build/assets-traceability/running-node
-date: 2024-05-02
+date: 2024-06-06
 weight: 5
 ---
 Excelente, ahora tenemos el esquema necesario para crear el sujeto tipo *Wine*. Sin embargo, reflexionando, nos damos cuenta de que no hay nadie autorizado para crear y emitir eventos relacionados con este nuevo esquema. Por lo tanto, necesitamos agregar un nuevo participante a nuestra red responsable de esta tarea.
 
 Comencemos configurando el nodo correspondiente:
-
+```json
+{
+    "kore": {
+      "network": {
+          "listen_addresses": ["/ip4/0.0.0.0/tcp/50000"],
+          "routing": {
+            "boot_nodes": ["/ip4/172.17.0.1/tcp/50000/p2p/{{PEER-ID}}"]
+          }
+      }
+    }
+  }
+```
+Mapeamos el puerto 3001 para realizar peticiones desde nuestra máquina e indicamos el `peer-id` del nodo 1.
 ```bash   
-docker run \
-    -p 3001:3000 \
-    -p 50001:50000 \
-    -e KORE_HTTP=true \
-    -e KORE_ID_PRIVATE_KEY=4f0e3c9cd24ab3420b81220bb7ebccb4e42501d3667dea81838b3bfaae20c936 \
-    -e KORE_NETWORK_LISTEN_ADDR=/ip4/0.0.0.0/tcp/50001 \
-    -e KORE_NETWORK_KNOWN_NODE=/ip4/172.17.0.1/tcp/50000/p2p/12D3KooWHHjN5vKSKeCWiBG3gHaDRDp6YzsEgu9iTesYqrWxAgFk \
-    kore-ledger/kore-client:0.3
+docker run -p 3001:3000 -p 50001:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config2.json:/config.json koreadmin/kore-http:arm64-leveldb-prometheus
 ```
 
 A continuación, procederemos a actualizar la gobernanza para incluir a este nuevo miembro y permitirle crear asuntos tipo *Wine*.
@@ -31,7 +36,7 @@ Verifiquemos los cambios que queremos realizar en las propiedades de gobierno. E
 {
     "members": [
         {
-            "id": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
+            "id": "{{CONTROLLER-ID}}",
             "name": "WPO"
         }
     ],
@@ -67,7 +72,7 @@ Ahora, necesitamos incorporar los cambios mencionados:
         ...
 
         {
-            "id": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
+            "id": "{{CONTROLLER-ID}}",
             "name": "PremiumWines"
         }
     ],
@@ -92,7 +97,7 @@ Ahora, necesitamos incorporar los cambios mencionados:
 Usaremos nuestra herramienta [**Kore-Patch**](../../../docs/learn/tools/) para generar estos cambios, siguiendo el procedimiento a continuación:
 
 ```bash   
-kore-patch '{"members":[{"id":"EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs","name":"WPO"}],"roles":[{"namespace":"","role":"WITNESS","schema":{"ID":"governance"},"who":"MEMBERS"},{"namespace":"","role":"APPROVER","schema":{"ID":"governance"},"who":{"NAME":"WPO"}}]}' '{"members":[{"id":"EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs","name":"WPO"},{"id":"Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI","name":"PremiumWines"}],"roles":[{"namespace":"","role":"WITNESS","schema":{"ID":"governance"},"who":"MEMBERS"},{"namespace":"","role":"APPROVER","schema":{"ID":"governance"},"who":{"NAME":"WPO"}},{"namespace":"","role":"CREATOR","schema":{"ID":"Wine"},"who":{"NAME":"PremiumWines"}}]}'
+kore-patch '{"members":[{"id":"{{CONTROLLER-ID}}","name":"WPO"}],"roles":[{"namespace":"","role":"WITNESS","schema":{"ID":"governance"},"who":"MEMBERS"},{"namespace":"","role":"APPROVER","schema":{"ID":"governance"},"who":{"NAME":"WPO"}}]}' '{"members":[{"id":"{{CONTROLLER-ID}}","name":"WPO"},{"id":"{{CONTROLLER-ID}}","name":"PremiumWines"}],"roles":[{"namespace":"","role":"WITNESS","schema":{"ID":"governance"},"who":"MEMBERS"},{"namespace":"","role":"APPROVER","schema":{"ID":"governance"},"who":{"NAME":"WPO"}},{"namespace":"","role":"CREATOR","schema":{"ID":"Wine"},"who":{"NAME":"PremiumWines"}}]}'
 ```
 
 El resultado obtenido será el siguiente:
@@ -103,7 +108,7 @@ El resultado obtenido será el siguiente:
     "op": "add",
     "path": "/members/1",
     "value": {
-      "id": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
+      "id": "{{CONTROLLER-ID}}",
       "name": "PremiumWines"
     }
   },
@@ -128,7 +133,7 @@ Ahora es el momento de llamar al método del contrato de la gobernanza responsab
 
 {{< alert-details type="info" title="Evento" summary="Pincha para ver el evento" >}}
 ```bash   
-curl --request POST 'http://localhost:3000/api/event-requests' \
+curl --request POST 'http://localhost:3000/event-requests' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "request": {
@@ -140,7 +145,7 @@ curl --request POST 'http://localhost:3000/api/event-requests' \
                         "op": "add",
                         "path": "/members/1",
                         "value": {
-                        "id": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
+                        "id": "{{CONTROLLER-ID}}",
                         "name": "PremiumWines"
                         }
                     },
@@ -166,17 +171,16 @@ curl --request POST 'http://localhost:3000/api/event-requests' \
 ```
 {{< /alert-details >}}
 
-
 Una vez emitido el evento, necesitamos obtener la nueva solicitud de actualización. Para ello ejecutamos lo siguiente:
 
 ```bash   
-curl --request GET 'http://localhost:3000/api/approval-requests?status=Pending'
+curl --request GET 'http://localhost:3000/approval-requests?status=Pending'
 ```
 
 Copiamos el valor del campo `id` y aceptamos la solicitud de actualización de gobernanza:
 
 ```bash   
-curl --request PATCH 'http://localhost:3000/api/approval-requests/{{PREVIUS-ID}}' \
+curl --request PATCH 'http://localhost:3000/approval-requests/{{PREVIUS-ID}}' \
 --header 'Content-Type: application/json' \
 --data-raw '{"state": "RespondedAccepted"}'
 ```
@@ -184,13 +188,13 @@ curl --request PATCH 'http://localhost:3000/api/approval-requests/{{PREVIUS-ID}}
 Consultamos la gobernanza desde el nuevo nodo(puerto 3001):
 
 ```bash   
-curl --request GET 'http://localhost:3001/api/subjects/{{GOVERNANCE-ID}}'
+curl --request GET 'http://localhost:3001/subjects/{{GOVERNANCE-ID}}'
 ```
 
 Obtendremos lo siguiente:
 
 ```bash
-Not found Subject JLblI3wVzvQZPxQlz-GE1p_6OmYuKr_WyFFV97wyQV54
+[]
 ```
 
 ¿Un error? ¿Pero no acabamos de incluir el nuevo nodo en la gobernanza y es testigo de ello?
@@ -200,7 +204,7 @@ Si bien lo último es cierto, debemos considerar lo siguiente: por razones de se
 Por lo tanto, debemos ejecutar lo siguiente para recibir información de gobernanza:
 
 ```bash   
-curl --request PUT 'http://localhost:3001/api/allowed-subjects/{{GOVERNANCE-ID}}' \
+curl --request PUT 'http://localhost:3001/allowed-subjects/{{GOVERNANCE-ID}}' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "providers": []
@@ -210,7 +214,7 @@ curl --request PUT 'http://localhost:3001/api/allowed-subjects/{{GOVERNANCE-ID}}
 Ahora, al intentar consultar la gobernanza desde el nuevo nodo, obtendremos la información esperada:
 
 ```bash   
-curl --request GET 'http://localhost:3001/api/subjects/{{GOVERNANCE-ID}}'
+curl --request GET 'http://localhost:3001/subjects/{{GOVERNANCE-ID}}'
 ```
 
 {{< alert-details type="info" title="Respuesta" summary="Pincha para ver la respuesta" >}}
@@ -223,16 +227,16 @@ curl --request GET 'http://localhost:3001/api/subjects/{{GOVERNANCE-ID}}'
     "namespace": "",
     "name": "wine_track",
     "schema_id": "governance",
-    "owner": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
-    "creator": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
+    "owner": "{{CONTROLLER-ID}}",
+    "creator": "{{CONTROLLER-ID}}",
     "properties": {
         "members": [
             {
-                "id": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
+                "id": "{{CONTROLLER-ID}}",
                 "name": "WPO"
             },
             {
-                "id": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
+                "id": "{{CONTROLLER-ID}}",
                 "name": "PremiumWines"
             }
         ],
@@ -386,21 +390,14 @@ Para lograr esto, permitiremos que **WFO** asuma las funciones de aprobador, val
 Comencemos configurando el nodo **WFO**:
 
 ```bash   
-docker run \
-    -p 3002:3000 \
-    -p 50002:50000 \
-    -e KORE_HTTP=true \
-    -e KORE_ID_PRIVATE_KEY=6d3103185146ecedd28d3759df693999927e69aacb55e1aa9fe7ac17555da81c \
-    -e KORE_NETWORK_LISTEN_ADDR=/ip4/0.0.0.0/tcp/50002 \
-    -e KORE_NETWORK_KNOWN_NODE=/ip4/172.17.0.1/tcp/50000/p2p/12D3KooWHHjN5vKSKeCWiBG3gHaDRDp6YzsEgu9iTesYqrWxAgFk \
-    kore-ledger/kore-client:0.3 
+docker run -p 3002:3000 -p 50002:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config2.json:/config.json koreadmin/kore-http:arm64-leveldb-prometheus
 ```
 
 A continuación procederemos a actualizar la gobernanza para otorgarle las propiedades mencionadas:
 
 {{< alert-details type="info" title="Evento" summary="Pincha para ver el evento" >}}
 ```bash
-curl --request POST 'http://localhost:3000/api/event-requests' \
+curl --request POST 'http://localhost:3000/event-requests' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "request": {
@@ -412,7 +409,7 @@ curl --request POST 'http://localhost:3000/api/event-requests' \
                         "op": "add",
                         "path": "/members/2",
                         "value": {
-                        "id": "EICgJYOXXRFqDMiFsrCcUgPYnCSgUT-zwe66LP8rDpPU",
+                        "id": "{{CONTROLLER-ID}}",
                         "name": "WFO"
                         }
                     },
@@ -487,13 +484,13 @@ En este punto, los pasos para generar el nuevo *Json Patch* para la gobernanza n
 Una vez ejecutado este comando, deberíamos obtener nuevamente la solicitud de actualización. Para ello ejecutamos:
 
 ```bash   
-curl --request GET 'http://localhost:3000/api/approval-requests?status=Pending'
+curl --request GET 'http://localhost:3000/approval-requests?status=Pending'
 ```
 
 Copiamos el valor del campo `id` y aceptamos la solicitud de actualización de gobernanza:
 
 ```bash   
-curl --request PATCH 'http://localhost:3000/api/approval-requests/{{PREVIUS-ID}}' \
+curl --request PATCH 'http://localhost:3000/approval-requests/{{PREVIUS-ID}}' \
 --header 'Content-Type: application/json' \
 --data-raw '{"state": "RespondedAccepted"}'
 ```
@@ -501,7 +498,7 @@ curl --request PATCH 'http://localhost:3000/api/approval-requests/{{PREVIUS-ID}}
 Llegados a este punto, nos encontraremos en una situación similar a la descrita en el sección anterior. Aunque el nuevo nodo es parte de la gobernanza, no puede recibir su información, por lo que necesitamos realizar su preautorización. Para hacer esto, ejecutaremos el siguiente comando:
 
 ```bash   
-curl --request PUT 'http://localhost:3002/api/allowed-subjects/{{GOVERNANCE-ID}}' \
+curl --request PUT 'http://localhost:3002/allowed-subjects/{{GOVERNANCE-ID}}' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "providers": []
@@ -511,7 +508,7 @@ curl --request PUT 'http://localhost:3002/api/allowed-subjects/{{GOVERNANCE-ID}}
 Si todo ha ido como se esperaba, ahora podemos consultar la gobernanza del nuevo nodo, y ahora debería tener un valor `sn` de 4, así como el cambio realizado en miembros y roles.
 
 ```bash   
-curl --request GET 'http://localhost:3002/api/subjects/{{GOVERNANCE-ID}}'
+curl --request GET 'http://localhost:3002/subjects/{{GOVERNANCE-ID}}'
 ```
 
 {{< alert-details type="info" title="Governance" summary="Click to see the governance" >}}
@@ -524,20 +521,20 @@ curl --request GET 'http://localhost:3002/api/subjects/{{GOVERNANCE-ID}}'
     "namespace": "",
     "name": "wine_track",
     "schema_id": "governance",
-    "owner": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
-    "creator": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
+    "owner": "{{CONTROLLER-ID}}",
+    "creator": "{{CONTROLLER-ID}}",
     "properties": {
         "members": [
             {
-                "id": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
+                "id": "{{CONTROLLER-ID}}",
                 "name": "WPO"
             },
             {
-                "id": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
+                "id": "{{CONTROLLER-ID}}",
                 "name": "PremiumWines"
             },
             {
-                "id": "EICgJYOXXRFqDMiFsrCcUgPYnCSgUT-zwe66LP8rDpPU",
+                "id": "{{CONTROLLER-ID}}",
                 "name": "WFO"
             }
         ],

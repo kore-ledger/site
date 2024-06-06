@@ -1,7 +1,7 @@
 ---
 title: Creating a governance
 pagination_next: build/assets-traceability/running-node
-date: 2024-05-02
+date: 2024-06-06
 weight: 2
 ---
 Once the **WPO** has a node in the kore network, it's time to define the use case, which includes participants, interaction rules, information models, among other aspects. In the kore network, this is accomplished by creating a [governance](../../discover/governance.md), where the specific functionality of the use case is specified.
@@ -11,7 +11,7 @@ To create a basic governance, the following steps are required:
 * To begin, execute the following command to create a basic version of a governance:
 
   ```bash
-  curl --request POST 'http://localhost:3000/api/event-requests' \
+  curl --request POST 'http://localhost:3000/event-requests' \
   --header 'Content-Type: application/json' \
   --data-raw '{
     "request": {
@@ -28,7 +28,7 @@ To create a basic governance, the following steps are required:
 * As a result of the previous action, a `request-id` will be returned. Copy and use it in the following command:
 
   ```bash
-  curl --request GET 'http://localhost:3000/api/event-requests/{{REQUEST-ID}}/state'
+  curl --request GET 'http://localhost:3000/event-requests/{{REQUEST-ID}}/state'
   ```
 
   This last command will provide a response like the following:
@@ -50,7 +50,7 @@ Save the `subject_id` of the **governance**, as it will be needed in next steps 
 * We can check the created governance using the following command:
 
   ```bash
-  curl --request GET 'http://localhost:3000/api/subjects/{{GOVERNANCE-ID}}'
+  curl --request GET 'http://localhost:3000/subjects/{{GOVERNANCE-ID}}'
   ```
 
   The obtained result should be similar to the following:
@@ -64,8 +64,8 @@ Save the `subject_id` of the **governance**, as it will be needed in next steps 
     "namespace": "",
     "name": "wine_track",
     "schema_id": "governance",
-    "owner": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
-    "creator": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
+    "owner": "{{CONTROLLER-ID}}",
+    "creator": "{{CONTROLLER-ID}}",
     "properties": {
       "members": [],
       "policies": [

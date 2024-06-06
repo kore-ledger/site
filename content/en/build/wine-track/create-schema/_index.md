@@ -1,7 +1,7 @@
 ---
 title: Create schema
 pagination_next: build/assets-traceability/running-node
-date: 2024-05-02
+date: 2024-06-06
 weight: 4
 ---
 We have added our first member to the governance, but there's still more to complete, as we haven't defined the data structure for tracking *Wine* type subjects in this use case.
@@ -99,7 +99,7 @@ After declaring our schema, the next step is to create the [* contract*](../../.
 
     [dependencies]
     serde = { version = "1.0.152", features = ["derive"] }
-    kore-sc-rust = { git = "https://github.com/kore-ledger/kore-sc-rust.git", branch = "main"}
+    kore-sc-rust = { git = "https://github.com/kore-ledger/kore-contract-sdk.git", branch = "main"}
     ```
 
     {{< alert type="info" title="INFORMACIÓN">}}
@@ -625,7 +625,7 @@ Now, it's time to call the method of the governance contract responsible for upd
 
 {{< alert-details type="info" title="Event" summary="Click to see the event" >}}
 ```bash
-curl --request POST 'http://localhost:3000/api/event-requests' \
+curl --request POST 'http://localhost:3000/event-requests' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "request": {
@@ -743,13 +743,13 @@ curl --request POST 'http://localhost:3000/api/event-requests' \
 Once the event is emitted, we need to obtain the new update request. To do this, we run the following:
 
 ```bash
-curl --request GET 'http://localhost:3000/api/approval-requests?status=Pending'
+curl --request GET 'http://localhost:3000/approval-requests?status=Pending'
 ```
 
 We copy the value of the `id` field and accept the governance update request:
 
 ```bash
-curl --request PATCH 'http://localhost:3000/api/approval-requests/{{PREVIUS-ID}}' \
+curl --request PATCH 'http://localhost:3000/approval-requests/{{PREVIUS-ID}}' \
 --header 'Content-Type: application/json' \
 --data-raw '{"state": "RespondedAccepted"}'
 ```
@@ -757,7 +757,7 @@ curl --request PATCH 'http://localhost:3000/api/approval-requests/{{PREVIUS-ID}}
 Finally, we query the governance to verify that the change has been successfully applied. If everything has gone according to plan, it should now have an `sn` of 2, and the new policy, schema, initial state for *Wine* subjects, and the contract should be present:
 
 ```bash
-curl --request GET 'http://localhost:3000/api/subjects/{{GOVERNANCE-ID}}'
+curl --request GET 'http://localhost:3000/subjects/{{GOVERNANCE-ID}}'
 ```
 
 {{< alert-details type="info" title="Governance" summary="Click to see the governance" >}}
@@ -770,12 +770,12 @@ curl --request GET 'http://localhost:3000/api/subjects/{{GOVERNANCE-ID}}'
     "namespace": "",
     "name": "wine_track",
     "schema_id": "governance",
-    "owner": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
-    "creator": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
+    "owner": "{{CONTROLLER-ID}}",
+    "creator": "{{CONTROLLER-ID}}",
     "properties": {
         "members": [
         {
-            "id": "EbwR0yYrCYpTzlN5i5GX_MtAbKRw5y2euv3TqiTgwggs",
+            "id": "{{CONTROLLER-ID}}",
             "name": "WPO"
         }
         ],

@@ -1,6 +1,6 @@
 ---
-title: Nodo Kore
-date: 2024-04-26
-weight: 2
-description: Tipos de clientes
+title: Kore Node
+date: 2024-06-06
+weight: 5
+description: Intermediario entre los diferentes Kore Clients y Kore Base.
 ---

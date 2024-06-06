@@ -2,7 +2,7 @@
 title: Aprende JSON Schema
 linkTitle: JSON Schema
 date: 2024-04-26
-weight: 5
+weight: 3
 description: Especificación y ejemplos de JSON Schema.
 ---
 El JSON Schema [especificación](https://json-schema.org/specification.html) está en [estado BORRADOR en el IETF](https://json-schema.org/specification-links.html), sin embargo, se utiliza ampliamente en la actualidad y prácticamente se considera un estándar de facto.

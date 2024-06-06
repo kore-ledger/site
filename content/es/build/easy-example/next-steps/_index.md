@@ -9,6 +9,6 @@ Una vez llegado a este punto, tenemos una pequeña red de tres nodos con una gob
 En los siguientes tutoriales veremos cómo realizar los siguientes pasos, que requieren un manejo más avanzado de kore:
 
 - Agregar nuevos esquemas a la gobernanza.
-- Creación de contratos
+- Creación de contratos.
 - Creación de sujetos.
-- Invocación externa
+- Invocación externa.

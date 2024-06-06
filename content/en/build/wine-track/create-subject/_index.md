@@ -1,7 +1,7 @@
 ---
 title: Create a subject
 pagination_next: build/assets-traceability/running-node
-date: 2024-05-02
+date: 2024-06-06
 weight: 6
 ---
 At this point, we are capable of tracking the life cycle of our wine bottles through *Wine* type [subjects](../../discover/subjects.md), which are defined in our Kore network. Additionally, we have the entity **Premium Wines**, which will be responsible for carrying out this action.
@@ -9,12 +9,12 @@ At this point, we are capable of tracking the life cycle of our wine bottles thr
 Let's start by launching a **genesis** event to create our first *Wine* type subject:
 
 ```bash
-curl --request POST 'http://localhost:3001/api/event-requests' \
+curl --request POST 'http://localhost:3001/event-requests' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "request": {
         "Create": {
-        "governance_id": {{GOVERNANCE-ID}},
+        "governance_id": "{{GOVERNANCE-ID}}",
         "schema_id": "Wine",
         "namespace": "",
         "name": "Wine"
@@ -26,15 +26,15 @@ curl --request POST 'http://localhost:3001/api/event-requests' \
 Upon performing this action, we will receive a `request-id`, which we need to copy and use in the following command:
 
 ```bash
-curl --request GET 'http://localhost:3001/api/event-requests/{{REQUEST-ID}}/state'
+curl --request GET 'http://localhost:3001/event-requests/{{REQUEST-ID}}/state'
 ```
 
 The last command will provide a response like the following:
 
 ```json
 {
-    "id": {{REQUEST-ID}},
-    "subject_id": {{SUBJECT-ID}},
+    "id": "{{REQUEST-ID}}",
+    "subject_id": "{{SUBJECT-ID}}",
     "sn": 0,
     "state": "finished",
     "success": true
@@ -48,20 +48,20 @@ Keep the `subject_id` of the **subject**, as we'll need it in later steps of the
 We can query the created subject using the following command:
 
 ```bash
-curl --request GET 'http://localhost:3001/api/subjects/{{SUBJECT-ID}}'
+curl --request GET 'http://localhost:3001/subjects/{{SUBJECT-ID}}'
 ```
 
 ```json
 {
-    "subject_id": {{SUBJECT-ID}},
-    "governance_id": {{GOVERNANCE-ID}},
+    "subject_id": "{{SUBJECT-ID}}",
+    "governance_id": "{{GOVERNANCE-ID}}",
     "sn": 0,
     "public_key": "E-_PigfpbWeFsQzMXENgEQPQR5ea4FfoSFAqdZtx7lS0",
     "namespace": "",
     "name": "Wine",
     "schema_id": "Wine",
-    "owner": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
-    "creator": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
+    "owner": "{{CONTROLLER-ID}}",
+    "creator": "{{CONTROLLER-ID}}",
     "properties": {
         "grape": null,
         "harvest": 0,
@@ -86,12 +86,12 @@ The characteristics we want our bottle to have are as follows:
 Therefore, the command we need to execute is the following:
 
 ```bash
-curl --request POST 'http://localhost:3001/api/event-requests' \
+curl --request POST 'http://localhost:3001/event-requests' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "request": {
         "Fact": {
-            "subject_id": {{SUBJECT-ID}},
+            "subject_id": "{{SUBJECT-ID}}",
             "payload": {
                 "Init": {
                     "harvest": 1,
@@ -107,20 +107,20 @@ curl --request POST 'http://localhost:3001/api/event-requests' \
 If everything has gone correctly, running the following command should update the subject with an `sn` value of 1 and reflect the changes mentioned above:
 
 ```bash
-curl --request GET 'http://localhost:3001/api/subjects/{{SUBJECT-ID}}'
+curl --request GET 'http://localhost:3001/subjects/{{SUBJECT-ID}}'
 ```
 
 ```json
 {
-    "subject_id": {{SUBJECT-ID}},
-    "governance_id": {{GOVERNANCE-ID}},
+    "subject_id": "{{SUBJECT-ID}}",
+    "governance_id": "{{GOVERNANCE-ID}}",
     "sn": 1,
     "public_key": "E-_PigfpbWeFsQzMXENgEQPQR5ea4FfoSFAqdZtx7lS0",
     "namespace": "",
     "name": "Wine",
     "schema_id": "Wine",
-    "owner": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
-    "creator": "Ee-ZvImOQSgRBDR9XH0uQ5gbVv4828h_o5GuLbWFWaLI",
+    "owner": "{{CONTROLLER-ID}}",
+    "creator": "{{CONTROLLER-ID}}",
     "properties": {
         "grape": "CabernetSauvignon",
         "harvest": 1,
