@@ -2,7 +2,7 @@
 title: Learn JSON Schema
 linkTitle: JSON Schema
 date: 2024-04-26
-weight: 5
+weight: 3
 description: JSON Schema specification and examples.
 ---
 ## JSON Schema specification

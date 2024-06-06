@@ -1,7 +1,7 @@
 ---
-title: Utilidades
+title: Herramientas
 date: 2024-04-29
-weight: 3
+weight: 7
 description: Utilidades para trabajar con Kore Node
 ---
 Kore Tools son un grupo de utilidades desarrolladas para facilitar el uso de Kore Node, especialmente durante las pruebas y la creación de prototipos. En este apartado profundizaremos en ellos y en cómo se pueden obtener y utilizar.
@@ -13,28 +13,15 @@ Existen diferentes formas en las que el usuario puede adquirir estas herramienta
 ### Compilando binarios
 
 ```bash
-git clone -b release-0.3 https://github.com/orgs/kore-ledger/repositories
-cd Kore-client
-sudo apt install -y libprotobuf-dev protobuf-compiler cmake
-cargo install --path tools/keygen
-cargo install --path tools/patch
-cargo install --path tools/sign
-Kore-keygen -h
-Kore-sign -h
-Kore-patch -h
-```
-
-### Usando imágenes docker
-
-```bash
-git clone -b release-0.3 https://github.com/kore-ledger/Kore-client.git
-cd Kore-client
-chmod +x ./tools/scripts/Kore-keygen
-chmod +x ./tools/scripts/Kore-sign
-chmod +x ./tools/scripts/Kore-patch
-./tools/scripts/Kore-keygen -h
-./tools/scripts/Kore-sign -h
-./tools/scripts/Kore-patch -h
+$ git clone git@github.com:kore-ledger/kore-tools.git
+$ cd kore-tools
+$ sudo apt install -y libprotobuf-dev protobuf-compiler cmake
+$ cargo install --locked --path keygen
+$ cargo install --locked --path patch
+$ cargo install --locked --path sign
+$ kore-keygen -h
+$ kore-sign -h
+$ kore-patch -h
 ```
 
 {{< alert type="success"  title="TIP" >}}
@@ -45,21 +32,20 @@ Estas utilidades pueden usarse con relativa frecuencia, por lo que recomendamos 
 Cualquier nodo Kore necesita material criptográfico para funcionar. Para ello es necesario generarlo externamente y luego indicarlo al nodo, ya sea mediante variables de entorno o mediante parámetros de entrada. La utilidad Kore Keygen satisface esta necesidad permitiendo, de forma sencilla, la generación de este material criptográfico. En concreto, su ejecución permite obtener una ***clave privada*** en formato hexadecimal, así como el ***identificador (controller ID)*** que es el identificador a nivel Kore en el que su formato incluye la clave pública. , más información del esquema criptográfico utilizado (puede obtener más información en el siguiente **[link](../../getting-started/concepts/identifiers/)**).
 
 ```bash
-# Ejemplo de uso básico
-Kore-keygen
-```
-
-```bash
-# Salida
-controller_id: EOZZyrorTvTioKsOP8PcGCngSF0b49ZuRlie5xtkuyOU
-peer_id: 12D3KooWDhATtx42CRiKBCPJt9EgcwaLzwemK4m9SbyRHfJtNE7W
-private_key: b088fb74588dff74d5683b804d742418874db000e25ffec189fa313e825e1f7e
+# Generate pkcs8 encrpty with pkcs5(ED25519)
+kore-keygen -p a
+kore-keygen -p a -r keys-Ed25519/private_key.der
+kore-keygen -p a -r keys-Ed25519/public_key.der -d public-key
+# Generate pkcs8 encrpty with pkcs5(SECP256K1)
+kore-keygen -p a -m secp256k1
+kore-keygen -p a -r keys-secp2561k/private_key.der -m secp256k1
+kore-keygen -p a -r keys-secp2561k/public_key.der -m secp256k1 -d public-key
 ```
 
 {{< alert type="info"  title="INFO" >}}
 X y las otras herramientas aceptan diferentes argumentos de ejecución. Para obtener más información, intente **--help**, por ejemplo:
 ```bash
-Kore-keygen --help
+kore-keygen --help
 ```
 {{< /alert >}}
 
@@ -74,7 +60,7 @@ Para el correcto funcionamiento de la utilidad es necesario pasar como argumento
 
 ```bash
 # Ejemplo uso básico
-Kore-sign 2a71a0aff12c2de9e21d76e0538741aa9ac6da9ff7f467cf8b7211bd008a3198 '{"Transfer":{"subject_id":"JjyqcA-44TjpwBjMTu9kLV21kYfdIAu638juh6ye1gyU","public_key":"E9M2WgjXLFxJ-zrlZjUcwtmyXqgT1xXlwYsKZv47Duew"}}'
+kore-sign --id-private-key 2a71a0aff12c2de9e21d76e0538741aa9ac6da9ff7f467cf8b7211bd008a3198 '{"Transfer":{"subject_id":"JjyqcA-44TjpwBjMTu9kLV21kYfdIAu638juh6ye1gyU","public_key":"E9M2WgjXLFxJ-zrlZjUcwtmyXqgT1xXlwYsKZv47Duew"}}'
 ```
 
 ```json
@@ -88,8 +74,9 @@ Kore-sign 2a71a0aff12c2de9e21d76e0538741aa9ac6da9ff7f467cf8b7211bd008a3198 '{"Tr
   },
   "signature": {
     "signer": "EtbFWPL6eVOkvMMiAYV8qio291zd3viCMepUL6sY7RjA",
-    "timestamp": 1690284971374522723,
-    "value": "SE5QkVNuFJh5cj4ZViiGC760gsocR6EqdoGNrzFNB0WusuzslcfElgdTt6Ag_Qe17Fg1lja8f5zd81M91OKo6XCQ"
+    "timestamp": 1717684953822643000,
+    "content_hash": "J1XWoQaLArB5q6B_PCfl4nzT36qqgoHzG-Uh32L_Q3cY",
+    "value": "SEYml_XhryHvxRylu023oyR0nIjlwVCyw2ZC_Tgvf04W8DnEzP9I3fFpHIc0eHrp46Exk8WIlG6fT1qp1bg1WgAg"
   }
 }
 ```
@@ -102,7 +89,7 @@ Es importante tener en cuenta que actualmente solo se admiten claves privadas de
 {{< alert type="success"  title="TIP" >}}
 Si necesita pasar la solicitud de evento a Kore-sign a través de una pipe en lugar de como argumento, puede usar [xargs](https://man7.org/linux/man-pages/man1/xargs.1.html ) utilidad. Por ejemplo,
 ```bash
-echo '{"Transfer":{"subject_id":"JjyqcA-44TjpwBjMTu9kLV21kYfdIAu638juh6ye1gyU","public_key":"E9M2WgjXLFxJ-zrlZjUcwtmyXqgT1xXlwYsKZv47Duew"}}' | xargs -0 -I {} Kore-sign "2a71a0aff12c2de9e21d76e0538741aa9ac6da9ff7f467cf8b7211bd008a3198" {}
+echo '{"Transfer":{"subject_id":"JjyqcA-44TjpwBjMTu9kLV21kYfdIAu638juh6ye1gyU","public_key":"E9M2WgjXLFxJ-zrlZjUcwtmyXqgT1xXlwYsKZv47Duew"}}' | xargs -0 -I {} kore-sign --id-private-key 2a71a0aff12c2de9e21d76e0538741aa9ac6da9ff7f467cf8b7211bd008a3198 {}
 ```
 {{< /alert >}}
 
@@ -113,7 +100,7 @@ JSON Patch es un formato de datos que representa cambios en las estructuras de d
 
 ```bash
 # Ejemplos de uso básico
-Kore-patch '{"members":[]}' '{"members":[{"id":"EtbFWPL6eVOkvMMiAYV8qio291zd3viCMepUL6sY7RjA","name":"ACME"}]}'
+kore-patch '{"members":[]}' '{"members":[{"id":"EtbFWPL6eVOkvMMiAYV8qio291zd3viCMepUL6sY7RjA","name":"ACME"}]}'
 ```
 
 ```json
