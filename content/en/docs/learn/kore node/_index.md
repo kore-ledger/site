@@ -1,6 +1,6 @@
 ---
 title: Kore Node
-date: 2024-04-26
-weight: 2
-description: Types of clients
+date: 2024-06-06
+weight: 5
+description: Intermediary between the different Kore Clients and Kore Base.
 ---
