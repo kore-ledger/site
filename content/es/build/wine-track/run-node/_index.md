@@ -8,7 +8,7 @@ La *Organización de Productores de Vino* (en adelante **WPO**) es la entidad en
 
 A continuación, describiremos los pasos para crear el nodo WPO:
 
-* First, make sure to download the appropriate kore Client image from Dockerhub, in this case we will use `leveldb` and `prometheus` to view statistics:
+* En primer lugar, asegúrese de descargar la imagen kore Client apropiada desde Dockerhub, en este caso utilizaremos `leveldb` y `prometheus` para ver las estadísticas:
 
     ```bash
     docker pull koreadmin/kore-http:arm64-leveldb-prometheus
