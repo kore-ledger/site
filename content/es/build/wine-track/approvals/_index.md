@@ -13,7 +13,7 @@ Por lo tanto, llegados a este punto nos centraremos en incluir un nuevo miembro 
 Para incluir **SFO**, primero debemos crear el nuevo nodo. Por tanto, procederemos a ejecutar el siguiente comando:
 
 ```bash
-docker run -p 3003:3000 -p 50003:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config2.json:/config.json koreadmin/kore-http:arm64-sqlite
+docker run -p 3003:3000 -p 50003:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config2.json:/config.json koreadmin/kore-http:0.5-sqlite
 ```
 
 Si un evento requiere aprobación o no depende directamente de su [especificación en el método *contrato*](../../../docs/learn/contracts/programming%20contracts/). Por lo tanto, debemos agregar `contract_result.approval_required = true;` a nuestro contrato de la siguiente manera:

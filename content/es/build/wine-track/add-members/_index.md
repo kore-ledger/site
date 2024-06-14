@@ -21,7 +21,7 @@ Comencemos configurando el nodo correspondiente:
 ```
 Mapeamos el puerto 3001 para realizar peticiones desde nuestra máquina e indicamos el `peer-id` del nodo 1.
 ```bash   
-docker run -p 3001:3000 -p 50001:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config2.json:/config.json koreadmin/kore-http:arm64-leveldb-prometheus
+docker run -p 3001:3000 -p 50001:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config2.json:/config.json koreadmin/kore-http:0.5-leveldb-prometheus
 ```
 
 A continuación, procederemos a actualizar la gobernanza para incluir a este nuevo miembro y permitirle crear asuntos tipo *Wine*.
@@ -390,7 +390,7 @@ Para lograr esto, permitiremos que **WFO** asuma las funciones de aprobador, val
 Comencemos configurando el nodo **WFO**:
 
 ```bash   
-docker run -p 3002:3000 -p 50002:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config2.json:/config.json koreadmin/kore-http:arm64-leveldb-prometheus
+docker run -p 3002:3000 -p 50002:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config2.json:/config.json koreadmin/kore-http:0.5-leveldb-prometheus
 ```
 
 A continuación procederemos a actualizar la gobernanza para otorgarle las propiedades mencionadas:

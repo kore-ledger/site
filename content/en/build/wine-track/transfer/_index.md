@@ -11,7 +11,7 @@ Any subject that has not completed its lifecycle in kore can be transferred to a
 To carry out this transfer, we need to set up a new node that will act as the new external owner outside the governance. We will follow these steps:
 
 ```bash
-docker run -p 3004:3000 -p 50004:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config2.json:/config.json koreadmin/kore-http:arm64-sqlite
+docker run -p 3004:3000 -p 50004:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config2.json:/config.json koreadmin/kore-http:0.5-sqlite
 ```
 
 Up to this point, when creating the subject, we have not had to declare its public key, although we always had the possibility to do so. However, in this case, it's different because, during the transfer, the new owner must generate a public key with which they want to manage the subject being transferred to them. To do this, they must execute the following:

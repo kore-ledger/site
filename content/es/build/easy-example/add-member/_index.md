@@ -31,7 +31,7 @@ curl --silent 'http://127.0.0.1:3000/peer-id'
 ```
 Levantamos el nodo 2 en el puerto 3001:
 ```bash
-docker run -p 3001:3000 -p 50001:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config2.json:/config.json koreadmin/kore-http:arm64-sqlite
+docker run -p 3001:3000 -p 50001:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config2.json:/config.json koreadmin/kore-http:0.5-sqlite
 ```
 {{< alert type="warning" title="CAUTION">}}
 Preste atención a la dirección IP especificada en `boot_nodes` ya que puede ser diferente en su caso. Debe especificar una IP que permita que el segundo contenedor se comunique con el primero.
@@ -222,7 +222,7 @@ Para agregar un tercer miembro repetimos los pasos anteriores, lo primero es cre
 Lanzamos el contenedor de docker modificando los puertos pero usando el mismo archivo de config que el nodo 2:
 
 ```bash
-docker run -p 3002:3000 -p 50002:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config2.json:/config.json koreadmin/kore-http:arm64-sqlite
+docker run -p 3002:3000 -p 50002:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config2.json:/config.json koreadmin/kore-http:0.5-sqlite
 ```
 
 ### Modificar la gobernanza

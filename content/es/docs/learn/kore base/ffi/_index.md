@@ -17,5 +17,5 @@ Sin embargo, para ejecutar Kore en otras arquitecturas o lenguajes necesitamos u
 {{< /imgproc >}}
 
 {{< alert type="info" title="INFO">}}
-Explore los [repositorios] Kore (https://github.com/orgs/kore-ledger/repositories) relacionados con FFI para obtener más información.
+Explore los [repositorios](https://github.com/orgs/kore-ledger/repositories) Kore relacionados con FFI para obtener más información.
 {{< /alert >}}

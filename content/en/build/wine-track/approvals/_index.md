@@ -13,7 +13,7 @@ Therefore, at this point, we'll focus on including a new member who will be resp
 To include **SFO**, we must first create the new node. Therefore, we'll proceed to execute the following command:
 
 ```bash
-docker run -p 3003:3000 -p 50003:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config2.json:/config.json koreadmin/kore-http:arm64-sqlite
+docker run -p 3003:3000 -p 50003:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config2.json:/config.json koreadmin/kore-http:0.5-sqlite
 ```
 
 Whether an event requires approval or not depends directly on its [specification in the *contract* method](../../../docs/learn/contracts/programming%20contracts/). Therefore, we must add `contract_result.approval_required = true;` to our contract as follows: 

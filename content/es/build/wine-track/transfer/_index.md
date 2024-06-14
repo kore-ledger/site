@@ -11,7 +11,7 @@ Cualquier sujeto que no haya completado su ciclo de vida en kore puede ser trans
 Para llevar a cabo esta transferencia, necesitamos configurar un nuevo nodo que actuará como nuevo propietario externo fuera de la gobernanza. Seguiremos estos pasos:
 
 ```bash
-docker run -p 3004:3000 -p 50004:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config2.json:/config.json koreadmin/kore-http:arm64-sqlite
+docker run -p 3004:3000 -p 50004:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config2.json:/config.json koreadmin/kore-http:0.5-sqlite
 ```
 
 Hasta este momento al crear el sujeto no hemos tenido que declarar su clave pública, aunque siempre tuvimos la posibilidad de hacerlo. Sin embargo, en este caso es diferente porque, durante la transferencia, el nuevo propietario debe generar una clave pública con la que quiere gestionar el sujeto que se le transfiere. Para ello deberán ejecutar lo siguiente:
