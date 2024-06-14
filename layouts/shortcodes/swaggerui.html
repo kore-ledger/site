@@ -13,6 +13,7 @@
 </head>
 <body>
   <rapi-doc
+    id="api-doc"
     spec-url="{{ $specUrl }}"
     theme="light"
     render-style="focused"
@@ -33,5 +34,23 @@
     show-header="false"
     schema-expand-level="2"
   ></rapi-doc>
+
+  <script>
+    const apiDoc = document.getElementById('api-doc');
+
+    function updateRenderStyle() {
+      if (window.innerWidth < 768) {
+        apiDoc.setAttribute('render-style', 'view');
+      } else {
+        apiDoc.setAttribute('render-style', 'focused');
+      }
+    }
+
+    // Initial check
+    updateRenderStyle();
+
+    // Update on resize
+    window.addEventListener('resize', updateRenderStyle);
+  </script>
 </body>
 </html>

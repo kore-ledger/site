@@ -19,15 +19,7 @@ docker run koreadmin/kore-http:0.5-sqlite
 ```
 
 However, this will give us an error, since we must specify certain aspects of the configuration.
-We can also create the image ourselves depending on the architecture.
 
-```bash
-git clone git@github.com:kore-ledger/kore-http.git
-# Depending on the architecture of your machine you should use one or the other.
-docker build --platform linux/0.5 -t kore-http-sqlite:0.5 --target 0.5 .
-docker build --platform linux/0.5 -t kore-http-sqlite:0.5 --target 0.5 .
-
-```
 We can generate the cryptographic key ourselves or let the node generate it. In this tutorial the node will take care of that task.
 - The first thing we must add to the configuration is the private key. We can generate a valid one using kore-tools, which is located in the same repository as the client in the [kore-tools](https://github.com/kore-ledger/kore-tools) directory. Specifically, its keygen binary, which will create the necessary cryptographic material for the node.
 
