@@ -11,7 +11,7 @@ A continuación, describiremos los pasos para crear el nodo WPO:
 * En primer lugar, asegúrese de descargar la imagen kore Client apropiada desde Dockerhub, en este caso utilizaremos `leveldb` y `prometheus` para ver las estadísticas:
 
     ```bash
-    docker pull koreadmin/kore-http:arm64-leveldb-prometheus
+    docker pull koreadmin/kore-http:0.5-leveldb-prometheus
     ```
 * A continuación, crearemos un archivo de configuración y levantamos el nodo:
 
@@ -35,7 +35,7 @@ A continuación, describiremos los pasos para crear el nodo WPO:
     ```
 
     ```bash
-    docker run -p 3000:3000 -p 50000:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config.json:/config.json koreadmin/kore-http:arm64-leveldb-prometheus
+    docker run -p 3000:3000 -p 50000:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config.json:/config.json koreadmin/kore-http:0.5-leveldb-prometheus
     ```
 
 {{< alert type="warning" title="PRECAUCIÓN">}}

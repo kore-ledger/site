@@ -1,0 +1,1596 @@
+openapi: 3.0.3
+info:
+  title: Kore HTTP
+  description: Esta API proporciona interacción con los nodos de Kore Ledger utilizando el protocolo HTTP. Permite enviar y recuperar varios tipos de peticiones y gestionar asuntos. La API está documentada con OpenAPI para facilitar su integración y uso.
+  contact:
+    name: Kore Information
+    url: https://www.kore-ledger.net/
+    email: info@kore-ledger.net
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  version: 1.0.0
+paths:
+  /allowed-subjects:
+    get:
+      tags:
+      - Otros
+      summary: Obtener sujetos autorizados
+      x-codeSamples:
+        - lang: 'cURL'
+          label: 'CLI'
+          source: |
+            curl -X GET "http://localhost:3000/allowed-subjects" \
+            -H "accept: application/json" 
+      description: |-
+            Permite obtener la lista de sujetos que han sido preautorizados por el nodo, así como los identificadores de los nodos de donde obtenerlos.
+
+            # Parámetros
+
+            * `Extension(kore_api): Extension<Arc<KoreApi>>` - La extensión de la API de Kore envuelta en un `Arc`.
+            * `Query(parameters): Query<PaginatorFromString>` - Los parámetros de paginación para la solicitud.
+
+            # Retorna
+
+            * `Result<Json<Vec<PreauthorizedSubjectsResponse>>, Errors>` - Una lista de sujetos preautorizados en formato JSON o un error si la solicitud falla.
+      operationId: Obtener datos del sujeto autorizado
+      parameters:
+      - name: from
+        in: query
+        description: Id del sujeto inicial
+        required: false
+        schema:
+          type: string
+          nullable: true
+      - name: quantity
+        in: query
+        description: Cantidad de sujetos solicitados
+        required: false
+        schema:
+          type: integer
+          format: int64
+          nullable: true
+      responses:
+        '200':
+          description: Datos del sujeto recuperados con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PreauthorizedSubjectsResponse'
+              example:
+              - providers: []
+                subject_id: JKZgYhPjQdWNWWwkac0wSwqLKoOJsT0QimJmj6zjimWc
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+  /allowed-subjects/{subject-id}:
+    put:
+      tags:
+      - Otros
+      summary: Establecer sujeto como preautorizado
+      x-codeSamples:
+        - lang: 'cURL'
+          label: 'CLI'
+          source: |
+            curl -X PUT "http://localhost:3000/allowed-subjects/JL8kr0sdYpIiwmP6RjQu21wMoiCGo5aF37QrtjT_vKFY" \
+            -H "content-type: application/json" \
+            -d '{"providers":[]}'
+      description: |-
+        Permite establecer un sujeto como precalificado. También puede utilizarse para especificar de qué nodos de la red debe obtenerse el recurso.
+
+        # Parámetros
+
+        * `Extension(kore_api): Extension<Arc<KoreApi>>` - La extensión de la API Kore envuelta en un `Arc`.
+        * `Path(subject_id): Path<String>` - El identificador del sujeto.
+        * Json(autorizar_sujeto): Json<AutorizarAsunto>` - Los detalles de la autorización en formato JSON.
+
+        # Devuelve
+
+        * `Result<Json<String>, Errors>` - El resultado de la pre-autorización como una cadena JSON o un error si la petición falla.
+      operationId: Put Allowed Subject Data
+      parameters:
+      - name: subject-id
+        in: path
+        description: Identificador único del sujeto
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Voto del usuario para una solicitud existente
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorizeSubject'
+            example:
+              providers: []
+        required: true
+      responses:
+        '200':
+          description: Subject Data successfully created
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: OK
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+  /approval-requests:
+    get:
+      tags:
+      - Aprobaciones
+      summary: Obtener autorizaciones
+      x-codeSamples:
+        - lang: 'cURL'
+          label: 'CLI'
+          source: |
+            curl -X GET "http://localhost:3000/approval-requests?status=pending&quantity=1" \
+            -H "accept: application/json" 
+      description: |-
+        Permite obtener la lista de solicitudes de aprobación recibidas por el nodo.
+        También puede utilizarse, mediante el parámetro "estado", para listar las solicitudes pendientes de aprobación.
+
+        # Parámetros
+
+        * `Extension(kore_api): Extension<Arc<KoreApi>>` - La extensión de la API Kore envuelta en un `Arc`.
+        * `Query(parameters): Query<NodeGetApprovals>` - Los parámetros de consulta incluyendo el estado para filtrar.
+
+        # Devuelve
+
+        * `Result<Json<Vec<NodeApprovalEntity>>, Errors>` - Una lista de solicitudes de aprobación en formato JSON o un error si la solicitud falla.
+      operationId: Obtener todos los datos de solicitud de aprobaciones
+      parameters:
+      - name: status
+        in: query
+        description: 'Estado de aprobación (posibilidades: pending, obsolete, responded_accepted,responded_rejected)'
+        required: false
+        schema:
+          type: string
+          nullable: true
+      - name: from
+        in: query
+        description: Id de aprobación inicial
+        required: false
+        schema:
+          type: string
+          nullable: true
+      - name: quantity
+        in: query
+        description: Cantidad de peticiones solicitadas
+        required: false
+        schema:
+          type: integer
+          format: int64
+          nullable: true
+      responses:
+        '200':
+          description: Approvals Data successfully retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NodeApprovalEntity'
+              example:
+              - id: JOuIZRXB983t9w9lAEdjXRGAf9r9WX14TajGnni_5q5Y
+                reponse: null
+                request:
+                  event_request:
+                    request:
+                      Fact:
+                        payload:
+                          Patch:
+                            data:
+                            - op: add
+                              path: /members/1
+                              value:
+                                id: EyyisBz0lX9sRvvV0H-BXTrVtARjUa0YDHzaxFHWH-N4
+                                name: Tutorial2
+                        subject_id: Jz_XWeQtVjhoKxoeQCBHSnLlK-WGutaddyT5zpwaNAsI
+                    signature:
+                      content_hash: JbALAEwzWEud0462GY-WB6JPHH1Ow1pCUGtPAjjB5uq8
+                      signer: EwkWURnRVk-lUEjF0cowczxYkz8DpbhLfo3UMSZE00LE
+                      timestamp: 1718270
+                      value: SEBSFU_WMTWlyOU6hzzZwlNUMJ8cJHD_GDXBU6NPUJfpikjlocv-sGra2aogrufjQdI1IfxAl0uN4jpTKGlRxeBA
+                  gov_version: 1
+                  hash_prev_event: JRO73PuZwEzXPne5mv4Oe4qDj4elhsU0b6AlHKs7-cTs
+                  patch:
+                  - op: add
+                    path: /members/1
+                    value:
+                      id: EyyisBz0lX9sRvvV0H-BXTrVtARjUa0YDHzaxFHWH-N4
+                      name: Tutorial2
+                  signature:
+                    content_hash: JcMfxnVhkr86gIh2_ZQwIEQvcavw9wcVfhiOVY1CYzMY
+                    signer: E2MJmrdcSC827EPFFHf_J4lGgcLcrwyEmPCyAbqTlc-w
+                    timestamp: 1718270
+                    value: SE9X0_Ytp2QQwQxn66JqYoyrrNmA7-U2gl5-mhWnc1XDDAcT4W_iyx7y0CSyQ3nCRfgn1pf7rFF6a1yA77Sf6aBA
+                  sn: 2
+                  state_hash: JjeSDJcWmnedQnledSlGv46ZVa3GnhLz7jE_aVFXz_hQ
+                state: Pending
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+  /approval-requests/{id}:
+    get:
+      tags:
+      - Aprobaciones
+      summary: Obtener la aprobación por el id
+      x-codeSamples:
+        - lang: 'cURL'
+          label: 'CLI'
+          source: |
+            curl -X GET "http://localhost:3000/approval-requests/JL8kr0sdYpIiwmP6RjQu21wMoiCGo5aF37QrtjT_vKFY" \
+            -H "accept: application/json" 
+      description: |-
+        Permite obtener una solicitud de aprobación por su identificador.
+
+        # Parámetros
+
+        * `Extension(kore_api): Extension<Arc<KoreApi>>` - La extensión de la API Kore envuelta en un `Arc`.
+        * `Path(id): Path<String>` - El identificador de la solicitud de aprobación.
+
+        # Devuelve
+
+        * `Result<Json<NodeApprovalEntity>, Errors>` - La solicitud de aprobación en formato JSON o un error si la solicitud falla.
+      operationId: Get one Approval Request Data
+      parameters:
+      - name: id
+        in: path
+        description: Identificador único de aprobación
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Approval Data successfully retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NodeApprovalEntity'
+              example:
+                id: JOuIZRXB983t9w9lAEdjXRGAf9r9WX14TajGnni_5q5Y
+                reponse: null
+                request:
+                  event_request:
+                    request:
+                      Fact:
+                        payload:
+                          Patch:
+                            data:
+                            - op: add
+                              path: /members/1
+                              value:
+                                id: EyyisBz0lX9sRvvV0H-BXTrVtARjUa0YDHzaxFHWH-N4
+                                name: Tutorial2
+                        subject_id: Jz_XWeQtVjhoKxoeQCBHSnLlK-WGutaddyT5zpwaNAsI
+                    signature:
+                      content_hash: JbALAEwzWEud0462GY-WB6JPHH1Ow1pCUGtPAjjB5uq8
+                      signer: EwkWURnRVk-lUEjF0cowczxYkz8DpbhLfo3UMSZE00LE
+                      timestamp: 1718270
+                      value: SEBSFU_WMTWlyOU6hzzZwlNUMJ8cJHD_GDXBU6NPUJfpikjlocv-sGra2aogrufjQdI1IfxAl0uN4jpTKGlRxeBA
+                  gov_version: 1
+                  hash_prev_event: JRO73PuZwEzXPne5mv4Oe4qDj4elhsU0b6AlHKs7-cTs
+                  patch:
+                  - op: add
+                    path: /members/1
+                    value:
+                      id: EyyisBz0lX9sRvvV0H-BXTrVtARjUa0YDHzaxFHWH-N4
+                      name: Tutorial2
+                  signature:
+                    content_hash: JcMfxnVhkr86gIh2_ZQwIEQvcavw9wcVfhiOVY1CYzMY
+                    signer: E2MJmrdcSC827EPFFHf_J4lGgcLcrwyEmPCyAbqTlc-w
+                    timestamp: 1718270
+                    value: SE9X0_Ytp2QQwQxn66JqYoyrrNmA7-U2gl5-mhWnc1XDDAcT4W_iyx7y0CSyQ3nCRfgn1pf7rFF6a1yA77Sf6aBA
+                  sn: 2
+                  state_hash: JjeSDJcWmnedQnledSlGv46ZVa3GnhLz7jE_aVFXz_hQ
+                state: Pending
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+    patch:
+      tags:
+      - Aprobaciones
+      summary: Emitir la aprobación de la solicitud
+      x-codeSamples:
+        - lang: 'cURL'
+          label: 'CLI'
+          source: |
+            curl -X PATCH "http://localhost:3000/approval-requests/JL8kr0sdYpIiwmP6RjQu21wMoiCGo5aF37QrtjT_vKFY" \
+            -H "accept: application/json"\
+            -H "content-type: application/json" \
+            -d '{"state":"RespondedAccepted"}' \
+      description: |-
+        Permite emitir una aprobación afirmativa o negativa para una solicitud recibida previamente.
+
+        # Parámetros
+
+        * `Extension(kore_api): Extension<Arc<KoreApi>>` - La extensión de la API Kore envuelta en un `Arc`.
+        * `Path(id): Path<String>` - El identificador de la solicitud de aprobación.
+        * Json(vote): Json<PatchVote>` - El voto (aprobación o rechazo) en formato JSON.
+
+        # Devuelve
+
+        * `Result<Json<NodeApprovalEntity>, Errors>` - El resultado de la aprobación como objeto JSON o un error si la solicitud falla.
+      operationId: Set your Aprroval for a request
+      parameters:
+      - name: id
+        in: path
+        description: Identificador único de aprobación
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Voto del usuario para una solicitud existente
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchVote'
+            example:
+              state: RespondedAccepted
+        required: true
+      responses:
+        '200':
+          description: Request successfully voted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NodeApprovalEntity'
+              example:
+                id: JSdXPN_MY0Oxue-J3pB4j47-bb296a-KRpZL9o5u4dNo
+                reponse:
+                  appr_req_hash: JSdXPN_MY0Oxue-J3pB4j47-bb296a-KRpZL9o5u4dNo
+                  approved: true
+                  signature:
+                    content_hash: JOt8sRYMnz6vhDA_dDs8gvv8J0mqQt8MlQO-5Ktt-ENE
+                    signer: EwkWURnRVk-lUEjF0cowczxYkz8DpbhLfo3UMSZE00LE
+                    timestamp: 17182700
+                    value: SEj2jBPWPvKWuT3fYAA9VdMObJnODo-lmL5t3y0Kh6jepdrB9BA4D_G5E54GOxcGdERGVAdYa-olieFd96HWEiCA
+                request:
+                  event_request:
+                    request:
+                      Fact:
+                        payload:
+                          Patch:
+                            data:
+                            - op: add
+                              path: /members/0
+                              value:
+                                id: EnyisBz0lX9sRvvV0H-BXTrVtARjUa0YDHzaxFHWH-N4
+                                name: Tutorial1
+                        subject_id: Jz_XWeQtVjhoKxoeQCBHSnLlK-WGutaddyT5zpwaNAsI
+                    signature:
+                      content_hash: JNKGHoEQ8MV9nqmp_xRDfIMCH2-2B2V-dbNObTmdvJjw
+                      signer: EwkWURnRVk-lUEjF0cowczxYkz8DpbhLfo3UMSZE00LE
+                      timestamp: 17182700
+                      value: SEXiXQa7fwShQO7nN3s6o0jH-R5JZ_UGeLU1mhbYzUuF4ujByWVTxorbkonEkAEa3nf3ay-vsRJzoHlbrcxnwCDA
+                  gov_version: 0
+                  hash_prev_event: JItOA_80oGJGbKuxd37Rhiv4GtojfK67v-a39RNlQoIg
+                  patch:
+                  - op: add
+                    path: /members/0
+                    value:
+                      id: EnyisBz0lX9sRvvV0H-BXTrVtARjUa0YDHzaxFHWH-N4
+                      name: Tutorial1
+                  signature:
+                    content_hash: JRQTYPHiKfHsL-IVYu1I0PstSdt86C6V-_3MnSmfDQGk
+                    signer: E2MJmrdcSC827EPFFHf_J4lGgcLcrwyEmPCyAbqTlc-w
+                    timestamp: 17182700
+                    value: SExa-v-XyA6skhRMH4dxy7a0Sraiw04aMOAvuo5TpMf8YGs-6j6bEy_KPV5Auc4LF35q5nqmy3FVTYKmiHSx4hCw
+                  sn: 1
+                  state_hash: J9ZorCKUeboco5eBZeW_NYssO3ZYLu2Ano_tThl8_Fss
+                state: RespondedAccepted
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+        '500':
+          description: Internal Server Error
+  /controller-id:
+    get:
+      tags:
+      - Otros
+      summary: Obtener el controller-id
+      x-codeSamples:
+        - lang: 'cURL'
+          label: 'CLI'
+          source: |
+            curl -X GET "http://localhost:3000/controller-id"
+      description: |-
+        Devuelve el controlador-id (clave pública del nodo).
+
+        # Parámetros
+
+        * `Extension(kore_api): Extension<Arc<KoreApi>>` - La extensión de la API Kore envuelta en un `Arc`.
+
+        # Devuelve
+
+        * Json<String>` - El controlador-id como una cadena JSON.
+      operationId: Obtener controller-id
+      responses:
+        '200':
+          description: Controller-id
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: E5X1tJWs1EQbByLV_zndMF0ml-wSyxHqh0pINRETWMjA
+        '500':
+          description: Internal Server Error
+  /event-requests:
+    post:
+      tags:
+      - Peticiones
+      summary: Enviar solicitud de evento
+      x-codeSamples:
+        - lang: 'cURL'
+          label: 'CLI'
+          source: |
+            curl -X POST "http://localhost:3000/event-requests" \
+            -H "accept: application/json"\
+            -H "content-type: application/json" \
+            -d '{"request":{"Create":{"governance_id":"","name":"test","namespace":"","public_key":"","schema_id":"governance"}}}'  
+      description: |-
+        Permite enviar una solicitud de evento de un sujeto al nodo Kore.
+        Estas peticiones pueden ser de cualquier tipo de evento (Fact, Create, Transfer o EOL).
+        En caso de invocación externa, las peticiones pueden ir firmadas.
+
+        # Parámetros
+
+        * `Extension(kore_api): Extension<Arc<KoreApi>>` - La extensión de la API Kore envuelta en un `Arc`.
+        * `Json(request): Json<NodeSignedEventRequest>` - La solicitud de evento firmada en formato JSON.
+
+        # Devuelve
+
+        * `Result<Json<EventRequestResponse>, Errors>` - La respuesta a la petición de evento envuelta en un objeto JSON, o un error.
+      operationId: Create Event Request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NodeSignedEventRequest'
+        required: true
+      responses:
+        '200':
+          description: Request Created Successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventRequestResponse'
+              example:
+                request_id: J8618wGO7hH4wRuEeL0Ob5XNI9Q73BlCNlV8cWBORq78
+        '400':
+          description: Bad Request
+        '409':
+          description: Conflict
+        '500':
+          description: Internal Server Error
+  /event-requests/{request-id}:
+    get:
+      tags:
+      - Peticiones
+      summary: Obtener solicitud de evento
+      x-codeSamples:
+        - lang: 'cURL'
+          label: 'CLI'
+          source: |
+            curl -X GET "http://localhost:3000/event-requests/EyyisBz0lX9sRvvV0H-BXTrVtARjUa0YDHzaxFHWH-N4" \
+          -H "accept: application/json" 
+      description: |-
+        Permite obtener una petición de evento por su identificador.
+
+        # Parámetros
+
+        * `Extension(kore_api): Extension<Arc<KoreApi>>` - La extensión de la API Kore envuelta en un `Arc`.
+        * `Path(request_id): Path<String>` - El identificador de la solicitud de evento como parámetro de ruta.
+
+        # Devuelve
+
+        * `Result<Json<NodeSignedEventRequest>, Errors>` - El evento solicitado en formato JSON o un error si la petición falla.
+      operationId: Obtener datos de solicitud de eventos
+      parameters:
+      - name: request-id
+        in: path
+        description: Identificador único de la solicitud de evento
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Request Data successfully retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NodeSignedEventRequest'
+              example:
+                request:
+                  Fact:
+                    payload:
+                      Patch:
+                        data:
+                        - op: add
+                          path: /members/1
+                          value:
+                            id: EyyisBz0lX9sRvvV0H-BXTrVtARjUa0YDHzaxFHWH-N4
+                            name: Tutorial2
+                    subject_id: Jz_XWeQtVjhoKxoeQCBHSnLlK-WGutaddyT5zpwaNAsI
+                signature:
+                  content_hash: JbALAEwzWEud0462GY-WB6JPHH1Ow1pCUGtPAjjB5uq8
+                  signer: EwkWURnRVk-lUEjF0cowczxYkz8DpbhLfo3UMSZE00LE
+                  timestamp: 171827
+                  value: SEBSFU_WMTWlyOU6hzzZwlNUMJ8cJHD_GDXBU6NPUJfpikjlocv-sGra2aogrufjQdI1IfxAl0uN4jpTKGlRxeBA
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+  /event-requests/{request-id}/state:
+    get:
+      tags:
+      - Peticiones
+      summary: Obtener estado de una solicitud de evento
+      x-codeSamples:
+        - lang: 'cURL'
+          label: 'CLI'
+          source: |
+            curl -X GET "http://localhost:3000/event-requests/JyyWIjUa3Ui04oTSN4pJFT8FhmgPRPXzsG4_tIX8IBFg/state" \
+            -H "accept: application/json" 
+      description: |-
+        Permite obtener el estado de una solicitud de evento por su identificador.
+
+        # Parámetros
+
+        * `Extension(kore_api): Extension<Arc<KoreApi>>` - La extensión de la API Kore envuelta en un `Arc`.
+        * `Path(request_id): Path<String>` - El identificador de la solicitud de evento.
+
+        # Devuelve
+
+        * `Result<Json<NodeKoreRequestState>, Errors>` - El estado de la petición de evento como un objeto JSON o un error si la petición falla.
+      operationId: Obtener datos de estado de solicitud de evento
+      parameters:
+      - name: request-id
+        in: path
+        description: Identificador único de la solicitud de evento
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Request Data successfully retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NodeKoreRequestState'
+              example:
+                id: JyyWIjUa3Ui04oTSN4pJFT8FhmgPRPXzsG4_tIX8IBFg
+                sn: 1
+                state: finished
+                subject_id: JoifaSpfenD2bEPeBLvUTWh30brm4tKcvdW8exQnkGoQ
+                success: true
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+  /generate-keys:
+    get:
+      tags:
+      - Otros
+      summary: Generar claves
+      x-codeSamples:
+        - lang: 'cURL'
+          label: 'CLI'
+          source: |
+            curl -X GET "http://localhost:3000/generate-keys?algorithm=Ed25519"
+      description: |-
+        Generar claves para crear eventos.
+
+        # Parámetros
+
+        * `Extension(kore_api): Extension<Arc<KoreApi>>` - La extensión de la API Kore envuelta en un `Arc`.
+        * `Query(parameters): Query<NodeKeys>` - Los parámetros de consulta para la solicitud.
+
+        # Devuelve
+
+        * `Result<Json<String>, Errors>` - Las claves generadas como una cadena JSON o un error si la petición falla.
+      operationId: Generar claves
+      parameters:
+      - name: algorithm
+        in: query
+        description: 'Tipo de algoritmo a utilizar (posibilidades: Ed25519, Secp256k1)'
+        required: false
+        schema:
+          type: string
+          nullable: true
+      responses:
+        '200':
+          description: Public Key
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: E5R_R6sFSR28gWnLiU8f8pgOih_VguHhRXWbepuAJHGQ
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+  /peer-id:
+    get:
+      tags:
+      - Otros
+      summary: Obtener el peer-id
+      x-codeSamples:
+        - lang: 'cURL'
+          label: 'CLI'
+          source: |
+            curl -X GET "http://localhost:3000/peer-id"
+      description: |-
+        Devuelve el peer-id (identificador único del nodo en la red).
+
+        # Parámetros
+
+        * `Extension(kore_api): Extension<Arc<KoreApi>>` - La extensión de la API Kore envuelta en un `Arc`.
+
+        # Devuelve
+
+        * Json<String>` - El peer-id como cadena JSON.
+      operationId: Obtener Peer-id
+      responses:
+        '200':
+          description: Peer-id
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: 12D3KooWRGCTbLUyz9JpchPER5NFSAQGPbrQufAPPXaLJhccsQes
+        '500':
+          description: Internal Server Error
+  /subjects:
+    get:
+      tags:
+      - Subjects
+      summary: Obtener sujetos
+      x-codeSamples:
+        - lang: 'cURL'
+          label: 'CLI'
+          source: |
+            curl -X GET "http://localhost:3000/subjects?subject_type=governances" \
+            -H "accept: application/json" 
+      description: |-
+        Permite obtener la lista de los sujetos conocidos por el nodo.
+        También se puede utilizar para obtener sólo las gobernanzas y todas los sujetos pertenecientes a una gobernanza concreta.
+
+        # Parámetros
+
+        * `Extension(kore_api): Extension<Arc<KoreApi>>` - La extensión de la API Kore envuelta en un `Arc`.
+        * `Query(parameters): Query<NodeSubjects>` - Los parámetros de consulta para la solicitud.
+
+        # Devuelve
+
+        * `Result<Json<Vec<NodeSubjectData>>, Errors>` - Una lista de temas en formato JSON o un error si la petición falla.
+      operationId: Obtener datos de todos los sujetos
+      parameters:
+      - name: subject_type
+        in: query
+        description: 'Tipo de sujetos solicitados (posibilidades: all, governances)'
+        required: false
+        schema:
+          type: string
+          nullable: true
+      - name: governanceid
+        in: query
+        description: Identificador de la gobernanza de los sujetos solicitados
+        required: false
+        schema:
+          type: string
+          nullable: true
+      - name: from
+        in: query
+        description: Identificador del sujeto inicial que se tendrá en cuenta en la paginación
+        required: false
+        schema:
+          type: string
+          nullable: true
+      - name: quantity
+        in: query
+        description: Cantidad de sujetos solicitados
+        required: false
+        schema:
+          type: integer
+          nullable: true
+      responses:
+        '200':
+          description: Subjects Data successfully retrieved
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NodeSubjectData'
+              example:
+              - active: true
+                creator: EwkWURnRVk-lUEjF0cowczxYkz8DpbhLfo3UMSZE00LE
+                governance_id: ''
+                name: tutorial
+                namespace: ''
+                owner: EwkWURnRVk-lUEjF0cowczxYkz8DpbhLfo3UMSZE00LE
+                properties:
+                  members: []
+                  policies:
+                  - approve:
+                      quorum: MAJORITY
+                    evaluate:
+                      quorum: MAJORITY
+                    id: governance
+                    validate:
+                      quorum: MAJORITY
+                  roles:
+                  - namespace: ''
+                    role: WITNESS
+                    schema:
+                      ID: governance
+                    who: MEMBERS
+                  schemas: []
+                public_key: EJ0irrPzgmZzawS6nYAoNOfjYsH9cjIDJPeRO4Hc5vmY
+                schema_id: governance
+                sn: 0
+                subject_id: JEwuT__FAzdnXYY2Sg5BIZeCjjNnVFIuzHzGRtauykY8
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+  /subjects/{subject-id}:
+    get:
+      tags:
+      - Subjects
+      summary: Obtener sujetos por el subject-id
+      x-codeSamples:
+        - lang: 'cURL'
+          label: 'CLI'
+          source: |
+            curl -X GET "http://localhost:3000/subjects/JL8kr0sdYpIiwmP6RjQu21wMoiCGo5aF37QrtjT_vKFY" \
+          -H "accept: application/json" 
+      description: |-
+        Permite obtener un sujeto específico por su identificador.
+
+        # Parámetros
+
+        * `Extension(kore_api): Extension<Arc<KoreApi>>` - La extensión de la API de Kore envuelta en un `Arc`.
+        * `Path(subject_id): Path<String>` - El identificador del sujeto.
+
+        # Devoluciones
+
+        * `Resultado<Json<NodeSubjectData>, Errores>`: los datos del sujeto en formato JSON o un error si la solicitud falla.
+      operationId: Get Subject Data
+      parameters:
+      - name: subject-id
+        in: path
+        description: Identificador único del sujeto
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Datos del sujeto recuperados con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NodeSubjectData'
+              example:
+                active: true
+                creator: EwkWURnRVk-lUEjF0cowczxYkz8DpbhLfo3UMSZE00LE
+                governance_id: ''
+                name: tutorial
+                namespace: ''
+                owner: EwkWURnRVk-lUEjF0cowczxYkz8DpbhLfo3UMSZE00LE
+                properties:
+                  members: []
+                  policies:
+                  - approve:
+                      quorum: MAJORITY
+                    evaluate:
+                      quorum: MAJORITY
+                    id: governance
+                    validate:
+                      quorum: MAJORITY
+                  roles:
+                  - namespace: ''
+                    role: WITNESS
+                    schema:
+                      ID: governance
+                    who: MEMBERS
+                  schemas: []
+                public_key: EJ0irrPzgmZzawS6nYAoNOfjYsH9cjIDJPeRO4Hc5vmY
+                schema_id: governance
+                sn: 0
+                subject_id: JEwuT__FAzdnXYY2Sg5BIZeCjjNnVFIuzHzGRtauykY8
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+  /subjects/{subject-id}/events:
+    get:
+      tags:
+      - Subjects
+      summary: Obtener eventos de un sujeto
+      x-codeSamples:
+        - lang: 'cURL'
+          label: 'CLI'
+          source: |
+            curl -X GET "http://localhost:3000/subjects/JL8kr0sdYpIiwmP6RjQu21wMoiCGo5aF37QrtjT_vKFY/events" \
+          -H "accept: application/json" 
+      description: |-
+        Permite obtener eventos específicos de un sujeto por su identificador.
+
+        # Parámetros
+
+        * `Extension(kore_api): Extension<Arc<KoreApi>>` - La extensión de la API de Kore envuelta en un `Arc`.
+        * `Path(subject_id): Path<String>` - El identificador del sujeto.
+        * `Query(parameters): Query<PaginatorFromNumber>` - Los parámetros de paginación para la solicitud.
+
+        # Devoluciones
+
+        * `Resultado<Json<Vec<NodeSigned<EventContentResponse>>>, Errores>`: una lista de eventos en formato JSON o un error si la solicitud falla.
+      operationId: Get Subject Events
+      parameters:
+      - name: subject-id
+        in: path
+        description: Identificador único del sujeto
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Datos del sujeto recuperados con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NodeSignedEventContentResponse'
+              example:
+              - appr_required: false
+                approved: true
+                approvers: []
+                eval_success: true
+                evaluators: []
+                event_request:
+                  Create:
+                    governance_id: ''
+                    name: tutorial
+                    namespace: ''
+                    public_key: EJ0irrPzgmZzawS6nYAoNOfjYsH9cjIDJPeRO4Hc5vmY
+                    schema_id: governance
+                  signature:
+                    content_hash: JWLeRGGAJM_1DcpNVc888lMlgZCgqKplV8CZ-tBLH2p8
+                    signer: EwkWURnRVk-lUEjF0cowczxYkz8DpbhLfo3UMSZE00LE
+                    timestamp: 1718268
+                    value: SEOEf5NFEFX_Ylf2dw0MG7y5Ckem4uSvr7YN7sdJWRF2s-OeNMmtPcP0d3QmYNqVlTUPixNrv5woQDuT19UWqlDg
+                gov_version: 0
+                hash_prev_event: ''
+                patch:
+                - op: add
+                  path: /members
+                  value: []
+                - op: add
+                  path: /policies
+                  value:
+                  - approve:
+                      quorum: MAJORITY
+                    evaluate:
+                      quorum: MAJORITY
+                    id: governance
+                    validate:
+                      quorum: MAJORITY
+                - op: add
+                  path: /roles
+                  value:
+                  - namespace: ''
+                    role: WITNESS
+                    schema:
+                      ID: governance
+                    who: MEMBERS
+                - op: add
+                  path: /schemas
+                  value: []
+                signature:
+                  content_hash: JARzRLhapGTQxEWHc9i9taSIXa0d6zuDNe-M-3MFVTSc
+                  signer: EJ0irrPzgmZzawS6nYAoNOfjYsH9cjIDJPeRO4Hc5vmY
+                  timestamp: 1718268
+                  value: SER7GL9A9nSAMkmtySPgQpU2CLR2lHAJdtxmIe2wOc0ohWsN9BtIv7qXjgcWwi-fF5VXVqnjUHj0fy3CKKavtGCw
+                sn: 0
+                state_hash: JZrjWdX_tP5Q_9SDcW5bS9RbvN6SuZ62cxvjn3XcolLI
+                subject_id: JEwuT__FAzdnXYY2Sg5BIZeCjjNnVFIuzHzGRtauykY8
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+  /subjects/{subject-id}/events/{sn}:
+    get:
+      tags:
+      - Subjects
+      summary: Obtener un evento de un sujeto
+      x-codeSamples:
+        - lang: 'cURL'
+          label: 'CLI'
+          source: |
+            curl -X GET "http://localhost:3000/subjects/JL8kr0sdYpIiwmP6RjQu21wMoiCGo5aF37QrtjT_vKFY/events/0" \
+            -H "accept: application/json" 
+      description: |-
+        Permite obtener un evento específico de un sujeto.
+
+        # Parámetros
+
+        * `Extension(kore_api): Extension<Arc<KoreApi>>` - La extensión de la API de Kore envuelta en un `Arc`.
+        * `Path((subject_id, sn)): Path<(String, u64)>` - El identificador del sujeto y el número de secuencia del evento.
+
+        # Devoluciones
+
+        * `Resultado<Json<NodeSigned<EventContentResponse>>, Errores>`: el evento solicitado en formato JSON o un error si la solicitud falla.
+      operationId: Get Event
+      parameters:
+      - name: subject-id
+        in: path
+        description: Identificador único del sujeto
+        required: true
+        schema:
+          type: string
+      - name: sn
+        in: path
+        description: Número de secuencia del evento
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 0
+      responses:
+        '200':
+          description: Subjects Data successfully retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NodeSignedEventContentResponse'
+              example:
+                appr_required: false
+                approved: true
+                approvers: []
+                eval_success: true
+                evaluators: []
+                event_request:
+                  Create:
+                    governance_id: ''
+                    name: tutorial
+                    namespace: ''
+                    public_key: EJ0irrPzgmZzawS6nYAoNOfjYsH9cjIDJPeRO4Hc5vmY
+                    schema_id: governance
+                  signature:
+                    content_hash: JWLeRGGAJM_1DcpNVc888lMlgZCgqKplV8CZ-tBLH2p8
+                    signer: EwkWURnRVk-lUEjF0cowczxYkz8DpbhLfo3UMSZE00LE
+                    timestamp: 171826883
+                    value: SEOEf5NFEFX_Ylf2dw0MG7y5Ckem4uSvr7YN7sdJWRF2s-OeNMmtPcP0d3QmYNqVlTUPixNrv5woQDuT19UWqlDg
+                gov_version: 0
+                hash_prev_event: ''
+                patch:
+                - op: add
+                  path: /members
+                  value: []
+                - op: add
+                  path: /policies
+                  value:
+                  - approve:
+                      quorum: MAJORITY
+                    evaluate:
+                      quorum: MAJORITY
+                    id: governance
+                    validate:
+                      quorum: MAJORITY
+                - op: add
+                  path: /roles
+                  value:
+                  - namespace: ''
+                    role: WITNESS
+                    schema:
+                      ID: governance
+                    who: MEMBERS
+                - op: add
+                  path: /schemas
+                  value: []
+                signature:
+                  content_hash: JARzRLhapGTQxEWHc9i9taSIXa0d6zuDNe-M-3MFVTSc
+                  signer: EJ0irrPzgmZzawS6nYAoNOfjYsH9cjIDJPeRO4Hc5vmY
+                  timestamp: 171826883
+                  value: SER7GL9A9nSAMkmtySPgQpU2CLR2lHAJdtxmIe2wOc0ohWsN9BtIv7qXjgcWwi-fF5VXVqnjUHj0fy3CKKavtGCw
+                sn: 0
+                state_hash: JZrjWdX_tP5Q_9SDcW5bS9RbvN6SuZ62cxvjn3XcolLI
+                subject_id: JEwuT__FAzdnXYY2Sg5BIZeCjjNnVFIuzHzGRtauykY8
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+  /subjects/{subject-id}/validation:
+    get:
+      tags:
+      - Subjects
+      summary: Obtener prueba de validación
+      x-codeSamples:
+        - lang: 'cURL'
+          label: 'CLI'
+          source: |
+            curl -X GET "http://localhost:3000/subjects/JL8kr0sdYpIiwmP6RjQu21wMoiCGo5aF37QrtjT_vKFY/validation" \
+            -H "accept: application/json" 
+      description: |-
+        Permite obtener la prueba de validación del último evento de un sujeto determinado.
+
+        # Parámetros
+
+        * `Extension(kore_api): Extension<Arc<KoreApi>>` - La extensión de la API de Kore envuelta en un `Arc`.
+        * `Path(subject_id): Path<String>` - El identificador del sujeto.
+
+        # Devoluciones
+
+        * `Resultado<Json<NodeProof>, Errores>` - La prueba de validación en formato JSON o un error si la solicitud falla.
+      operationId: Obtener prueba de validación
+      parameters:
+      - name: subject-id
+        in: path
+        description: Identificador único del sujeto
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Subjects Data successfully retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NodeProof'
+              example:
+                proof:
+                  event_hash: J40VKacq_EfrwIFZJTOEWjSm3RajiuG7T3l8YC5YCemM
+                  genesis_governance_version: 0
+                  governance_id: ''
+                  governance_version: 0
+                  name: tutorial
+                  namespace: ''
+                  prev_event_hash: ''
+                  schema_id: governance
+                  sn: 0
+                  subject_id: JEwuT__FAzdnXYY2Sg5BIZeCjjNnVFIuzHzGRtauykY8
+                  subject_public_key: EJ0irrPzgmZzawS6nYAoNOfjYsH9cjIDJPeRO4Hc5vmY
+                signatures:
+                - content_hash: JgGy23Fso8KgrLKG8BImiWeD9AHZYWL4kjIRkbNZ7fqU
+                  signer: EwkWURnRVk-lUEjF0cowczxYkz8DpbhLfo3UMSZE00LE
+                  timestamp: 17182688
+                  value: SEMaLSVuDTpuPZ6ImO99R2jNKpPG4IonEhafmg9rnj3xIUOWauOZK-ZZlnjaYOPQwsKmJ8ff3n_EPJPs-l2S_5DA
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+components:
+  schemas:
+    ApprovalState:
+      type: string
+      enum:
+      - Pending
+      - RespondedAccepted
+      - RespondedRejected
+      - Obsolete
+    AuthorizeSubject:
+      type: object
+      required:
+      - providers
+      properties:
+        providers:
+          type: array
+          items:
+            type: string
+    EventContentResponse:
+      type: object
+      required:
+      - subject_id
+      - event_request
+      - gov_version
+      - sn
+      - patch
+      - state_hash
+      - eval_success
+      - appr_required
+      - approved
+      - hash_prev_event
+      - evaluators
+      - approvers
+      properties:
+        appr_required:
+          type: boolean
+          description: Valor que especifica si se requiere aprobación
+        approved:
+          type: boolean
+          description: Valor especificando si ha sido aprobado
+        approvers:
+          type: array
+          items:
+            $ref: '#/components/schemas/NodeSignature'
+          description: Firmas de los aprobadores
+        eval_success:
+          type: boolean
+          description: Valor especificando si el proceso de evaluación ha ido bien
+        evaluators:
+          type: array
+          items:
+            $ref: '#/components/schemas/NodeSignature'
+          description: Firmas de los evaluadores
+        event_request:
+          $ref: '#/components/schemas/NodeSignedNodeEventRequest'
+        gov_version:
+          type: integer
+          format: int64
+          minimum: 0
+        hash_prev_event:
+          type: string
+          description: Hash del evento anterior
+        patch:
+          description: Cambios que se aplicarán al sujeto.
+        sn:
+          type: integer
+          format: int64
+          description: Número de secuencia actual del sujeto.
+          minimum: 0
+        state_hash:
+          type: string
+          description: Hash del estado actual del sujeto.
+        subject_id:
+          type: string
+    EventRequestResponse:
+      type: object
+      required:
+      - request_id
+      properties:
+        request_id:
+          type: string
+    NodeApprovalEntity:
+      type: object
+      required:
+      - id
+      - request
+      - state
+      properties:
+        id:
+          type: string
+        reponse:
+          allOf:
+          - $ref: '#/components/schemas/NodeSignedNodeApprovalResponse'
+          nullable: true
+        request:
+          $ref: '#/components/schemas/NodeSignedNodeApprovalRequest'
+        state:
+          $ref: '#/components/schemas/ApprovalState'
+    NodeApprovalRequest:
+      type: object
+      required:
+      - event_request
+      - sn
+      - gov_version
+      - patch
+      - state_hash
+      - hash_prev_event
+      properties:
+        event_request:
+          $ref: '#/components/schemas/NodeSignedEventRequest'
+        gov_version:
+          type: integer
+          format: int64
+          minimum: 0
+        hash_prev_event:
+          type: string
+        patch: {}
+        sn:
+          type: integer
+          format: int64
+          minimum: 0
+        state_hash:
+          type: string
+    NodeApprovalResponse:
+      type: object
+      required:
+      - appr_req_hash
+      - approved
+      properties:
+        appr_req_hash:
+          type: string
+        approved:
+          type: boolean
+    NodeEOLRequest:
+      type: object
+      required:
+      - subject_id
+      properties:
+        subject_id:
+          type: string
+    NodeEventRequest:
+      oneOf:
+      - type: object
+        required:
+        - Create
+        properties:
+          Create:
+            $ref: '#/components/schemas/NodeStartRequest'
+      - type: object
+        required:
+        - Fact
+        properties:
+          Fact:
+            $ref: '#/components/schemas/NodeFactRequest'
+      - type: object
+        required:
+        - Transfer
+        properties:
+          Transfer:
+            $ref: '#/components/schemas/NodeTransferRequest'
+      - type: object
+        required:
+        - EOL
+        properties:
+          EOL:
+            $ref: '#/components/schemas/NodeEOLRequest'
+    NodeFactRequest:
+      type: object
+      required:
+      - subject_id
+      - payload
+      properties:
+        payload: {}
+        subject_id:
+          type: string
+    NodeKoreRequestState:
+      type: object
+      required:
+      - id
+      - state
+      properties:
+        id:
+          type: string
+        sn:
+          type: integer
+          format: int64
+          nullable: true
+          minimum: 0
+        state:
+          $ref: '#/components/schemas/RequestState'
+        subject_id:
+          type: string
+          nullable: true
+        success:
+          type: boolean
+          nullable: true
+    NodeProof:
+      type: object
+      required:
+      - proof
+      - signatures
+      properties:
+        proof:
+          $ref: '#/components/schemas/NodeValidationProof'
+        signatures:
+          type: array
+          items:
+            $ref: '#/components/schemas/NodeSignature'
+    NodeSignature:
+      type: object
+      required:
+      - signer
+      - timestamp
+      - value
+      - content_hash
+      properties:
+        content_hash:
+          type: string
+        signer:
+          type: string
+        timestamp:
+          type: integer
+          format: int64
+          minimum: 0
+        value:
+          type: string
+    NodeSignedEventRequest:
+      type: object
+      description: Envoltorio NodeSignedEventRequest para implementar ToSchema.
+      required:
+      - request
+      properties:
+        request:
+          $ref: '#/components/schemas/NodeEventRequest'
+        signature:
+          allOf:
+          - $ref: '#/components/schemas/NodeSignature'
+          nullable: true
+    NodeSignedNodeApprovalRequest:
+      type: object
+      properties:
+        NodeApprovalRequest:
+          type: object
+          required:
+          - event_request
+          - sn
+          - gov_version
+          - patch
+          - state_hash
+          - hash_prev_event
+          properties:
+            event_request:
+              $ref: '#/components/schemas/NodeSignedEventRequest'
+            gov_version:
+              type: integer
+              format: int64
+              minimum: 0
+            hash_prev_event:
+              type: string
+            patch: {}
+            sn:
+              type: integer
+              format: int64
+              minimum: 0
+            state_hash:
+              type: string
+        NodeSignature:
+          type: object
+          required:
+          - signer
+          - timestamp
+          - value
+          - content_hash
+          properties:
+            content_hash:
+              type: string
+            signer:
+              type: string
+            timestamp:
+              type: integer
+              format: int64
+              minimum: 0
+            value:
+              type: string
+    NodeSignedNodeApprovalResponse:
+      type: object
+      properties:
+        NodeApprovalResponse:
+          type: object
+          required:
+          - appr_req_hash
+          - approved
+          properties:
+            appr_req_hash:
+              type: string
+            approved:
+              type: boolean
+        NodeSignature:
+          type: object
+          required:
+          - signer
+          - timestamp
+          - value
+          - content_hash
+          properties:
+            content_hash:
+              type: string
+            signer:
+              type: string
+            timestamp:
+              type: integer
+              format: int64
+              minimum: 0
+            value:
+              type: string
+    NodeSignedNodeEventRequest:
+      type: object
+      properties:
+        NodeEventRequest:
+          oneOf:
+          - type: object
+            required:
+            - Create
+            properties:
+              Create:
+                $ref: '#/components/schemas/NodeStartRequest'
+          - type: object
+            required:
+            - Fact
+            properties:
+              Fact:
+                $ref: '#/components/schemas/NodeFactRequest'
+          - type: object
+            required:
+            - Transfer
+            properties:
+              Transfer:
+                $ref: '#/components/schemas/NodeTransferRequest'
+          - type: object
+            required:
+            - EOL
+            properties:
+              EOL:
+                $ref: '#/components/schemas/NodeEOLRequest'
+        NodeSignature:
+          type: object
+          required:
+          - signer
+          - timestamp
+          - value
+          - content_hash
+          properties:
+            content_hash:
+              type: string
+            signer:
+              type: string
+            timestamp:
+              type: integer
+              format: int64
+              minimum: 0
+            value:
+              type: string
+    NodeStartRequest:
+      type: object
+      required:
+      - governance_id
+      - schema_id
+      - namespace
+      - name
+      properties:
+        governance_id:
+          type: string
+        name:
+          type: string
+        namespace:
+          type: string
+        public_key:
+          type: string
+          nullable: true
+        schema_id:
+          type: string
+    NodeSubjectData:
+      type: object
+      required:
+      - subject_id
+      - governance_id
+      - sn
+      - public_key
+      - namespace
+      - name
+      - schema_id
+      - owner
+      - creator
+      - properties
+      - active
+      properties:
+        active:
+          type: boolean
+        creator:
+          type: string
+        governance_id:
+          type: string
+        name:
+          type: string
+        namespace:
+          type: string
+        owner:
+          type: string
+        properties: {}
+        public_key:
+          type: string
+        schema_id:
+          type: string
+        sn:
+          type: integer
+          format: int64
+          minimum: 0
+        subject_id:
+          type: string
+    NodeTransferRequest:
+      type: object
+      required:
+      - subject_id
+      - public_key
+      properties:
+        public_key:
+          type: string
+        subject_id:
+          type: string
+    NodeValidationProof:
+      type: object
+      required:
+      - subject_id
+      - schema_id
+      - namespace
+      - name
+      - subject_public_key
+      - governance_id
+      - genesis_governance_version
+      - sn
+      - prev_event_hash
+      - event_hash
+      - governance_version
+      properties:
+        event_hash:
+          type: string
+        genesis_governance_version:
+          type: integer
+          format: int64
+          minimum: 0
+        governance_id:
+          type: string
+        governance_version:
+          type: integer
+          format: int64
+          minimum: 0
+        name:
+          type: string
+        namespace:
+          type: string
+        prev_event_hash:
+          type: string
+        schema_id:
+          type: string
+        sn:
+          type: integer
+          format: int64
+          minimum: 0
+        subject_id:
+          type: string
+        subject_public_key:
+          type: string
+    PatchVote:
+      type: string
+      enum:
+      - RespondedAccepted
+      - RespondedRejected
+    PreauthorizedSubjectsResponse:
+      type: object
+      required:
+      - subject_id
+      - providers
+      properties:
+        providers:
+          type: array
+          items:
+            type: string
+        subject_id:
+          type: string
+    RequestState:
+      type: string
+      enum:
+      - Finished
+      - Error
+      - Processing
+tags:
+- name: Aprobaciones
+  description: Puntos finales relacionados con las aprobaciones de solicitudes.
+- name: Peticiones
+  description: Puntos finales para gestionar las peticiones de evento.
+- name: Sujetos
+  description: Puntos finales para la gestión de los sujetos.
+- name: Otros
+  description: Varios puntos finales para la identificación y configuración de nodos.

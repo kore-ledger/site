@@ -23,7 +23,7 @@ Let's start by configuring the corresponding node:
 ```
 We map port 3001 to make requests from our machine and indicate the `peer-id` of node 1.
 ```bash   
-docker run -p 3001:3000 -p 50001:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config2.json:/config.json koreadmin/kore-http:arm64-leveldb-prometheus
+docker run -p 3001:3000 -p 50001:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config2.json:/config.json koreadmin/kore-http:0.5-leveldb-prometheus
 ```
 We will then proceed to update the governance to include this new member and allow him/her to create *Wine* type issues.
 
@@ -392,7 +392,7 @@ To achieve this, we'll allow **WFO** to take on the roles of an approver, valida
 Let's start by setting up the **WFO** node:
 
 ```bash   
-docker run -p 3002:3000 -p 50002:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config2.json:/config.json koreadmin/kore-http:arm64-leveldb-prometheus
+docker run -p 3002:3000 -p 50002:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config2.json:/config.json koreadmin/kore-http:0.5-leveldb-prometheus
 ```
 
 Next, we'll proceed to update the governance to grant it the mentioned properties:

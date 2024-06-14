@@ -4,7 +4,7 @@ date: 2024-06-06
 weight: 1
 description: Kore Base HTTP Client.
 ---
-It is a kore base client that uses the HTTP protocol, it allows to interact through an api with the Kore Ledger nodes. Soon it will have documentation with [OpenAPI](https://es.wikipedia.org/wiki/Especificaci%C3%B3n_OpenAPI).
+It is a kore base client that uses the HTTP protocol, it allows to interact through an api with the Kore Ledger nodes. If you want to access information about the [Api](../../../../api/_index.md).
 
 It has a single configuration variable that is only obtained by environment variable.
 <table>
@@ -23,5 +23,5 @@ It has a single configuration variable that is only obtained by environment vari
 </table>
 
 {{< alert type="info" title="INFO">}}
-To access more information about how Kore HTTP works, access the [repository](https://github.com/kore-ledger/kore-http)
+To access more information about how Kore HTTP works, access the [repository](https://github.com/kore-ledger/kore-http)furthermore, once the node is deployed in the `/doc` path, it can be interacted with through the [rapidoc](https://rapidocweb.com/api.html) interface.
 {{< /alert >}}

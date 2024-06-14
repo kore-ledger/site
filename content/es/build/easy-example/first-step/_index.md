@@ -8,13 +8,13 @@ Para lanzar un nodo kore, debe ejecutar el binario [kore-http](https://github.co
 Si no disponemos de la imagen o no tenemos la última versión, descárgala con:
 
 ```bash
-docker pull koreadmin/kore-http:arm64-sqlite
+docker pull koreadmin/kore-http:0.5-sqlite
 ```
 
 Podemos ejecutarlo lanzándolo:
 
 ```bash
-docker run koreadmin/kore-http:arm64-sqlite
+docker run koreadmin/kore-http:0.5-sqlite
 ```
 
 
@@ -23,8 +23,8 @@ También podemos crear nosotros la imagen dependiendo de la arquitectura
 ```bash
 git clone git@github.com:kore-ledger/kore-http.git
 # Dependiendo de la arquitectura de tu máquina debera usar uno u otro
-docker build --platform linux/amd64 -t kore-http-sqlite:amd64 --target amd64 .
-docker build --platform linux/arm64 -t kore-http-sqlite:arm64 --target arm64 .
+docker build --platform linux/0.5 -t kore-http-sqlite:0.5 --target 0.5 .
+docker build --platform linux/0.5 -t kore-http-sqlite:0.5 --target 0.5 .
 
 ```
 Podemos generar nosotros la clave criptográfica o dejar que el nodo la genere. En este tutorial el nodo se encargara de esa tarea.
@@ -54,7 +54,7 @@ Es importante resaltar que se debe utilizar el mismo esquema criptográfico al g
 ```
 Para levantar el nodo debemos indicar desde que puerto de nuestra máquina podemos acceder a la API, además del puerto donde escuchara el nodo. Po último importante indicar el archivo de configuración.
 ```bash
-docker run -p 3000:3000 -p 50000:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config.json:/config.json koreadmin/kore-http:arm64-sqlite
+docker run -p 3000:3000 -p 50000:50000 -e KORE_PASSWORD=polopo -e KORE_FILE_PATH=./config.json -v ./config.json:/config.json koreadmin/kore-http:0.5-sqlite
 ```
 
 
