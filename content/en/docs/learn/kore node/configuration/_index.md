@@ -123,7 +123,13 @@ The parameters that can be configured through environment variables and files ar
  <td><code>KORE_NETWORK_LISTEN_ADDRESSES</code></td>
  <td>Addresses where the node will listen</td>
  <td>Addresses where the node will listen</td>
- <td><code>/ip4/0.0.0.0/tcp/0</code></td>
+ <td><code>/ip4/0.0.0.0/tcp/50000</code></td>
+ </tr>
+  <tr>
+ <td><code>KORE_NETWORK_EXTERNAL_ADDRESSES</code></td>
+ <td>External address through which the node can be accessed, but it is not among its interfaces</td>
+ <td>External address through which the node can be accessed, but it is not among its interfaces</td>
+ <td><code>/ip4/90.0.0.70/tcp/50000</code></td>
  </tr>
 
 
@@ -209,6 +215,9 @@ The parameters that can be configured through environment variables and files ar
                 "/ip4/127.0.0.1/tcp/50001",
                 "/ip4/127.0.0.1/tcp/50002"
             ],
+            "external_addresses": [
+                "/ip4/90.0.0.70/tcp/50000"
+            ],
             "tell": {
                 "message_timeout_secs": 58,
                 "max_concurrent_streams": 166
@@ -254,6 +263,7 @@ user_agent = "Kore2.0"
 node_type = "Addressable"
 port_reuse = true
 listen_addresses = ["/ip4/127.0.0.1/tcp/50000","/ip4/127.0.0.1/tcp/50001","/ip4/127.0.0.1/tcp/50002"]
+external_addresses = ["/ip4/90.0.0.70/tcp/50000"]
         
 [kore.network.tell]
 message_timeout_secs = 58
@@ -294,6 +304,8 @@ kore:
       - "/ip4/127.0.0.1/tcp/50000"
       - "/ip4/127.0.0.1/tcp/50001"
       - "/ip4/127.0.0.1/tcp/50002"
+    external_addresses:
+      - "/ip4/90.0.0.70/tcp/50000"
     tell:
       message_timeout_secs: 58
       max_concurrent_streams: 166
