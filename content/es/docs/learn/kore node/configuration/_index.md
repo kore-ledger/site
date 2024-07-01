@@ -123,9 +123,14 @@ Los parámetros que se pueden configurar mediante variables de entorno y archivo
     <td><code>KORE_NETWORK_LISTEN_ADDRESSES</code></td>
     <td>Direcciones donde el nodo va a escuchar</td>
     <td>Direcciones donde el nodo va a escuchar</td>
-    <td><code>/ip4/0.0.0.0/tcp/0</code></td>
+    <td><code>/ip4/0.0.0.0/tcp/50000</code></td>
   </tr>
-
+  <tr>
+ <td><code>KORE_NETWORK_EXTERNAL_ADDRESSES</code></td>
+ <td>Dirección externa por la cual se puede acceder al nodo, pero no se encuentra entre sus interfaces</td>
+ <td>Dirección externa por la cual se puede acceder al nodo, pero no se encuentra entre sus interfaces</td>
+ <td><code>/ip4/90.0.0.70/tcp/50000</code></td>
+ </tr>
 
   <tr>
     <td><code>KORE_NETWORK_ROUTING_BOOT_NODES</code></td>
@@ -210,6 +215,9 @@ Los parámetros que se pueden configurar mediante variables de entorno y archivo
                 "/ip4/127.0.0.1/tcp/50001",
                 "/ip4/127.0.0.1/tcp/50002"
             ],
+            "external_addresses": [
+                "/ip4/90.0.0.70/tcp/50000"
+            ],
             "tell": {
                 "message_timeout_secs": 58,
                 "max_concurrent_streams": 166
@@ -255,6 +263,7 @@ user_agent = "Kore2.0"
 node_type = "Addressable"
 port_reuse = true
 listen_addresses = ["/ip4/127.0.0.1/tcp/50000","/ip4/127.0.0.1/tcp/50001","/ip4/127.0.0.1/tcp/50002"]
+external_addresses = ["/ip4/90.0.0.70/tcp/50000"]
         
 [kore.network.tell]
 message_timeout_secs = 58
@@ -295,6 +304,8 @@ kore:
       - "/ip4/127.0.0.1/tcp/50000"
       - "/ip4/127.0.0.1/tcp/50001"
       - "/ip4/127.0.0.1/tcp/50002"
+    external_addresses:
+      - "/ip4/90.0.0.70/tcp/50000"
     tell:
       message_timeout_secs: 58
       max_concurrent_streams: 166
