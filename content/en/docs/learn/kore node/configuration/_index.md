@@ -46,19 +46,19 @@ The parameters that can be configured through environment variables and files ar
   <tr>
     <td><code>KORE_PROMETHEUS</code></td>
     <td>Address and port where the server that contains the endpoint <code>/metrics</code> where the prometheus is located is going to be exposed</td>
-    <td>For example</td>
+    <td>An IP address and a port</td>
     <td><code>0.0.0.0:3050</code></td>
   </tr>
   <tr>
     <td><code>KORE_KEYS_PATH</code></td>
     <td>Path where the private key will be saved in <code>PKCS8</code> format encrypted with <code>PKCS5</code></td>
-    <td>Path where the private key will be saved</td>
+    <td>A directory</td>
     <td><code>examples/keys</code></td>
  </tr>
  <tr>
     <td><code>KORE_DB_PATH</code></td>
     <td>Path where the database will be created if it does not exist or where the database is located if it already exists</td>
-    <td>Database path</td>
+    <td>A directory</td>
     <td>For LevelDB <code>examples/leveldb</code> and for SQlite <code>examples/sqlitedb</code></td>
  </tr>
 
@@ -66,13 +66,13 @@ The parameters that can be configured through environment variables and files ar
 <tr>
  <td><code>KORE_NODE_KEY_DERIVATOR</code></td>
  <td><code>Key derivator</code> to use</td>
- <td><code>Ed25519</code> or <code>Secp256k1</code></td>
+ <td>A String with <code>Ed25519</code> or <code>Secp256k1</code></td>
  <td><code>Ed25519</code></td>
  </tr>
  <tr>
  <td><code>KORE_NODE_DIGEST_DERIVATOR</code></td>
  <td><code>Digest derivator</code> to use</td>
- <td><code>Blake3_256</code>, <code>Blake3_512</code>, <code>SHA2_256</code>, <code>SHA2_512</code>, <code>SHA3_256</code> or <code >SHA3_512</code></td>
+ <td>>A String with <code>Blake3_256</code>, <code>Blake3_512</code>, <code>SHA2_256</code>, <code>SHA2_512</code>, <code>SHA3_256</code> or <code >SHA3_512</code></td>
  <td><code>Blake3_256</code></td>
  </tr>
  <tr>
@@ -96,7 +96,7 @@ The parameters that can be configured through environment variables and files ar
  <tr>
  <td><code>KORE_NODE_SMARTCONTRACTS_DIRECTORY</code></td>
  <td>Directory where the subjects' contracts will be stored</td>
- <td>Directory where the subjects' contracts will be stored</td>
+ <td>A directory</td>
  <td><code>Contracts</code></td>
  </tr>
 
@@ -116,7 +116,7 @@ The parameters that can be configured through environment variables and files ar
  <tr>
  <td><code>KORE_NETWORK_NODE_TYPE</code></td>
  <td>Node type</td>
- <td>Bootstrap, Addressable or Ephemeral</td>
+ <td>A String: Bootstrap, Addressable or Ephemeral</td>
  <td><code>Bootstrap</code></td>
  </tr>
  <tr>
