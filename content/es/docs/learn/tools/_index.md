@@ -19,6 +19,7 @@ $ sudo apt install -y libprotobuf-dev protobuf-compiler cmake
 $ cargo install --locked --path keygen
 $ cargo install --locked --path patch
 $ cargo install --locked --path sign
+$ cargo install --locked --path control
 $ kore-keygen -h
 $ kore-sign -h
 $ kore-patch -h
@@ -122,3 +123,17 @@ Una vez que se obtiene el JSON Patch, se puede incluir en una solicitud de event
 {{< alert type="success"  title="TIP" >}}
 Aunque Kore Patch se desarrolló para facilitar modificaciones en la gobernanza de Kore, en realidad es solo una utilidad que genera un JSON PATH a partir de 2 objetos JSON, por lo que puede usarse para otros fines.
 {{< /alert >}}
+
+## Control
+Herramienta para proporcionar una lista de permitidos y bloqueados a los nodos. Dispone de 3 variables de entorno `SERVERS` que permite indicar cuantos servidores quieres y en que puerto quieres que escuchen y dos listas `ALLOWLIST` y `BLOCKLIST`. Estas listas seran las por defecto pero se dispone de una ruta `/allow` y `/block` con PUT y GET para modificarlas. 
+
+```bash
+export SERVERS="0.0.0.0:3040,0.0.0.0:3041"
+export ALLOWLIST="172.10.10.2"
+control
+```
+Salida
+```bash
+Server started at: 0.0.0.0:3040
+Server started at: 0.0.0.0:3041
+```

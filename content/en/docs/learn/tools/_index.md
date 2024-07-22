@@ -123,3 +123,17 @@ Once the JSON Patch is obtained it can be included in an event request to be sen
 {{< alert type="success"  title="TIP" >}}
 Although Kore Patch has been developed to facilitate modifications to Kore governance, it is really just a utility that generates a JSON PATH from 2 JSON objects, so it can be used for other purposes.
 {{< /alert >}}
+
+## Control
+Tool to provide a list of allowed and blocked nodes. It has 3 environment variables `SERVERS` that allows you to indicate how many servers you want and on which port you want them to listen and two lists `ALLOWLIST` and `BLOCKLIST`. These lists will be the default ones but you have a `/allow` and `/block` route with PUT and GET to modify them. 
+
+```bash
+export SERVERS="0.0.0.0:3040,0.0.0.0:3041"
+export ALLOWLIST="172.10.10.2"
+control
+```
+Output
+```bash
+Server started at: 0.0.0.0:3040
+Server started at: 0.0.0.0:3041
+```
