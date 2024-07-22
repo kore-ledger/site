@@ -46,19 +46,19 @@ Los parámetros que se pueden configurar mediante variables de entorno y archivo
   <tr>
     <td><code>KORE_PROMETHEUS</code></td>
     <td>Dirección y puerto donde se va a exponer el servidor que contiene el endpoint <code>/metrics</code> donde se encuentra el prometheus</td>
-    <td>Por ejemplo</td>
+    <td>Una dirección IP y un puerto</td>
     <td><code>0.0.0.0:3050</code></td>
   </tr>
   <tr>
     <td><code>KORE_KEYS_PATH</code></td>
     <td>Ruta donde se guardará la clave privada en formato <code>PKCS8</code> encriptada con <code>PKCS5</code></td>
-    <td>Ruta donde se guardará la clave privada</td>
+    <td>Un directorio</td>
     <td><code>examples/keys</code></td>
   </tr>
   <tr>
     <td><code>KORE_DB_PATH</code></td>
     <td>Ruta donde se creará la base de datos si no existe o donde se encuentra la base de datos en caso de que ya exista</td>
-    <td>Ruta de la base de datos</td>
+    <td>Un directorio</td>
     <td>Para LevelDB <code>examples/leveldb</code> y para SQlite <code>examples/sqlitedb</code></td>
   </tr>
 
@@ -66,13 +66,13 @@ Los parámetros que se pueden configurar mediante variables de entorno y archivo
   <tr>
     <td><code>KORE_NODE_KEY_DERIVATOR</code></td>
     <td><code>Key derivator</code> a utilizar</td>
-    <td><code>Ed25519</code> o <code>Secp256k1</code></td>
+    <td>Un String con <code>Ed25519</code> o <code>Secp256k1</code></td>
     <td><code>Ed25519</code></td>
   </tr>
   <tr>
     <td><code>KORE_NODE_DIGEST_DERIVATOR</code></td>
     <td><code>Digest derivator</code> a utilizar</td>
-    <td><code>Blake3_256</code>, <code>Blake3_512</code>, <code>SHA2_256</code>, <code>SHA2_512</code>, <code>SHA3_256</code> o <code>SHA3_512</code></td>
+    <td>Un String con <code>Blake3_256</code>, <code>Blake3_512</code>, <code>SHA2_256</code>, <code>SHA2_512</code>, <code>SHA3_256</code> o <code>SHA3_512</code></td>
     <td><code>Blake3_256</code></td>
   </tr>
   <tr>
@@ -90,13 +90,13 @@ Los parámetros que se pueden configurar mediante variables de entorno y archivo
   <tr>
     <td><code>KORE_NODE_PASSVOTATION</code></td>
     <td>Comportamiento del nodo en la fase de aprobación</td>
-    <td>Valor entero sin signo, 1 para aprobar siempre, 2 denegar siempre, otro valor para aprobación manual</td>
+    <td>Valor entero sin signo, 1 para aprobar siempre, 2 para denegar siempre, otro valor para aprobación manual</td>
     <td><code>0</code></td>
   </tr>
   <tr>
     <td><code>KORE_NODE_SMARTCONTRACTS_DIRECTORY</code></td>
     <td>Directorio donde se almacenarán los contratos de los sujetos</td>
-    <td>Directorio donde se almacenarán los contratos de los sujetos</td>
+    <td>Un directorio</td>
     <td><code>Contracts</code></td>
   </tr>
 
@@ -116,16 +116,21 @@ Los parámetros que se pueden configurar mediante variables de entorno y archivo
   <tr>
     <td><code>KORE_NETWORK_NODE_TYPE</code></td>
     <td>Tipo de nodo</td>
-    <td>Bootstrap, Addressable o Ephemeral</td>
+    <td>Un String: Bootstrap, Addressable o Ephemeral</td>
     <td><code>Bootstrap</code></td>
   </tr>
   <tr>
     <td><code>KORE_NETWORK_LISTEN_ADDRESSES</code></td>
     <td>Direcciones donde el nodo va a escuchar</td>
     <td>Direcciones donde el nodo va a escuchar</td>
-    <td><code>/ip4/0.0.0.0/tcp/0</code></td>
+    <td><code>/ip4/0.0.0.0/tcp/50000</code></td>
   </tr>
-
+  <tr>
+ <td><code>KORE_NETWORK_EXTERNAL_ADDRESSES</code></td>
+ <td>Dirección externa por la cual se puede acceder al nodo, pero no se encuentra entre sus interfaces</td>
+ <td>Dirección externa por la cual se puede acceder al nodo, pero no se encuentra entre sus interfaces</td>
+ <td><code>/ip4/90.0.0.70/tcp/50000</code></td>
+ </tr>
 
   <tr>
     <td><code>KORE_NETWORK_ROUTING_BOOT_NODES</code></td>
@@ -178,8 +183,8 @@ Los parámetros que se pueden configurar mediante variables de entorno y archivo
   </tr>
   <tr>
     <td><code>KORE_NETWORK_ROUTING_PROTOCOL_NAMES</code></td>
-    <td>Protocolos que soporta le nodo</td>
-    <td>Protocolos que soporta le nodo</td>
+    <td>Protocolos que soporta el nodo</td>
+    <td>Protocolos que soporta el nodo</td>
     <td><code>/kore/routing/1.0.0</code></td>
   </tr>
 
@@ -209,6 +214,9 @@ Los parámetros que se pueden configurar mediante variables de entorno y archivo
                 "/ip4/127.0.0.1/tcp/50000",
                 "/ip4/127.0.0.1/tcp/50001",
                 "/ip4/127.0.0.1/tcp/50002"
+            ],
+            "external_addresses": [
+                "/ip4/90.0.0.70/tcp/50000"
             ],
             "tell": {
                 "message_timeout_secs": 58,
@@ -255,6 +263,7 @@ user_agent = "Kore2.0"
 node_type = "Addressable"
 port_reuse = true
 listen_addresses = ["/ip4/127.0.0.1/tcp/50000","/ip4/127.0.0.1/tcp/50001","/ip4/127.0.0.1/tcp/50002"]
+external_addresses = ["/ip4/90.0.0.70/tcp/50000"]
         
 [kore.network.tell]
 message_timeout_secs = 58
@@ -295,6 +304,8 @@ kore:
       - "/ip4/127.0.0.1/tcp/50000"
       - "/ip4/127.0.0.1/tcp/50001"
       - "/ip4/127.0.0.1/tcp/50002"
+    external_addresses:
+      - "/ip4/90.0.0.70/tcp/50000"
     tell:
       message_timeout_secs: 58
       max_concurrent_streams: 166

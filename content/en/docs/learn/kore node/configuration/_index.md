@@ -46,19 +46,19 @@ The parameters that can be configured through environment variables and files ar
   <tr>
     <td><code>KORE_PROMETHEUS</code></td>
     <td>Address and port where the server that contains the endpoint <code>/metrics</code> where the prometheus is located is going to be exposed</td>
-    <td>For example</td>
+    <td>An IP address and a port</td>
     <td><code>0.0.0.0:3050</code></td>
   </tr>
   <tr>
     <td><code>KORE_KEYS_PATH</code></td>
     <td>Path where the private key will be saved in <code>PKCS8</code> format encrypted with <code>PKCS5</code></td>
-    <td>Path where the private key will be saved</td>
+    <td>A directory</td>
     <td><code>examples/keys</code></td>
  </tr>
  <tr>
     <td><code>KORE_DB_PATH</code></td>
     <td>Path where the database will be created if it does not exist or where the database is located if it already exists</td>
-    <td>Database path</td>
+    <td>A directory</td>
     <td>For LevelDB <code>examples/leveldb</code> and for SQlite <code>examples/sqlitedb</code></td>
  </tr>
 
@@ -66,13 +66,13 @@ The parameters that can be configured through environment variables and files ar
 <tr>
  <td><code>KORE_NODE_KEY_DERIVATOR</code></td>
  <td><code>Key derivator</code> to use</td>
- <td><code>Ed25519</code> or <code>Secp256k1</code></td>
+ <td>A String with <code>Ed25519</code> or <code>Secp256k1</code></td>
  <td><code>Ed25519</code></td>
  </tr>
  <tr>
  <td><code>KORE_NODE_DIGEST_DERIVATOR</code></td>
  <td><code>Digest derivator</code> to use</td>
- <td><code>Blake3_256</code>, <code>Blake3_512</code>, <code>SHA2_256</code>, <code>SHA2_512</code>, <code>SHA3_256</code> or <code >SHA3_512</code></td>
+ <td>>A String with <code>Blake3_256</code>, <code>Blake3_512</code>, <code>SHA2_256</code>, <code>SHA2_512</code>, <code>SHA3_256</code> or <code >SHA3_512</code></td>
  <td><code>Blake3_256</code></td>
  </tr>
  <tr>
@@ -96,7 +96,7 @@ The parameters that can be configured through environment variables and files ar
  <tr>
  <td><code>KORE_NODE_SMARTCONTRACTS_DIRECTORY</code></td>
  <td>Directory where the subjects' contracts will be stored</td>
- <td>Directory where the subjects' contracts will be stored</td>
+ <td>A directory</td>
  <td><code>Contracts</code></td>
  </tr>
 
@@ -116,14 +116,20 @@ The parameters that can be configured through environment variables and files ar
  <tr>
  <td><code>KORE_NETWORK_NODE_TYPE</code></td>
  <td>Node type</td>
- <td>Bootstrap, Addressable or Ephemeral</td>
+ <td>A String: Bootstrap, Addressable or Ephemeral</td>
  <td><code>Bootstrap</code></td>
  </tr>
  <tr>
  <td><code>KORE_NETWORK_LISTEN_ADDRESSES</code></td>
  <td>Addresses where the node will listen</td>
  <td>Addresses where the node will listen</td>
- <td><code>/ip4/0.0.0.0/tcp/0</code></td>
+ <td><code>/ip4/0.0.0.0/tcp/50000</code></td>
+ </tr>
+  <tr>
+ <td><code>KORE_NETWORK_EXTERNAL_ADDRESSES</code></td>
+ <td>External address through which the node can be accessed, but it is not among its interfaces</td>
+ <td>External address through which the node can be accessed, but it is not among its interfaces</td>
+ <td><code>/ip4/90.0.0.70/tcp/50000</code></td>
  </tr>
 
 
@@ -209,6 +215,9 @@ The parameters that can be configured through environment variables and files ar
                 "/ip4/127.0.0.1/tcp/50001",
                 "/ip4/127.0.0.1/tcp/50002"
             ],
+            "external_addresses": [
+                "/ip4/90.0.0.70/tcp/50000"
+            ],
             "tell": {
                 "message_timeout_secs": 58,
                 "max_concurrent_streams": 166
@@ -254,6 +263,7 @@ user_agent = "Kore2.0"
 node_type = "Addressable"
 port_reuse = true
 listen_addresses = ["/ip4/127.0.0.1/tcp/50000","/ip4/127.0.0.1/tcp/50001","/ip4/127.0.0.1/tcp/50002"]
+external_addresses = ["/ip4/90.0.0.70/tcp/50000"]
         
 [kore.network.tell]
 message_timeout_secs = 58
@@ -294,6 +304,8 @@ kore:
       - "/ip4/127.0.0.1/tcp/50000"
       - "/ip4/127.0.0.1/tcp/50001"
       - "/ip4/127.0.0.1/tcp/50002"
+    external_addresses:
+      - "/ip4/90.0.0.70/tcp/50000"
     tell:
       message_timeout_secs: 58
       max_concurrent_streams: 166
