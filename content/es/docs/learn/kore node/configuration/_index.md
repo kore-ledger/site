@@ -201,70 +201,111 @@ Los parámetros que se pueden configurar mediante variables de entorno y archivo
     <td>Valor entero sin signo</td>
     <td><code>100</code></td>
   </tr>
-  </table>
+  <tr>
+    <td><code>KORE_NETWORK_CONTROL_LIST_ENABLE</code></td>
+    <td>Habilitar lista de control</td>
+    <td>Valor booleano</td>
+    <td><code>true</code></td>
+  </tr>
+  <tr>
+    <td><code>KORE_NETWORK_CONTROL_LIST_ALLOW_LIST</code></td>
+    <td>Lista de peers permitidos</td>
+    <td>Cadena de texto separada por comas</td>
+    <td><code>Peer200,Peer300</code></td>
+  </tr>
+  <tr>
+    <td><code>KORE_NETWORK_CONTROL_LIST_BLOCK_LIST</code></td>
+    <td>Lista de peers bloqueados</td>
+    <td>Cadena de texto separada por comas</td>
+    <td><code>Peer1,Peer2</code></td>
+  </tr>
+  <tr>
+    <td><code>KORE_NETWORK_CONTROL_LIST_SERVICE_ALLOW_LIST</code></td>
+    <td>Lista de URLs de servicios permitidos</td>
+    <td>Cadena de texto separada por comas</td>
+    <td><code>http://90.0.0.1:3000/allow_list</code></td>
+  </tr>
+  <tr>
+    <td><code>KORE_NETWORK_CONTROL_LIST_SERVICE_BLOCK_LIST</code></td>
+    <td>Lista de URLs de servicios bloqueados</td>
+    <td>Cadena de texto separada por comas</td>
+    <td><code>http://90.0.0.1:3000/block_list</code></td>
+  </tr>
+  <tr>
+    <td><code>KORE_NETWORK_CONTROL_LIST_INTERVAL_REQUEST</code></td>
+    <td>Intervalo de solicitud en segundos</td>
+    <td>Cantidad de segundos</td>
+    <td><code>58</code></td>
+  </tr>
+</table>
 
-## Archivo .json
+
+## .json File
 ```json
 {
-    "kore": {
-        "network": {
-            "user_agent": "Kore2.0",
-            "node_type": "Addressable",
-            "listen_addresses": [
-                "/ip4/127.0.0.1/tcp/50000",
-                "/ip4/127.0.0.1/tcp/50001",
-                "/ip4/127.0.0.1/tcp/50002"
-            ],
-            "external_addresses": [
-                "/ip4/90.0.0.70/tcp/50000"
-            ],
-            "tell": {
-                "message_timeout_secs": 58,
-                "max_concurrent_streams": 166
-            },
-            "routing": {
-                "boot_nodes": [
-                    "/ip4/172.17.0.1/tcp/50000_/ip4/127.0.0.1/tcp/60001/p2p/12D3KooWLXexpg81PjdjnrhmHUxN7U5EtfXJgr9cahei1SJ9Ub3B",
-                    "/ip4/11.11.0.11/tcp/10000_/ip4/12.22.33.44/tcp/55511/p2p/12D3KooWRS3QVwqBtNp7rUCG4SF3nBrinQqJYC1N5qc1Wdr4jrze"
-                ],
-                "dht_random_walk": false,
-                "discovery_only_if_under_num": 55,
-                "allow_non_globals_in_dht": true,
-                "allow_private_ip": true,
-                "enable_mdns": false,
-                "kademlia_disjoint_query_paths": false,
-                "kademlia_replication_factor": 30,
-                "protocol_names": [
-                    "/kore/routing/2.2.2",
-                    "/kore/routing/1.1.1"
-                ]
-            },
-            "port_reuse": true
-        },
-        "node": {
-            "key_derivator": "Secp256k1",
-            "digest_derivator": "Blake3_512",
-            "replication_factor": 0.555,
-            "timeout": 30,
-            "passvotation": 50,
-            "smartcontracts_directory": "./fake_route"
-        },
-        "db_path": "./fake/db/path",
-        "keys_path": "./fake/keys/path",
-        "prometheus": "10.0.0.0:3030"
-    }
-}
+            "kore": {
+              "network": {
+                  "user_agent": "Kore2.0",
+                  "node_type": "Addressable",
+                  "listen_addresses": ["/ip4/127.0.0.1/tcp/50000","/ip4/127.0.0.1/tcp/50001","/ip4/127.0.0.1/tcp/50002"],
+                  "external_addresses": ["/ip4/90.1.0.60/tcp/50000", "/ip4/90.1.0.61/tcp/50000"],
+                  "tell": {
+                    "message_timeout_secs": 58,
+                    "max_concurrent_streams": 166
+                  },
+                  "control_list": {
+                    "enable": true,
+                    "allow_list": ["Peer200", "Peer300"],
+                    "block_list": ["Peer1", "Peer2"],
+                    "service_allow_list": ["http://90.0.0.1:3000/allow_list", "http://90.0.0.2:4000/allow_list"],
+                    "service_block_list": ["http://90.0.0.1:3000/block_list", "http://90.0.0.2:4000/block_list"],
+                    "interval_request": 99
+                  },
+                  "routing": {
+                    "boot_nodes": ["/ip4/172.17.0.1/tcp/50000_/ip4/127.0.0.1/tcp/60001/p2p/12D3KooWLXexpg81PjdjnrhmHUxN7U5EtfXJgr9cahei1SJ9Ub3B","/ip4/11.11.0.11/tcp/10000_/ip4/12.22.33.44/tcp/55511/p2p/12D3KooWRS3QVwqBtNp7rUCG4SF3nBrinQqJYC1N5qc1Wdr4jrze"],
+                    "dht_random_walk": false,
+                    "discovery_only_if_under_num": 55,
+                    "allow_non_globals_in_dht": true,
+                    "allow_private_ip": true,
+                    "enable_mdns": false,
+                    "kademlia_disjoint_query_paths": false,
+                    "kademlia_replication_factor": 30,
+                    "protocol_names": ["/kore/routing/2.2.2","/kore/routing/1.1.1"]
+                  },
+                  "port_reuse": true
+              },
+              "node": {
+                "key_derivator": "Secp256k1",
+                "digest_derivator": "Blake3_512",
+                "replication_factor": 0.555,
+                "timeout": 30,
+                "passvotation": 50,
+                "smartcontracts_directory": "./fake_route"
+              },
+              "db_path": "./fake/db/path",
+              "keys_path": "./fake/keys/path",
+              "prometheus": "10.0.0.0:3030"
+            }
+          }
 ```
 
-## Archivo .toml
+## .toml File
 ```toml
 [kore.network]
 user_agent = "Kore2.0"
 node_type = "Addressable"
 port_reuse = true
 listen_addresses = ["/ip4/127.0.0.1/tcp/50000","/ip4/127.0.0.1/tcp/50001","/ip4/127.0.0.1/tcp/50002"]
-external_addresses = ["/ip4/90.0.0.70/tcp/50000"]
+external_addresses = ["/ip4/90.1.0.60/tcp/50000","/ip4/90.1.0.61/tcp/50000"]
         
+[kore.network.control_list]
+enable = true
+allow_list = ["Peer200", "Peer300"]
+block_list = ["Peer1", "Peer2"]
+service_allow_list = ["http://90.0.0.1:3000/allow_list", "http://90.0.0.2:4000/allow_list"]
+service_block_list = ["http://90.0.0.1:3000/block_list", "http://90.0.0.2:4000/block_list"]
+interval_request = 99
+
 [kore.network.tell]
 message_timeout_secs = 58
 max_concurrent_streams = 166
@@ -291,13 +332,28 @@ smartcontracts_directory = "./fake_route"
 [kore]
 db_path = "./fake/db/path"
 keys_path = "./fake/keys/path"    
-prometheus = "10.0.0.0:3030"    
+prometheus = "10.0.0.0:3030"  
 ```
 
-## Archivo .yaml
+## .yaml File
 ```yaml
 kore:
   network:
+    control_list:
+      allow_list:
+        - "Peer200"
+        - "Peer300"
+      block_list:
+        - "Peer1"
+        - "Peer2"
+      service_allow_list:
+        - "http://90.0.0.1:3000/allow_list"
+        - "http://90.0.0.2:4000/allow_list"
+      service_block_list:
+        - "http://90.0.0.1:3000/block_list"
+        - "http://90.0.0.2:4000/block_list"
+      interval_request: 99
+      enable: true
     user_agent: "Kore2.0"
     node_type: "Addressable"
     listen_addresses:
@@ -305,7 +361,8 @@ kore:
       - "/ip4/127.0.0.1/tcp/50001"
       - "/ip4/127.0.0.1/tcp/50002"
     external_addresses:
-      - "/ip4/90.0.0.70/tcp/50000"
+      - "/ip4/90.1.0.60/tcp/50000"
+      - "/ip4/90.1.0.61/tcp/50000"
     tell:
       message_timeout_secs: 58
       max_concurrent_streams: 166
@@ -334,5 +391,5 @@ kore:
   db_path: "./fake/db/path"
   keys_path: "./fake/keys/path"
   prometheus: "10.0.0.0:3030"
-
 ```
+
