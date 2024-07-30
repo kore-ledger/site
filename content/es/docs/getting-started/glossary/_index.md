@@ -106,7 +106,7 @@ Los sujetos son una entidad lógica o proceso que almacena todos los datos neces
 Es un acuerdo o comunicación entre 2 entidades diferentes para aceptar un cambio en el estado de un sujeto.
 
 ### Testigo
-Participante interesado en tener una copia del tema y la información que almacena.
+Participante interesado en tener una copia del sujeto y la información que almacena.
 ## V
 
 ### Validador

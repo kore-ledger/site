@@ -14,7 +14,7 @@ Cada evento se compone de lo siguiente:
 
 - La solicitud que generó el evento.
 - La huella criptográfica del evento anterior para formar la cadena.
-- Una serie de metainformación relacionada con el tema y el evento.
+- Una serie de metainformación relacionada con el sujeto y el evento.
 - Un grupo de firmas diferentes que se agregan a medida que el evento avanza en su ciclo de vida.
 
 ## Ciclo de vida

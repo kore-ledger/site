@@ -76,7 +76,7 @@ curl --request GET 'http://localhost:3001/subjects/{{SUBJECT-ID}}'
 }
 ```
 
-Ahora que hemos llegado a este punto, se ha creado el primer sujeto. Sin embargo, como podemos ver en el bloque de información anterior, tiene una inicialización predeterminada con el *cuerpo* que definimos en el evento **génesis**. Por lo tanto, nuestro siguiente paso será modificar las características básicas del tema para representar la producción de una botella de vino producida por **Premium Wines**. Lo lograremos a través del evento `Init` que declaramos en el *contrato* de los sujetos de *Vino*.
+Ahora que hemos llegado a este punto, se ha creado el primer sujeto. Sin embargo, como podemos ver en el bloque de información anterior, tiene una inicialización predeterminada con el *cuerpo* que definimos en el evento **génesis**. Por lo tanto, nuestro siguiente paso será modificar las características básicas del sujeto para representar la producción de una botella de vino producida por **Premium Wines**. Lo lograremos a través del evento `Init` que declaramos en el *contrato* de los sujetos de *Vino*.
 
 Las características que queremos que tenga nuestra botella son las siguientes:
 * Número de cosecha: 1
