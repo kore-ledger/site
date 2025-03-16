@@ -1,112 +1,76 @@
+---
 openapi: 3.1.0
 info:
   title: Kore HTTP
-  description: >-
-    This API provides interaction with Kore Ledger nodes using the HTTP
-    protocol. It allows sending and retrieving various types of requests and
-    managing subjects. The API is documented with OpenAPI for easy integration
-    and use.
+  description: This API provides interaction with Kore Ledger nodes using the HTTP
+    protocol. It allows sending and retrieving various types of requests and managing
+    subjects. The API is documented with OpenAPI for easy integration and use.
   contact:
     name: Kore Information
-    url: 'https://www.kore-ledger.net/'
+    url: https://www.kore-ledger.net/
     email: info@kore-ledger.net
   license:
     name: MIT
-    url: 'https://opensource.org/licenses/MIT'
+    url: https://opensource.org/licenses/MIT
   version: 0.3.0
 paths:
-  '/approval-request/{subject_id}':
+  "/approval-request/{subject_id}":
     get:
       tags:
-        - Approval
-      summary: Get approvals
-      description: >-
-        Allows obtaining the list of requests for approvals received by the
-        node.
-
+      - Approval
+      summary: Approvals
+      description: |-
+        Allows obtaining the list of requests for approvals received by the node.
 
         # Parameters
 
-
-        * `Extension(bridge): Extension<Arc<bridge>>` - The bridge extension
-        wrapped in an `Arc`.
-
-        * `Path(subject_id): Path<String>` - The identifier of the subject as a
-        path parameter.
-
+        * `Extension(bridge): Extension<Arc<bridge>>` - The bridge extension wrapped in an `Arc`.
+        * `Path(subject_id): Path<String>` - The identifier of the subject as a path parameter.
 
         # Returns
 
-
-        * `Result<Json<ApproveInfo>, Error>` - returns an Ok in a JSON or an
-        error
-      operationId: Get one Approval Request Data
+        * `Result<Json<ApproveInfo>, Error>` - returns an Ok in a JSON or an error
+      operationId: One Approval Request Data
       parameters:
-        - name: subject_id
-          in: path
-          description: subject unique id
-          required: true
-          schema:
-            type: string
+      - name: subject_id
+        in: path
+        description: Subjects unique id
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Approval Data successfully retrieved
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApproveInfo'
-        '400':
-          description: Bad Request
-        '404':
-          description: Not Found
+                "$ref": "#/components/schemas/ApproveInfo"
         '500':
           description: Internal Server Error
-      x-codeSamples:
-        - lang: Bash
-          label: curl
-          source: >-
-            curl --location
-            'http://127.0.0.1:3000/approval-request/JjyqcA-44TjpwBjMTu9kLV21kYfdIAu638juh6ye1gyU'
-            \
-
-            --header 'Content-Type: application/json' \
-
-            --data ''
     patch:
       tags:
-        - Approval
-      summary: patch approval
-      description: >-
-        Allows issuing an affirmative or negative approval for a previously
-        received request.
-
+      - Approval
+      summary: Approval
+      description: |-
+        Allows issuing an affirmative or negative approval for a previously received request.
 
         # Parameters
 
-
-        * `Extension(bridge): Extension<Arc<bridge>>` - The bridge extension
-        wrapped in an `Arc`.
-
-        * `Path(subject_id): Path<String>` -The identifier of the subject as a
-        path parameter.
-
-        * `Json(response): Json<String>` - The response (approval or rejection)
-        in JSON format
-
+        * `Extension(bridge): Extension<Arc<bridge>>` - The bridge extension wrapped in an `Arc`.
+        * `Path(subject_id): Path<String>` -The identifier of the subject as a path parameter.
+        * `Json(response): Json<String>` - The response (approval or rejection) in JSON format
 
         # Returns
 
-
-        * `Result<Json<String>, Error>` - The approval request in JSON format or
-        an error if the request fails.
-      operationId: Set your Aprroval for a request
+        * `Result<Json<String>, Error>` - The approval request in JSON format or an error if the request fails.
+      operationId: Set your Approval for a request
       parameters:
-        - name: subject_id
-          in: path
-          description: Approval's unique id
-          required: true
-          schema:
-            type: string
+      - name: subject_id
+        in: path
+        description: Subjects unique id
+        required: true
+        schema:
+          type: string
       requestBody:
         description: Vote of the user for an existing request
         content:
@@ -121,52 +85,26 @@ paths:
             text/plain:
               schema:
                 type: string
-              example: >-
-                The approval request for subject
-                Jd_vA5Dl1epomG7wyeHiqgKdOIBi28vNgHjRl6hy1N5w has changed to
-                RespondedAccepted
-        '400':
-          description: Bad Request
-        '404':
-          description: Not Found
-        '409':
-          description: Conflict
+              example: The approval request for subject Jd_vA5Dl1epomG7wyeHiqgKdOIBi28vNgHjRl6hy1N5w
+                has changed to RespondedAccepted
         '500':
           description: Internal Server Error
-      x-codeSamples:
-        - lang: Bash
-          label: curl
-          source: >-
-            curl --location --request PATCH
-            'http://127.0.0.1:3000/approval-request/JjyqcA-44TjpwBjMTu9kLV21kYfdIAu638juh6ye1gyU'
-            \
-
-            --header 'Content-Type: application/json' \
-
-            --data '"Accepted"'
-  /auth:
+  "/auth":
     get:
       tags:
-        - Auth
-      summary: Get authorized subjects
-      description: >-
-        Allows obtaining the list of subjects that have been authorized by the
-        node
-
+      - Auth
+      summary: Authorized Subjects
+      description: |-
+        Allows obtaining the list of subjects that have been authorized by the node
 
         # Parameters
 
-
-        * `Extension(bridge): Extension<Arc<Bridge>>` - The bridge extension
-        wrapped in an `Arc`.
-
+        * `Extension(bridge): Extension<Arc<Bridge>>` - The bridge extension wrapped in an `Arc`.
 
         # Returns
 
-
-        * `Result<Json<Vec<String>>, Error>` - A list of authorized subjects in
-        JSON format or an error if the request fails.
-      operationId: Get authorized subjects
+        * `Result<Json<Vec<String>>, Error>` - A list of authorized subjects in JSON format or an error if the request fails.
+      operationId: Authorized subjects
       responses:
         '200':
           description: 'A list of authorized subjects in JSON '
@@ -177,106 +115,80 @@ paths:
                 items:
                   type: string
               example:
-                - J6blziscpjD0pJXsRh6_ooPtBsvwEZhx-xO4hT7WoKg0
-        '400':
-          description: Bad Request
+              - J6blziscpjD0pJXsRh6_ooPtBsvwEZhx-xO4hT7WoKg0
         '500':
           description: Internal Server Error
-      x-codeSamples:
-        - lang: Bash
-          label: curl
-          source: |-
-            curl --location 'http://127.0.0.1:3000/auth' \
-            --header 'Content-Type: application/json'
-  '/auth/{subject_id}':
+          content:
+            text/plain:
+              schema:
+                type: string
+  "/auth/{subject_id}":
     get:
       tags:
-        - Auth
-      summary: Get witnesses subject
-      description: >-
+      - Auth
+      summary: Witnesses Subject
+      description: |-
         Obtains a subject's witnesses
-
 
         # Parameters
 
-
-        * `Extension(bridge): Extension<Arc<Bridge>>` - The bridge extension
-        wrapped in an `Arc`.
-
-        * `Path(subject_id): Path<String>` - The identifier of the subject as a
-        path parameter.
-
+        * `Extension(bridge): Extension<Arc<Bridge>>` - The bridge extension wrapped in an `Arc`.
+        * `Path(subject_id): Path<String>` - The identifier of the subject as a path parameter.
 
         # Returns
 
-
-        * `Result<Json<Vec<String>>, Error>` - a list of witness nodes in Json
-        format or an error
-      operationId: Get witnesses subject
+        * `Result<Json<Vec<String>>, Error>` - a list of witness nodes in Json format or an error
+      operationId: Witnesses Subject
       parameters:
-        - name: subject_id
-          in: path
-          description: Approval's unique id
-          required: true
-          schema:
-            type: string
+      - name: subject_id
+        in: path
+        description: Subjects unique id
+        required: true
+        schema:
+          type: string
       responses:
         '200':
-          description: a list of witness nodes in Json
+          description: A list of witness nodes in Json
           content:
             application/json:
               schema:
                 type: array
                 items:
                   type: string
-        '400':
-          description: Bad Request
+              example:
+              - EehaWh_CuYvvvjr0dKUKRYMyCFJvDzumcLnUcUbIWwks
         '500':
           description: Internal Server Error
-      x-codeSamples:
-        - lang: Bash
-          label: curl
-          source: >-
-            curl --location
-            'http://127.0.0.1:3000/auth/JjyqcA-44TjpwBjMTu9kLV21kYfdIAu638juh6ye1gyU'
-            \
-
-            --header 'Content-Type: application/json'
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: 'Api error: Can not get witnesses of subjects: Error: The subject
+                has not been authorized'
     put:
       tags:
-        - Auth
-      summary: Put authorization
-      description: >-
-        Given a subject identifier and one or more witnesses, the witnesses
-        authorize the subject to send them copy of the logs
-
+      - Auth
+      summary: Authorization
+      description: |-
+        Given a subject identifier and one or more witnesses, the witnesses authorize the subject to send them copy of the logs
 
         # Parameters
 
-
-        * `Extension(bridge): Extension<Arc<bridge>>` - The bridge extension
-        wrapped in an `Arc`.
-
-        * `Path(subject_id): Path<String>` - The identifier of the subject to be
-        authorized as a path parameter.
-
-        * `Json(witnesses): Json<Vec<String>>` - The witnesses who will receive
-        the copy of the logs in JSON format
-
+        * `Extension(bridge): Extension<Arc<bridge>>` - The bridge extension wrapped in an `Arc`.
+        * `Path(subject_id): Path<String>` - The identifier of the subject to be authorized as a path parameter.
+        * `Json(witnesses): Json<Vec<String>>` - The witnesses who will receive the copy of the logs in JSON format
 
         # Returns
 
-
-        * `Result<Json<String>, Error>` - The result of the approval as a JSON
-        object or an error if the request fails.
-      operationId: Put Authorization
+        * `Result<Json<String>, Error>` - The result of the approval as a JSON object or an error if the request fails.
+      operationId: Authorization
       parameters:
-        - name: subject_id
-          in: path
-          description: Approval's unique id
-          required: true
-          schema:
-            type: string
+      - name: subject_id
+        in: path
+        description: Subjects unique id
+        required: true
+        schema:
+          type: string
       requestBody:
         description: witnesses
         content:
@@ -292,56 +204,31 @@ paths:
               schema:
                 type: string
               example: Ok
-        '400':
-          description: Bad Request
-        '404':
-          description: Not Found
-        '409':
-          description: Conflict
         '500':
           description: Internal Server Error
-      x-codeSamples:
-        - lang: Bash
-          label: curl
-          source: >-
-            curl --location --request PUT
-            'http://127.0.0.1:3000/auth/JjyqcA-44TjpwBjMTu9kLV21kYfdIAu638juh6ye1gyU'
-            \
-
-            --header 'Content-Type: application/json' \
-
-            --data '[]'
     delete:
       tags:
-        - Auth
-      summary: Delete authorized subjects
-      description: >-
+      - Auth
+      summary: Authorized Subjects
+      description: |-
         Deletes an authorized subject given its identifier
-
 
         # Parameters
 
-
-        * `Extension(bridge): Extension<Arc<Bridge>>` - bridge extension wrapped
-        in an `Arc`.
-
-        * `Path(subject_id): Path<String>` - The identifier of the subject as a
-        path parameter.
-
+        * `Extension(bridge): Extension<Arc<Bridge>>` - bridge extension wrapped in an `Arc`.
+        * `Path(subject_id): Path<String>` - The identifier of the subject as a path parameter.
 
         # Returns
 
-
-        * `Result<Json<String>, Error>` - Ok in JSON format or an error if the
-        request fails.
-      operationId: Delete authorized subjects
+        * `Result<Json<String>, Error>` - Ok in JSON format or an error if the request fails.
+      operationId: Authorized Subjects
       parameters:
-        - name: subject_id
-          in: path
-          description: Approval's unique id
-          required: true
-          schema:
-            type: string
+      - name: subject_id
+        in: path
+        description: Subjects unique id
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Ok in JSON format
@@ -350,40 +237,122 @@ paths:
               schema:
                 type: string
               example: Ok
-        '400':
-          description: Bad Request
         '500':
           description: Internal Server Error
-      x-codeSamples:
-        - lang: Bash
-          label: curl
-          source: >-
-            curl --location --request DELETE
-            'http://127.0.0.1:3000/auth/JjyqcA-44TjpwBjMTu9kLV21kYfdIAu638juh6ye1gyU'
-            \
-
-            --header 'Content-Type: application/json'
-  /controller-id:
-    get:
+  "/check-transfer/{subject_id}":
+    post:
       tags:
-        - Other
-      summary: Get controller-id
-      description: >-
-        Gets the controller id of the node
-
+      - Transfer
+      summary: Check Transfer
+      description: |-
+        Check transfer event for subject given its identifier
 
         # Parameters
 
-
-        * `Extension(bridge): Extension<Arc<Bridge>>` - The bridge extension
-        wrapped in an `Arc`.
-
+        * `Extension(bridge): Extension<Arc<Bridge>>` - bridge extension wrapped in an `Arc`.
+        * `Path(subject_id): Path<String>` - The identifier of the subject as a path parameter.
 
         # Returns
 
+        * `Result<Json<String>, Error>` - A message in JSON format or an error if the request fails.
+      operationId: Check transfer
+      parameters:
+      - name: subject_id
+        in: path
+        description: Subject unique id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Subject Data successfully retrieved
+          content:
+            text/plain:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+  "/config":
+    get:
+      tags:
+      - Other
+      summary: Config
+      description: |-
+        Get the config of the node
+
+        # Parameters
+
+        * `Extension(bridge): Extension<Arc<Bridge>>` - The bridge extension wrapped in an `Arc`.
+
+        # Returns
+
+        * `Json<ConfigKoreHttp>` - Returns the config of the node in a Json
+      operationId: Config
+      responses:
+        '200':
+          description: Obtain config of node
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Config"
+              example:
+                keys_path: keys
+                kore_config:
+                  always_accept: true
+                  contracts_dir: "./"
+                  digest_derivator: Blake3_256
+                  external_db: Sqlite
+                  garbage_collector: 100
+                  key_derivator: Ed25519
+                  kore_db: Rocksdb
+                  network:
+                    control_list:
+                      allow_list: []
+                      block_list: []
+                      enable: false
+                      interval_request: 60
+                      service_allow_list: []
+                      service_block_list: []
+                    external_addresses:
+                    - "/ip4/172.28.0.102/tcp/50000"
+                    listen_addresses:
+                    - "/ip4/0.0.0.0/tcp/50000"
+                    node_type: Bootstrap
+                    port_reuse: false
+                    routing:
+                      allow_non_globals_in_dht: false
+                      allow_private_ip: false
+                      boot_nodes: []
+                      dht_random_walk: false
+                      discovery_only_if_under_num: 184467
+                      enable_mdns: false
+                      kademlia_disjoint_query_paths: true
+                      kademlia_replication_factor: 
+                      pre_routing: true
+                    tell:
+                      max_concurrent_streams: 100
+                      message_timeout: 10
+                    user_agent: kore-node
+                  sink: ''
+                prometheus: 0.0.0.0:3050
+        '500':
+          description: Internal Server Error
+  "/controller-id":
+    get:
+      tags:
+      - Other
+      summary: Controller-id
+      description: |-
+        Gets the controller id of the node
+
+        # Parameters
+
+        * `Extension(bridge): Extension<Arc<Bridge>>` - The bridge extension wrapped in an `Arc`.
+
+        # Returns
 
         * `Json<String>` - Returns the controller-id of the node in a Json
-      operationId: Get controller-id
+      operationId: Controller-id
       responses:
         '200':
           description: Gets the controller id of the node
@@ -392,39 +361,26 @@ paths:
               schema:
                 type: string
               example: E2ZY7GjU14U3m-iAqvhQM6kiG62uqLdBMBwv4J-4tzwI
-      x-codeSamples:
-        - lang: Bash
-          label: curl
-          source: 'curl --location ''http://127.0.0.1:3000/peer-id'''
-  /event-request:
+        '500':
+          description: Internal Server Error
+  "/event-request":
     post:
       tags:
-        - Request
-      summary: Send event request
-      description: >-
+      - Request
+      summary: Send Event Request
+      description: |-
         Allows sending an event request for a subject to the Kore node.
-
-        These requests can be of any type of event (fact, creation, transfer, or
-        end of life).
-
+        These requests can be of any type of event (fact, creation, transfer, or end of life).
         In case of external invocation, the requests can be signed.
-
 
         # Parameters
 
-
-        * `Extension(bridge): Extension<Arc<Bridge>>` - The Bridge extension
-        wrapped in an `Arc`.
-
-        * `Json(request): Json<BridgeSignedEventRequest>` - The signed event
-        request in JSON format.
-
+        * `Extension(bridge): Extension<Arc<Bridge>>` - The Bridge extension wrapped in an `Arc`.
+        * `Json(request): Json<BridgeSignedEventRequest>` - The signed event request in JSON format.
 
         # Returns
 
-
-        * `Result<Json<RequestData>, Error>` - The response to the event request
-        wrapped in a JSON object, or an error.
+        * `Result<Json<RequestData>, Error>` - The response to the event request wrapped in a JSON object, or an error.
       operationId: Send Event Request
       requestBody:
         description: The signed event request
@@ -439,311 +395,197 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RequestData'
+                "$ref": "#/components/schemas/RequestData"
               example:
                 request_id: JemKGBkBjpV5Q34zL-KItY9g-RuY4_QJIn0PpIjy0e_E
                 subject_id: Jd_vA5Dl1epomG7wyeHiqgKdOIBi28vNgHjRl6hy1N5w
-        '400':
-          description: Bad Request
-        '409':
-          description: Conflict
         '500':
           description: Internal Server Error
-      x-codeSamples:
-        - lang: Bash
-          label: curl
-          source: >-
-            curl --location 'http://127.0.0.1:3000/event-request' \
-
-            --header 'Content-Type: application/json' \
-
-            --data '{\n  "request": {\n    "Create": {\n      "governance_id":
-            "",\n      "schema_id": "governance",\n      "namespace": ""\n   
-            }\n  }\n}'
-  '/event-request/{request-id}':
+  "/event-request/{request-id}":
     get:
       tags:
-        - Request
-      summary: Get request state
-      description: >-
+      - Request
+      summary: Request State
+      description: |-
         Allows obtaining an event request by its identifier.
-
 
         # Parameters
 
-
-        * `Extension(bridge): Extension<Arc<bridge>>` - The bridge extension
-        wrapped in an `Arc`.
-
-        * `Path(request_id): Path<String>` - The identifier of the event request
-        as a path parameter.
-
+        * `Extension(bridge): Extension<Arc<bridge>>` - The bridge extension wrapped in an `Arc`.
+        * `Path(request_id): Path<String>` - The identifier of the event request as a path parameter.
 
         # Returns
 
-
-        * `Result<Json<RequestInfo>, Error>` - returns an Ok in a JSON or an
-        error
-      operationId: Get Request State
+        * `Result<Json<RequestInfo>, Error>` - returns an Ok in a JSON or an error
+      operationId: Request State
       parameters:
-        - name: request-id
-          in: path
-          description: Event Request's unique id
-          required: true
-          schema:
-            type: string
+      - name: request-id
+        in: path
+        description: Event Request's unique id
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Request Data successfully retrieved
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RequestInfo'
+                "$ref": "#/components/schemas/RequestInfo"
               example:
-                error: null
+                error: 
                 status: Finish
                 version: 0
-        '400':
-          description: Bad Request
-        '404':
-          description: Not Found
         '500':
           description: Internal Server Error
-      x-codeSamples:
-        - lang: Bash
-          label: curl
-          source: >-
-            curl --location
-            'http://127.0.0.1:3000/event-request/JnF_-Y264BI-6g-VJKhdIgPtldne5JjnDFalYliafoP4'
-            \
-
-            --header 'Content-Type: application/json' \
-
-            --data ''
-  '/event/{subject_id}':
+  "/event/{subject_id}":
     get:
       tags:
-        - Event
-      summary: Get events of a sn
-      description: >-
+      - Event
+      summary: Subject Events with SN
+      description: |-
         Allows obtaining specific events of a subject by its identifier and sn.
 
-
         # Parameters
 
-
-        * `Extension(bridge): Extension<Arc<Bridge>>` - The bridge extension
-        wrapped in an `Arc`.
-
-        * `Path(subject_id): Path<String>` - The identifier of the subject as a
-        path parameter.
-
-        * `Query(parameters): Query<EventSnQuery>` - The query parameters for
-        the request.
-
+        * `Extension(bridge): Extension<Arc<Bridge>>` - The bridge extension wrapped in an `Arc`.
+        * `Path(subject_id): Path<String>` - The identifier of the subject as a path parameter.
+        * `Query(parameters): Query<EventSnQuery>` - The query parameters for the request.
 
         # Returns
 
-
-        * `Result<Json<EventInfo>, Error>` - A list of events in JSON format or
-        an error if the request fails.
-      operationId: Get Subject Events with sn
+        * `Result<Json<EventInfo>, Error>` - A list of events in JSON format or an error if the request fails.
+      operationId: Subject Events with SN
       parameters:
-        - name: subject_id
-          in: path
-          description: Approval's unique id
-          required: true
-          schema:
-            type: string
-        - name: parameters
-          in: query
-          description: The query parameters for the request
-          required: true
-          schema:
-            $ref: '#/components/schemas/EventSnQuery'
+      - name: subject_id
+        in: path
+        description: Subject unique id
+        required: true
+        schema:
+          type: string
+      - name: parameters
+        in: query
+        description: The query parameters for the request
+        required: true
+        schema:
+          "$ref": "#/components/schemas/EventSnQuery"
       responses:
         '200':
-          description: >-
-            Allows obtaining specific events of a subject by its identifier and
-            sn
+          description: Allows obtaining specific events of a subject by its identifier
+            and sn
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/EventInfo'
+                  "$ref": "#/components/schemas/EventInfo"
               example:
                 events:
-                  - error: null
-                    event_req:
-                      Create:
-                        governance_id: ''
-                        namespace: []
-                        schema_id: governance
-                    patch: '[]'
-                    sn: 0
-                    subject_id: Jd_vA5Dl1epomG7wyeHiqgKdOIBi28vNgHjRl6hy1N5w
-                    succes: true
+                - error: 
+                  event_req:
+                    Create:
+                      governance_id: ''
+                      namespace: []
+                      schema_id: governance
+                  patch: "[]"
+                  sn: 0
+                  subject_id: Jd_vA5Dl1epomG7wyeHiqgKdOIBi28vNgHjRl6hy1N5w
+                  succes: true
                 paginator:
-                  next: null
+                  next: 
                   pages: 1
-                  prev: null
-        '400':
-          description: Bad Request
-        '404':
-          description: Not Found
+                  prev: 
         '500':
           description: Internal Server Error
-      x-codeSamples:
-        - lang: Bash
-          label: curl
-          source: >-
-            curl --location
-            'http://127.0.0.1:3000/events/JjyqcA-44TjpwBjMTu9kLV21kYfdIAu638juh6ye1gyU?sn=3'
-            \
-
-            --header 'Content-Type: application/json'
-  '/events-first-last/{subject_id}':
+  "/events-first-last/{subject_id}":
     get:
       tags:
-        - Event
-      summary: Get first or last events of a subject
-      description: >-
-        Given a subject id a specific number of events can be obtained,
-        depending on the quantity, reverse and success parameters.
-
+      - Event
+      summary: First or End Events
+      description: |-
+        Given a subject id a specific number of events can be obtained, depending on the quantity, reverse and success parameters.
 
         # Parameters
 
-
-        * `Extension(bridge): Extension<Arc<Bridge>>` - The bridge extension
-        wrapped in an `Arc`.
-
-        * `Path(subject_id): Path<String>` - The identifier of the subject as a
-        path parameter.
-
-        * `Query(parameters): Query<EventFirstLastQuery>` - The query parameters
-        for the request.
-
+        * `Extension(bridge): Extension<Arc<Bridge>>` - The bridge extension wrapped in an `Arc`.
+        * `Path(subject_id): Path<String>` - The identifier of the subject as a path parameter.
+        * `Query(parameters): Query<EventFirstLastQuery>` - The query parameters for the request.
 
         # Returns
 
-
-        * `Result<Json<EventInfo>, Error>` - A list of events in JSON format or
-        an error if the request fails.
-      operationId: Get specifics Subject Events
+        * `Result<Json<EventInfo>, Error>` - A list of events in JSON format or an error if the request fails.
+      operationId: First or End Events
       parameters:
-        - name: subject_id
-          in: path
-          description: Approval's unique id
-          required: true
-          schema:
-            type: string
-        - name: parameters
-          in: query
-          description: The query parameters for the request
-          required: true
-          schema:
-            $ref: '#/components/schemas/EventFirstLastQuery'
+      - name: subject_id
+        in: path
+        description: Subject unique id
+        required: true
+        schema:
+          type: string
+      - name: parameters
+        in: query
+        description: The query parameters for the request
+        required: true
+        schema:
+          "$ref": "#/components/schemas/EventFirstLastQuery"
       responses:
         '200':
-          description: >-
-            Allows obtaining specific events of a subject by its identifier and
-            sn
+          description: Allows obtaining specific events of a subject by its identifier
+            and sn
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/EventInfo'
+                  "$ref": "#/components/schemas/EventInfo"
               example:
-                events:
-                  - error: null
-                    event_req:
-                      Create:
-                        governance_id: ''
-                        namespace: []
-                        schema_id: governance
-                    patch: '[]'
-                    sn: 0
-                    subject_id: Jd_vA5Dl1epomG7wyeHiqgKdOIBi28vNgHjRl6hy1N5w
-                    succes: true
-                paginator:
-                  next: null
-                  pages: 1
-                  prev: null
-        '400':
-          description: Bad Request
-        '404':
-          description: Not Found
+              - error: 
+                event_req:
+                  Create:
+                    governance_id: JecW6BjX8cG-hG4uv2L7nok1G8ABO_4cHhJiDG9qcgF0
+                    namespace: []
+                    schema_id: Test
+                patch:
+                  custom_types: {}
+                  name: ''
+                  unit_process: []
+                  version: 0
+                sn: 0
+                subject_id: JukqvNApVZMlEBI5DrZlZWEUgZs9vdEC6MEmmAQpwmns
+                succes: true
         '500':
           description: Internal Server Error
-      x-codeSamples:
-        - lang: Bash
-          label: curl
-          source: >-
-            curl --location
-            'http://127.0.0.1:3000/events-first-last/JjyqcA-44TjpwBjMTu9kLV21kYfdIAu638juh6ye1gyU'
-            \
-
-            --header 'Content-Type: application/json'
-        - lang: Bash
-          label: curl
-          source: >-
-            curl --location
-            'http://127.0.0.1:3000/events-first-last/JjyqcA-44TjpwBjMTu9kLV21kYfdIAu638juh6ye1gyUquantity=50&reverse=False'
-            \
-
-            --header 'Content-Type: application/json'
-        - lang: Bash
-          label: curl
-          source: >-
-            curl --location
-            'http://127.0.0.1:3000/events-first-last/JjyqcA-44TjpwBjMTu9kLV21kYfdIAu638juh6ye1gyU?quantity=50&reverse=True&success=False'
-            \
-
-            --header 'Content-Type: application/json'
-  '/events/{subject_id}':
+  "/events/{subject_id}":
     get:
       tags:
-        - Event
-      summary: Get events of a subject
-      description: >-
+      - Event
+      summary: Subject Events
+      description: |-
         Allows obtaining specific events of a subject by its identifier.
 
-
         # Parameters
 
-
-        * `Extension(bridge): Extension<Arc<Bridge>>` - The bridge extension
-        wrapped in an `Arc`.
-
-        * `Path(subject_id): Path<String>` - The identifier of the subject as a
-        path parameter.
-
-        * `Query(parameters): Query<EventsQuery>` - The pagination parameters
-        for the request.
-
+        * `Extension(bridge): Extension<Arc<Bridge>>` - The bridge extension wrapped in an `Arc`.
+        * `Path(subject_id): Path<String>` - The identifier of the subject as a path parameter.
+        * `Query(parameters): Query<EventsQuery>` - The pagination parameters for the request.
 
         # Returns
 
-
-        * `Result<Json<PaginatorEvents>, Error>` - A list of events in JSON
-        format or an error if the request fails.
-      operationId: Get Subject Events
+        * `Result<Json<PaginatorEvents>, Error>` - A list of events in JSON format or an error if the request fails.
+      operationId: Subject Events
       parameters:
-        - name: subject_id
-          in: path
-          description: Approval's unique id
-          required: true
-          schema:
-            type: string
-        - name: parameters
-          in: query
-          description: The query parameters for the request
-          required: true
-          schema:
-            $ref: '#/components/schemas/EventsQuery'
+      - name: subject_id
+        in: path
+        description: Subject unique id
+        required: true
+        schema:
+          type: string
+      - name: parameters
+        in: query
+        description: The query parameters for the request
+        required: true
+        schema:
+          "$ref": "#/components/schemas/EventsQuery"
       responses:
         '200':
           description: Allows obtaining specific events of a subject by its identifier.
@@ -752,78 +594,74 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/PaginatorEvents'
+                  "$ref": "#/components/schemas/PaginatorEvents"
               example:
                 events:
-                  - error: null
-                    event_req:
-                      Create:
-                        governance_id: ''
-                        namespace: []
-                        schema_id: governance
-                    patch: '[]'
-                    sn: 0
-                    subject_id: Jd_vA5Dl1epomG7wyeHiqgKdOIBi28vNgHjRl6hy1N5w
-                    succes: true
+                - error: 
+                  event_req:
+                    Create:
+                      governance_id: ''
+                      namespace: []
+                      schema_id: governance
+                  patch: "[]"
+                  sn: 0
+                  subject_id: Jd_vA5Dl1epomG7wyeHiqgKdOIBi28vNgHjRl6hy1N5w
+                  succes: true
                 paginator:
-                  next: null
+                  next: 
                   pages: 1
-                  prev: null
-        '400':
-          description: Bad Request
-        '404':
-          description: Not Found
+                  prev: 
         '500':
           description: Internal Server Error
-      x-codeSamples:
-        - lang: Bash
-          label: curl
-          source: >-
-            curl --location
-            'http://127.0.0.1:3000/events/JjyqcA-44TjpwBjMTu9kLV21kYfdIAu638juh6ye1gyU'
-            \
-
-            --header 'Content-Type: application/json'
-        - lang: Bash
-          label: curl
-          source: >-
-            curl --location
-            'http://127.0.0.1:3000/events/JjyqcA-44TjpwBjMTu9kLV21kYfdIAu638juh6ye1gyU?quantity=50&page=2''
-            \
-
-            --header 'Content-Type: application/json'
-  '/manual-distribution/{subject_id}':
-    post:
+  "/keys":
+    get:
       tags:
-        - Update
-      summary: Manual Update
-      description: >-
-        Throw to witnesses the last distribution of a subject
-
+      - Other
+      summary: keys
+      description: |-
+        Gets private key of the node
 
         # Parameters
 
-
-        * `Extension(bridge): Extension<Arc<Bridge>>` - bridge extension wrapped
-        in an `Arc`.
-
-        * `Path(subject_id): Path<String>` - The identifier of the subject as a
-        path parameter.
-
+        * `Extension(bridge): Extension<Arc<Bridge>>` - The bridge extension wrapped in an `Arc`.
 
         # Returns
 
+        * `Json<String>` - Returns the private key of the node in a Json
+      operationId: Keys
+      responses:
+        '200':
+          description: Gets the private key of the node
+          content:
+            text/plain:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+  "/manual-distribution/{subject_id}":
+    post:
+      tags:
+      - Update
+      summary: Update Manual Distribution
+      description: |-
+        Throw to witnesses the last distribution of a subject
 
-        * `Result<Json<String>, Error>` - A message in JSON format or an error
-        if the request fails.
-      operationId: Manual Update Subject
+        # Parameters
+
+        * `Extension(bridge): Extension<Arc<Bridge>>` - bridge extension wrapped in an `Arc`.
+        * `Path(subject_id): Path<String>` - The identifier of the subject as a path parameter.
+
+        # Returns
+
+        * `Result<Json<String>, Error>` - A message in JSON format or an error if the request fails.
+      operationId: Update Manual Distribution
       parameters:
-        - name: subject_id
-          in: path
-          description: Approval's unique id
-          required: true
-          schema:
-            type: string
+      - name: subject_id
+        in: path
+        description: Subject unique id
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Subject Data successfully retrieved
@@ -831,40 +669,25 @@ paths:
             text/plain:
               schema:
                 type: string
-        '400':
-          description: Bad Request
+              example: Manual update in progress
         '500':
           description: Internal Server Error
-      x-codeSamples:
-        - lang: Bash
-          label: curl
-          source: >-
-            curl --location --request POST
-            'http://127.0.0.1:3000/manual-update/JjyqcA-44TjpwBjMTu9kLV21kYfdIAu638juh6ye1gyU'
-            \
-
-            --header 'Content-Type: application/json'
-  /peer-id:
+  "/peer-id":
     get:
       tags:
-        - Other
-      summary: Get peer-id
-      description: >-
+      - Other
+      summary: Peer-id
+      description: |-
         Gets the peer id of the node
-
 
         # Parameters
 
-
-        * `Extension(bridge): Extension<Arc<Bridge>>` - The bridge extension
-        wrapped in an `Arc`.
-
+        * `Extension(bridge): Extension<Arc<Bridge>>` - The bridge extension wrapped in an `Arc`.
 
         # Returns
 
-
         * `Json<String>` - Returns the peer id of the node in a Json
-      operationId: Get peer-id
+      operationId: Peer-id
       responses:
         '200':
           description: Gets the peer id of the node
@@ -873,42 +696,57 @@ paths:
               schema:
                 type: string
               example: 12D3KooWQTjWCGZa2f6ZVkwwcbEb4ghtS49AcssJSrATFBNxDpR7
-      x-codeSamples:
-        - lang: Bash
-          label: curl
-          source: 'curl --location ''http://127.0.0.1:3000/peer-id'''
-  /register-governances:
+        '500':
+          description: Internal Server Error
+  "/pending-transfers":
     get:
       tags:
-        - Governance
-      summary: Get all gov
-      description: >-
-        Gets all the governorships to which the node belongs
+      - Transfer
+      summary: Pending Transfers
+      description: |-
+        # Returns
 
+        * `Result<Json<Vec<TransferSubject>>, Error>` - A list of pending transfers in JSON format or an error if the request fails.
+      operationId: Pending Transfers
+      responses:
+        '200':
+          description: Transfers pending to accept or reject
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/TransferSubject"
+              example:
+              - actual_owner: EKHNpIpmzXI8fIzVUTsfUGMRsB_iGRDKZz4RrErcc4AU
+                new_owner: E8oP5rRi2T5g_Hr7-zVhRbHJ32nvGeBJqrsF7S3uN89Q
+                subject_id: JWFHt_vWYF9mBGENP3AkAo3OEYMyId7M9n_sUubvBRVI
+        '500':
+          description: Internal Server Error
+  "/register-governances":
+    get:
+      tags:
+      - Governance
+      summary: All Governances
+      description: |-
+        Gets all the governorships to which the node belongs
 
         # Parameters
 
-
-        * `Extension(bridge): Extension<Arc<Bridge>>` - bridge extension wrapped
-        in an `Arc`.
-
-        * `Query(parameters): Query<GovQuery>` - The query parameters for the
-        request.
-
+        * `Extension(bridge): Extension<Arc<Bridge>>` - bridge extension wrapped in an `Arc`.
+        * `Query(parameters): Query<GovQuery>` - The query parameters for the request.
 
         # Returns
 
-
-        * `Result<Json<Vec<GovsData>>, Error>` - A JSON with governance
-        information or an error if the request fails.
-      operationId: Get All Governances
+        * `Result<Json<Vec<GovsData>>, Error>` - A JSON with governance information or an error if the request fails.
+      operationId: All Governances
       parameters:
-        - name: parameters
-          in: query
-          description: The query parameters for the request
-          required: true
-          schema:
-            $ref: '#/components/schemas/GovQuery'
+      - name: parameters
+        in: query
+        description: The query parameters for the request
+        required: true
+        schema:
+          "$ref": "#/components/schemas/GovQuery"
       responses:
         '200':
           description: Gets all the governorships to which the node belongs
@@ -917,78 +755,51 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/GovsData'
+                  "$ref": "#/components/schemas/GovsData"
               example:
-                - active: true
-                  governance_id: JUH9HGYpqMgN3D3Wb43BCPKdb38K1ocDauupuvCN0plM
-                - active: true
-                  governance_id: Jl9LVUi8uVBmV9gitxEiiVeSWxEceZoOYT-Kx-t9DTVE
-        '400':
-          description: Bad Request
+              - active: true
+                governance_id: JUH9HGYpqMgN3D3Wb43BCPKdb38K1ocDauupuvCN0plM
+              - active: true
+                governance_id: Jl9LVUi8uVBmV9gitxEiiVeSWxEceZoOYT-Kx-t9DTVE
         '500':
           description: Internal Server Error
-      x-codeSamples:
-        - lang: Bash
-          label: curl
-          source: |-
-            curl --location 'http://127.0.0.1:3000/register-governances' \
-            --header 'Content-Type: application/json'
-        - lang: Bash
-          label: curl
-          source: >-
-            curl --location
-            'http://127.0.0.1:3000/register-governances?active=True'' \
-
-            --header 'Content-Type: application/json'
-  '/register-subjects/{governance_id}':
+  "/register-subjects/{governance_id}":
     get:
       tags:
-        - Subject
-      summary: Get all subjects
-      description: >-
+      - Subject
+      summary: All Subjects
+      description: |-
         Allows obtaining the list of subjects known by the node with pagination.
-
-        It can also be used to obtain only the governances and all subjects
-        belonging to a specific governance.
-
+        It can also be used to obtain only the governances and all subjects belonging to a specific governance.
 
         # Parameters
 
-
-        * `Extension(bridge): Extension<Arc<Bridge>>` - The bridge extension
-        wrapped in an `Arc`.
-
-        * `Path(governance_id): Path<String>` - The identifier of the governance
-        as a path parameter.
-
-        * `Query(parameters): Query<SubjectQuery>` - The query parameters for
-        the request.
-
+        * `Extension(bridge): Extension<Arc<Bridge>>` - The bridge extension wrapped in an `Arc`.
+        * `Path(governance_id): Path<String>` - The identifier of the governance as a path parameter.
+        * `Query(parameters): Query<SubjectQuery>` - The query parameters for the request.
 
         # Returns
 
-
-        * `Result<Json<Vec<RegisterData>>, Error>` - A list of subjects in JSON
-        format or an error if the request fails.
-      operationId: Get All Subjects Data
+        * `Result<Json<Vec<RegisterData>>, Error>` - A list of subjects in JSON format or an error if the request fails.
+      operationId: All Subjects
       parameters:
-        - name: subject_id
-          in: path
-          description: Approval's unique id
-          required: true
-          schema:
-            type: string
-        - name: parameters
-          in: query
-          description: The query parameters for the request
-          required: true
-          schema:
-            $ref: '#/components/schemas/SubjectQuery'
-        - name: governance_id
-          in: path
-          required: true
-          schema:
-            type: string
+      - name: subject_id
+        in: path
+        description: Subject unique id
+        required: true
+        schema:
+          type: string
+      - name: parameters
+        in: query
+        description: The query parameters for the request
+        required: true
+        schema:
+          "$ref": "#/components/schemas/SubjectQuery"
+      - name: governance_id
+        in: path
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Subjects Data successfully retrieved
@@ -997,140 +808,81 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/RegisterData'
-        '400':
-          description: Bad Request
-        '404':
-          description: Not Found
+                  "$ref": "#/components/schemas/RegisterData"
+              example:
+              - active: true
+                schema: Test
+                subject_id: JukqvNApVZMlEBI5DrZlZWEUgZs9vdEC6MEmmAQpwmns
         '500':
           description: Internal Server Error
-      x-codeSamples:
-        - lang: Bash
-          label: curl
-          source: >-
-            curl --location
-            'http://127.0.0.1:3001/register-subjects/JjU0gRF_T5qLBZhcTGfyTS7y2SfODkVRmr57PJYF1Xks'
-            \
-
-            --header 'Content-Type: application/json'
-        - lang: Bash
-          label: curl
-          source: >-
-            curl --location
-            'http://127.0.0.1:3001/register-subjects/JjU0gRF_T5qLBZhcTGfyTS7y2SfODkVRmr57PJYF1Xks?active=True&schema=Governance'
-            \
-
-            --header 'Content-Type: application/json'
-  '/signatures/{subject_id}':
+  "/signatures/{subject_id}":
     get:
       tags:
-        - Signature
-      summary: Get signatures of a subject
-      description: >-
+      - Signature
+      summary: Subject Signatures
+      description: |-
         Allows obtaining signatures of the last event of subject.
-
 
         # Parameters
 
-
-        * `Extension(bridge): Extension<Arc<Bridge>>` - The bridge extension
-        wrapped in an `Arc`.
-
-        * `Path(subject_id): Path<String>` - The identifier of the subject as a
-        path parameter.
-
+        * `Extension(bridge): Extension<Arc<Bridge>>` - The bridge extension wrapped in an `Arc`.
+        * `Path(subject_id): Path<String>` - The identifier of the subject as a path parameter.
 
         # Returns
 
-
-        * `Result<Json<SignaturesInfo>, Error>` - the signature in JSON format
-        or an error if the request fails.
-      operationId: Get Subject Signatures
+        * `Result<Json<SignaturesInfo>, Error>` - the signature in JSON format or an error if the request fails.
+      operationId: Subject Signatures
       parameters:
-        - name: subject-id
-          in: path
-          description: Subject's unique id
-          required: true
-          schema:
-            type: string
-        - name: subject_id
-          in: path
-          required: true
-          schema:
-            type: string
+      - name: subject_id
+        in: path
+        description: Subject unique id
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: the signature in JSON format
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/SignaturesInfo'
+                "$ref": "#/components/schemas/SignaturesInfo"
               example:
-                signatures_appr: null
-                signatures_eval: null
+                signatures_appr: 
+                signatures_eval: 
                 signatures_vali:
-                  - Signature:
-                      content_hash: JLZZ0vv3xwydlcUSIyS2r1J3f8Gz9R03i6ofLTwltheE
-                      signer: E2ZY7GjU14U3m-iAqvhQM6kiG62uqLdBMBwv4J-4tzwI
-                      timestamp: 17346911
-                      value: >-
-                        SEySTR3fRiBzlps2Zc3r-Yb8HMiCV5kZJtAu7DYt4xczN8ogW5AZhVjhn6EOj3DmsNyBeFaGIHQrnVnPxA8vkBDA
+                - Signature:
+                    content_hash: JLZZ0vv3xwydlcUSIyS2r1J3f8Gz9R03i6ofLTwltheE
+                    signer: E2ZY7GjU14U3m-iAqvhQM6kiG62uqLdBMBwv4J-4tzwI
+                    timestamp: 17346911
+                    value: SEySTR3fRiBzlps2Zc3r-Yb8HMiCV5kZJtAu7DYt4xczN8ogW5AZhVjhn6EOj3DmsNyBeFaGIHQrnVnPxA8vkBDA
                 sn: 0
                 subject_id: Jd_vA5Dl1epomG7wyeHiqgKdOIBi28vNgHjRl6hy1N5w
-        '400':
-          description: Bad Request
-        '404':
-          description: Not Found
         '500':
           description: Internal Server Error
-      x-codeSamples:
-        - lang: Bash
-          label: curl
-          source: >-
-            curl --location
-            'http://127.0.0.1:3000/signatures/JjyqcA-44TjpwBjMTu9kLV21kYfdIAu638juh6ye1gyU'
-            \
-
-            --header 'Content-Type: application/json'
-  '/state/{subject_id}':
+  "/state/{subject_id}":
     get:
       tags:
-        - State
-      summary: Get state of a subject
-      description: >-
+      - State
+      summary: Subject State
+      description: |-
         Allows obtaining specific state of a subject by its identifier.
-
 
         # Parameters
 
-
-        * `Extension(bridge): Extension<Arc<Bridge>>` - bridge extension wrapped
-        in an `Arc`.
-
-        * `Path(subject_id): Path<String>` - The identifier of the subject as a
-        path parameter.
-
+        * `Extension(bridge): Extension<Arc<Bridge>>` - bridge extension wrapped in an `Arc`.
+        * `Path(subject_id): Path<String>` - The identifier of the subject as a path parameter.
 
         # Returns
 
-
-        * `Result<Json<SubjectInfo>, Error>` -the state of the subject in JSON
-        format or an error if the request fails.
-      operationId: Get Subject State
+        * `Result<Json<SubjectInfo>, Error>` -the state of the subject in JSON format or an error if the request fails.
+      operationId: Subject State
       parameters:
-        - name: subject-id
-          in: path
-          description: Subject's unique id
-          required: true
-          schema:
-            type: string
-        - name: subject_id
-          in: path
-          required: true
-          schema:
-            type: string
+      - name: subject_id
+        in: path
+        description: Subject unique id
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Allows obtaining specific state of a subject by its identifier.
@@ -1139,7 +891,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/SubjectInfo'
+                  "$ref": "#/components/schemas/SubjectInfo"
               example:
                 active: true
                 creator: E2ZY7GjU14U3m-iAqvhQM6kiG62uqLdBMBwv4J-4tzwI
@@ -1149,101 +901,80 @@ paths:
                 owner: E2ZY7GjU14U3m-iAqvhQM6kiG62uqLdBMBwv4J-4tzwI
                 properties:
                   members:
-                    - id: E2ZY7GjU14U3m-iAqvhQM6kiG62uqLdBMBwv4J-4tzwI
-                      name: Owner
+                  - id: E2ZY7GjU14U3m-iAqvhQM6kiG62uqLdBMBwv4J-4tzwI
+                    name: Owner
                   policies:
-                    - approve:
-                        quorum: MAJORITY
-                      evaluate:
-                        quorum: MAJORITY
-                      id: governance
-                      validate:
-                        quorum: MAJORITY
+                  - approve:
+                      quorum: MAJORITY
+                    evaluate:
+                      quorum: MAJORITY
+                    id: governance
+                    validate:
+                      quorum: MAJORITY
                   roles:
-                    - namespace: ''
-                      role: WITNESS
-                      schema:
-                        ID: governance
-                      who: MEMBERS
-                    - namespace: ''
-                      role: EVALUATOR
-                      schema: ALL
-                      who:
-                        NAME: Owner
-                    - namespace: ''
-                      role: ISSUER
-                      schema:
-                        ID: governance
-                      who:
-                        NAME: Owner
-                    - namespace: ''
-                      role: APPROVER
-                      schema:
-                        ID: governance
-                      who:
-                        NAME: Owner
-                    - namespace: ''
-                      role: VALIDATOR
-                      schema: ALL
-                      who:
-                        NAME: Owner
-                    - namespace: ''
-                      role: WITNESS
-                      schema: ALL
-                      who:
-                        NAME: Owner
+                  - namespace: ''
+                    role: WITNESS
+                    schema:
+                      ID: governance
+                    who: MEMBERS
+                  - namespace: ''
+                    role: EVALUATOR
+                    schema: ALL
+                    who:
+                      NAME: Owner
+                  - namespace: ''
+                    role: ISSUER
+                    schema:
+                      ID: governance
+                    who:
+                      NAME: Owner
+                  - namespace: ''
+                    role: APPROVER
+                    schema:
+                      ID: governance
+                    who:
+                      NAME: Owner
+                  - namespace: ''
+                    role: VALIDATOR
+                    schema: ALL
+                    who:
+                      NAME: Owner
+                  - namespace: ''
+                    role: WITNESS
+                    schema: ALL
+                    who:
+                      NAME: Owner
                   schemas: []
                   version: 0
                 schema_id: governance
                 sn: 0
                 subject_id: Jd_vA5Dl1epomG7wyeHiqgKdOIBi28vNgHjRl6hy1N5w
-        '400':
-          description: Bad Request
-        '404':
-          description: Not Found
         '500':
           description: Internal Server Error
-      x-codeSamples:
-        - lang: Bash
-          label: curl
-          source: >-
-            curl --location
-            'http://127.0.0.1:3000/state/JjyqcA-44TjpwBjMTu9kLV21kYfdIAu638juh6ye1gyU'
-            \
-
-            --header 'Content-Type: application/json'
-  '/update/{subject_id}':
+  "/update/{subject_id}":
     post:
       tags:
-        - Update
+      - Update
       summary: Update Subject
-      description: >-
+      description: |-
         Updates an authorized subject given its identifier
-
 
         # Parameters
 
-
-        * `Extension(bridge): Extension<Arc<Bridge>>` - bridge extension wrapped
-        in an `Arc`.
-
-        * `Path(subject_id): Path<String>` - The identifier of the subject as a
-        path parameter.
-
+        * `Extension(bridge): Extension<Arc<Bridge>>` - bridge extension wrapped in an `Arc`.
+        * `Path(subject_id): Path<String>` - The identifier of the subject as a path parameter.
 
         # Returns
 
-
-        * `Result<Json<String>, Error>` - A message in JSON format or an error
-        if the request fails.
+        * `Result<Json<String>, Error>` - A message in JSON format or an error if the request fails.
       operationId: Update Subject
       parameters:
-        - name: subject_id
-          in: path
-          description: Approval's unique id
-          required: true
-          schema:
-            type: string
+      - name: subject_id
+        in: path
+        description: Subjects unique id
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: Subject Data successfully retrieved
@@ -1251,34 +982,30 @@ paths:
             text/plain:
               schema:
                 type: string
-        '400':
-          description: Bad Request
+              example: Update in progress
         '500':
           description: Internal Server Error
-      x-codeSamples:
-        - lang: Bash
-          label: curl
-          source: >-
-            curl --location --request POST
-            'http://127.0.0.1:3000/update/JjyqcA-44TjpwBjMTu9kLV21kYfdIAu638juh6ye1gyU'
-            \
-
-            --header 'Content-Type: application/json'
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: 'Api error: Can not update subject: Error: The subject has
+                not been authorized'
 components:
   schemas:
     ApprovalReqInfo:
       type: object
       required:
-        - event_request
-        - sn
-        - gov_version
-        - patch
-        - state_hash
-        - hash_prev_event
-        - subject_id
+      - event_request
+      - sn
+      - gov_version
+      - patch
+      - state_hash
+      - hash_prev_event
+      - subject_id
       properties:
         event_request:
-          $ref: '#/components/schemas/SignedInfo_FactInfo'
+          "$ref": "#/components/schemas/SignedInfo_FactInfo"
           description: The signed event request.
         gov_version:
           type: integer
@@ -1304,37 +1031,86 @@ components:
     ApproveInfo:
       type: object
       required:
-        - state
-        - request
+      - state
+      - request
       properties:
         request:
-          $ref: '#/components/schemas/ApprovalReqInfo'
+          "$ref": "#/components/schemas/ApprovalReqInfo"
         state:
+          type: string
+    Config:
+      type: object
+      required:
+      - kore_config
+      - keys_path
+      - prometheus
+      properties:
+        keys_path:
+          type: string
+        kore_config:
+          "$ref": "#/components/schemas/KoreConfig"
+        prometheus:
           type: string
     ConfirmRequestInfo:
       type: object
       required:
-        - subject_id
+      - subject_id
       properties:
+        name_old_owner:
+          type:
+          - string
+          - 'null'
         subject_id:
           type: string
+    ControlListConfig:
+      type: object
+      required:
+      - enable
+      - allow_list
+      - block_list
+      - service_allow_list
+      - service_block_list
+      - interval_request
+      properties:
+        allow_list:
+          type: array
+          items:
+            type: string
+        block_list:
+          type: array
+          items:
+            type: string
+        enable:
+          type: boolean
+        interval_request:
+          type: integer
+          format: int64
+          minimum: 0
+        service_allow_list:
+          type: array
+          items:
+            type: string
+        service_block_list:
+          type: array
+          items:
+            type: string
     CreateRequestInfo:
       type: object
       required:
-        - governance_id
-        - schema_id
-        - namespace
+      - governance_id
+      - schema_id
+      - namespace
       properties:
         governance_id:
           type: string
         namespace:
-          $ref: '#/components/schemas/Namespace'
+          "$ref": "#/components/schemas/Namespace"
         schema_id:
           type: string
     EOLRequestInfo:
       type: object
       required:
-        - subject_id
+      - subject_id
       properties:
         subject_id:
           type: string
@@ -1343,32 +1119,32 @@ components:
       properties:
         quantity:
           type:
-            - integer
-            - 'null'
+          - integer
+          - 'null'
           format: int64
           minimum: 0
         reverse:
           type:
-            - boolean
-            - 'null'
+          - boolean
+          - 'null'
         success:
           type:
-            - boolean
-            - 'null'
+          - boolean
+          - 'null'
     EventInfo:
       type: object
       required:
-        - subject_id
-        - sn
-        - event_req
-        - succes
+      - subject_id
+      - sn
+      - event_req
+      - succes
       properties:
         error:
           oneOf:
-            - type: 'null'
-            - $ref: '#/components/schemas/ProtocolsError'
+          - type: 'null'
+          - "$ref": "#/components/schemas/ProtocolsError"
         event_req:
-          $ref: '#/components/schemas/EventRequestInfo'
+          "$ref": "#/components/schemas/EventRequestInfo"
         patch: {}
         sn:
           type: integer
@@ -1380,40 +1156,46 @@ components:
           type: boolean
     EventRequestInfo:
       oneOf:
-        - type: object
-          required:
-            - Create
-          properties:
-            Create:
-              $ref: '#/components/schemas/CreateRequestInfo'
-        - type: object
-          required:
-            - Fact
-          properties:
-            Fact:
-              $ref: '#/components/schemas/FactRequestInfo'
-        - type: object
-          required:
-            - Transfer
-          properties:
-            Transfer:
-              $ref: '#/components/schemas/TransferRequestInfo'
-        - type: object
-          required:
-            - Confirm
-          properties:
-            Confirm:
-              $ref: '#/components/schemas/ConfirmRequestInfo'
-        - type: object
-          required:
-            - EOL
-          properties:
-            EOL:
-              $ref: '#/components/schemas/EOLRequestInfo'
+      - type: object
+        required:
+        - Create
+        properties:
+          Create:
+            "$ref": "#/components/schemas/CreateRequestInfo"
+      - type: object
+        required:
+        - Fact
+        properties:
+          Fact:
+            "$ref": "#/components/schemas/FactRequestInfo"
+      - type: object
+        required:
+        - Transfer
+        properties:
+          Transfer:
+            "$ref": "#/components/schemas/TransferRequestInfo"
+      - type: object
+        required:
+        - Confirm
+        properties:
+          Confirm:
+            "$ref": "#/components/schemas/ConfirmRequestInfo"
+      - type: object
+        required:
+        - Reject
+        properties:
+          Reject:
+            "$ref": "#/components/schemas/RejectRequestInfo"
+      - type: object
+        required:
+        - EOL
+        properties:
+          EOL:
+            "$ref": "#/components/schemas/EOLRequestInfo"
     EventSnQuery:
       type: object
       required:
-        - sn
+      - sn
       properties:
         sn:
           type: integer
@@ -1424,21 +1206,21 @@ components:
       properties:
         page:
           type:
-            - integer
-            - 'null'
+          - integer
+          - 'null'
           format: int64
           minimum: 0
         quantity:
           type:
-            - integer
-            - 'null'
+          - integer
+          - 'null'
           format: int64
           minimum: 0
     FactInfo:
       type: object
       required:
-        - payload
-        - subject_id
+      - payload
+      - subject_id
       properties:
         payload: {}
         subject_id:
@@ -1446,8 +1228,8 @@ components:
     FactRequestInfo:
       type: object
       required:
-        - subject_id
-        - payload
+      - subject_id
+      - payload
       properties:
         payload: {}
         subject_id:
@@ -1457,31 +1239,96 @@ components:
       properties:
         active:
           type:
-            - boolean
-            - 'null'
+          - boolean
+          - 'null'
     GovsData:
       type: object
       required:
-        - governance_id
-        - active
+      - governance_id
+      - active
       properties:
         active:
           type: boolean
         governance_id:
           type: string
+    KoreConfig:
+      type: object
+      required:
+      - key_derivator
+      - digest_derivator
+      - kore_db
+      - external_db
+      - network
+      - contracts_dir
+      - always_accept
+      - garbage_collector
+      - sink
+      properties:
+        always_accept:
+          type: boolean
+        contracts_dir:
+          type: string
+        digest_derivator:
+          type: string
+        external_db:
+          type: string
+        garbage_collector:
+          type: integer
+          format: int64
+          minimum: 0
+        key_derivator:
+          type: string
+        kore_db:
+          type: string
+        network:
+          "$ref": "#/components/schemas/NetworkConfig"
+        sink:
+          type: string
     Namespace:
       type: array
       items:
         type: string
+    NetworkConfig:
+      type: object
+      required:
+      - user_agent
+      - node_type
+      - listen_addresses
+      - external_addresses
+      - tell
+      - routing
+      - port_reuse
+      - control_list
+      properties:
+        control_list:
+          "$ref": "#/components/schemas/ControlListConfig"
+        external_addresses:
+          type: array
+          items:
+            type: string
+        listen_addresses:
+          type: array
+          items:
+            type: string
+        node_type:
+          type: string
+        port_reuse:
+          type: boolean
+        routing:
+          "$ref": "#/components/schemas/RoutingConfig"
+        tell:
+          "$ref": "#/components/schemas/TellConfig"
+        user_agent:
+          type: string
     Paginator:
       type: object
       required:
-        - pages
+      - pages
       properties:
         next:
           type:
-            - integer
-            - 'null'
+          - integer
+          - 'null'
           format: int64
           minimum: 0
         pages:
@@ -1490,53 +1337,53 @@ components:
           minimum: 0
         prev:
           type:
-            - integer
-            - 'null'
+          - integer
+          - 'null'
           format: int64
           minimum: 0
     PaginatorEvents:
       type: object
       required:
-        - paginator
-        - events
+      - paginator
+      - events
       properties:
         events:
           type: array
           items:
-            $ref: '#/components/schemas/EventInfo'
+            "$ref": "#/components/schemas/EventInfo"
         paginator:
-          $ref: '#/components/schemas/Paginator'
+          "$ref": "#/components/schemas/Paginator"
     ProtocolsError:
       type: object
       properties:
         evaluation:
           type:
-            - string
-            - 'null'
+          - string
+          - 'null'
         validation:
           type:
-            - string
-            - 'null'
+          - string
+          - 'null'
     ProtocolsSignaturesInfo:
       oneOf:
-        - type: object
-          required:
-            - Signature
-          properties:
-            Signature:
-              $ref: '#/components/schemas/SignatureInfo'
-        - type: object
-          required:
-            - TimeOut
-          properties:
-            TimeOut:
-              $ref: '#/components/schemas/TimeOutResponseInfo'
+      - type: object
+        required:
+        - Signature
+        properties:
+          Signature:
+            "$ref": "#/components/schemas/SignatureInfo"
+      - type: object
+        required:
+        - TimeOut
+        properties:
+          TimeOut:
+            "$ref": "#/components/schemas/TimeOutResponseInfo"
     RegisterData:
       type: object
       required:
-        - subject_id
-        - schema
-        - active
+      - subject_id
+      - schema
+      - active
       properties:
         active:
           type: boolean
@@ -1544,11 +1391,18 @@ components:
           type: string
         subject_id:
           type: string
+    RejectRequestInfo:
+      type: object
+      required:
+      - subject_id
+      properties:
+        subject_id:
+          type: string
     RequestData:
       type: object
       required:
-        - request_id
-        - subject_id
+      - request_id
+      - subject_id
       properties:
         request_id:
           type: string
@@ -1557,26 +1411,75 @@ components:
     RequestInfo:
       type: object
       required:
-        - status
-        - version
+      - status
+      - version
       properties:
         error:
           type:
-            - string
-            - 'null'
+          - string
+          - 'null'
         status:
           type: string
         version:
           type: integer
           format: int64
           minimum: 0
+    RoutingConfig:
+      type: object
+      required:
+      - boot_nodes
+      - dht_random_walk
+      - pre_routing
+      - discovery_only_if_under_num
+      - allow_non_globals_in_dht
+      - allow_private_ip
+      - enable_mdns
+      - kademlia_disjoint_query_paths
+      properties:
+        allow_non_globals_in_dht:
+          type: boolean
+        allow_private_ip:
+          type: boolean
+        boot_nodes:
+          type: array
+          items:
+            "$ref": "#/components/schemas/RoutingNode"
+        dht_random_walk:
+          type: boolean
+        discovery_only_if_under_num:
+          type: integer
+          format: int64
+          minimum: 0
+        enable_mdns:
+          type: boolean
+        kademlia_disjoint_query_paths:
+          type: boolean
+        kademlia_replication_factor:
+          type:
+          - integer
+          - 'null'
+          minimum: 0
+        pre_routing:
+          type: boolean
+    RoutingNode:
+      type: object
+      required:
+      - peer_id
+      - address
+      properties:
+        address:
+          type: array
+          items:
+            type: string
+        peer_id:
+          type: string
     SignatureInfo:
       type: object
       required:
-        - signer
-        - timestamp
-        - content_hash
-        - value
+      - signer
+      - timestamp
+      - content_hash
+      - value
       properties:
         content_hash:
           type: string
@@ -1591,28 +1494,28 @@ components:
     SignaturesInfo:
       type: object
       required:
-        - subject_id
-        - sn
-        - signatures_vali
+      - subject_id
+      - sn
+      - signatures_vali
       properties:
         signatures_appr:
           type:
-            - array
-            - 'null'
+          - array
+          - 'null'
           items:
-            $ref: '#/components/schemas/ProtocolsSignaturesInfo'
+            "$ref": "#/components/schemas/ProtocolsSignaturesInfo"
           uniqueItems: true
         signatures_eval:
           type:
-            - array
-            - 'null'
+          - array
+          - 'null'
           items:
-            $ref: '#/components/schemas/ProtocolsSignaturesInfo'
+            "$ref": "#/components/schemas/ProtocolsSignaturesInfo"
           uniqueItems: true
         signatures_vali:
           type: array
           items:
-            $ref: '#/components/schemas/ProtocolsSignaturesInfo'
+            "$ref": "#/components/schemas/ProtocolsSignaturesInfo"
           uniqueItems: true
         sn:
           type: integer
@@ -1623,33 +1526,33 @@ components:
     SignedInfo_FactInfo:
       type: object
       required:
-        - content
-        - signature
+      - content
+      - signature
       properties:
         content:
           type: object
           required:
-            - payload
-            - subject_id
+          - payload
+          - subject_id
           properties:
             payload: {}
             subject_id:
               type: string
         signature:
-          $ref: '#/components/schemas/SignatureInfo'
+          "$ref": "#/components/schemas/SignatureInfo"
     SubjectInfo:
       type: object
       required:
-        - subject_id
-        - governance_id
-        - genesis_gov_version
-        - namespace
-        - schema_id
-        - owner
-        - creator
-        - active
-        - sn
-        - properties
+      - subject_id
+      - governance_id
+      - genesis_gov_version
+      - namespace
+      - schema_id
+      - owner
+      - creator
+      - active
+      - sn
+      - properties
       properties:
         active:
           type: boolean
@@ -1663,6 +1566,10 @@ components:
           type: string
         namespace:
           type: string
+        new_owner:
+          type:
+          - string
+          - 'null'
         owner:
           type: string
         properties: {}
@@ -1679,18 +1586,31 @@ components:
       properties:
         active:
           type:
-            - boolean
-            - 'null'
+          - boolean
+          - 'null'
         schema:
           type:
-            - string
-            - 'null'
+          - string
+          - 'null'
+    TellConfig:
+      type: object
+      required:
+      - message_timeout
+      - max_concurrent_streams
+      properties:
+        max_concurrent_streams:
+          type: integer
+          minimum: 0
+        message_timeout:
+          type: integer
+          format: int64
+          minimum: 0
     TimeOutResponseInfo:
       type: object
       required:
-        - who
-        - re_trys
-        - timestamp
+      - who
+      - re_trys
+      - timestamp
       properties:
         re_trys:
           type: integer
@@ -1703,29 +1623,46 @@ components:
     TransferRequestInfo:
       type: object
       required:
-        - subject_id
-        - new_owner
+      - subject_id
+      - new_owner
       properties:
         new_owner:
           type: string
         subject_id:
           type: string
+    TransferSubject:
+      type: object
+      required:
+      - subject_id
+      - new_owner
+      - actual_owner
+      properties:
+        actual_owner:
+          type: string
+        new_owner:
+          type: string
+        subject_id:
+          type: string
 tags:
-  - name: Auth
-    description: Endpoints related to authorization.
-  - name: Update
-    description: Endpoints related to Update.
-  - name: Governance
-    description: Endpoints related to Governances.
-  - name: State
-    description: Endpoints related to States.
-  - name: Event
-    description: Endpoints related to Events.
-  - name: Approval
-    description: Endpoints related to request approvals.
-  - name: Request
-    description: Endpoints for managing event requests.
-  - name: Subject
-    description: Endpoints for managing subjects and their data.
-  - name: Other
-    description: Miscellaneous endpoints for node identification and configuration.
+- name: Auth
+  description: Endpoints related to authorization.
+- name: Event
+  description: Endpoints related to Events.
+- name: Update
+  description: Endpoints related to Update.
+- name: Governance
+  description: Endpoints related to Governances.
+- name: Subject
+  description: Endpoints for managing subjects and their data.
+- name: State
+  description: Endpoints related to States.
+- name: Approval
+  description: Endpoints related to request approvals.
+- name: Request
+  description: Endpoints for managing event requests.
+- name: Transfer
+  description: Endpoints for managing transfers.
+- name: Signature
+  description: Endpoints for managing signatures.
+- name: Other
+  description: Miscellaneous endpoints for node identification and configuration.
